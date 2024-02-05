@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.memberIdentifierFormController">
+   <children>
+      <ImageView fitHeight="246.0" fitWidth="271.0" layoutX="304.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/476844.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="400.0" fitWidth="304.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/10617681.png" />
+         </image>
+      </ImageView>
+      <ButtonBar layoutX="83.0" layoutY="319.0">
+         <buttons>
+            <RadioButton fx:id="employerBtn" mnemonicParsing="false" onAction="#getPosition" prefHeight="95.0" prefWidth="183.0" text="Employer">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="employeeBtn" mnemonicParsing="false" onAction="#getPosition" prefHeight="95.0" prefWidth="183.0" text="Employee">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </RadioButton>
+         </buttons>
+      </ButtonBar>
+      <Label layoutX="127.0" layoutY="3.0" prefHeight="72.0" prefWidth="354.0" text="What are you?">
+         <font>
+            <Font name="DejaVu Sans Condensed Bold" size="45.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
