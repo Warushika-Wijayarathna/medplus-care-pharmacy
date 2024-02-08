@@ -10,6 +10,10 @@ public class memberIdentifierFormController {
 
 
     public void getPosition(ActionEvent actionEvent) {
+        if (employeeBtn.isSelected()) {
 
+        } else if (employerBtn.isSelected()) {
+            
+        }
     }
 }
