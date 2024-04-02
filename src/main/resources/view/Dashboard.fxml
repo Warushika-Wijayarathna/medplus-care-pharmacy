@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="934.0" prefWidth="1262.0" style="-fx-background-color: #026302;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.DashBoardController">
+   <children>
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="WHITE" height="896.0" layoutX="249.0" layoutY="27.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="BEVEL" width="1002.0" />
+      <ImageView fitHeight="118.0" fitWidth="112.0" layoutX="80.0" layoutY="37.0">
+         <image>
+            <Image url="@../icon/Untitled design (31).png" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="12.0" layoutY="231.0" prefHeight="72.0" prefWidth="227.0" text="   Cash Register" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="63.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (32).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="12.0" layoutY="427.0" prefHeight="72.0" prefWidth="227.0" text="          Customer" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (33).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="13.0" layoutY="504.0" prefHeight="72.0" prefWidth="227.0" text="        Prescription" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (34).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="14.0" layoutY="297.0" prefHeight="72.0" prefWidth="227.0" text="          Employee" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (35).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="14.0" layoutY="576.0" prefHeight="72.0" prefWidth="227.0" text="              Supplier" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (36).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="12.0" layoutY="357.0" prefHeight="72.0" prefWidth="227.0" text="                   Item" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (37).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="12.0" layoutY="648.0" prefHeight="72.0" prefWidth="227.0" text="               Report" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (38).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="14.0" layoutY="718.0" prefHeight="72.0" prefWidth="227.0" text="                  Test" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (39).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="12.0" layoutY="834.0" prefHeight="72.0" prefWidth="227.0" style="-jfx-disable-visual-focus: RED;" text="      Log Out" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="59.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (40).png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <effect>
+            <Reflection />
+         </effect>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="12.0" layoutY="166.0" prefHeight="42.0" prefWidth="227.0" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+         <font>
+            <Font name="Lohit Tamil Classical" size="33.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

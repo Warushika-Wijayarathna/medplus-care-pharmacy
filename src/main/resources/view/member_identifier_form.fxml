@@ -1,42 +1,210 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.memberIdentifierFormController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.memberIdentifierFormController">
    <children>
-      <ImageView fitHeight="246.0" fitWidth="271.0" layoutX="304.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icon/476844.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="400.0" fitWidth="304.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../icon/10617681.png" />
-         </image>
-      </ImageView>
-      <ButtonBar layoutX="83.0" layoutY="319.0">
-         <buttons>
-            <RadioButton fx:id="employerBtn" mnemonicParsing="false" onAction="#getPosition" prefHeight="95.0" prefWidth="183.0" text="Employer">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </RadioButton>
-            <RadioButton fx:id="employeeBtn" mnemonicParsing="false" onAction="#getPosition" prefHeight="95.0" prefWidth="183.0" text="Employee">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </RadioButton>
-         </buttons>
-      </ButtonBar>
-      <Label layoutX="127.0" layoutY="3.0" prefHeight="72.0" prefWidth="354.0" text="What are you?">
+      <ButtonBar layoutX="104.0" layoutY="377.0" />
+      <QuadCurve controlX="165.93310546875" controlY="609.0098266601562" endX="77.93310546875" endY="-6.99017333984375" layoutX="982.0" layoutY="-8.0" startX="-504.06689453125" startY="-6.99017333984375" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </QuadCurve>
+      <CubicCurve controlX1="179.93310546875" controlX2="346.9432373046875" controlY1="-590.0" controlY2="-697.9901123046875" endX="466.0" endY="117.79559326171875" fill="#53ff1fa6" layoutX="709.0" layoutY="590.0" startX="-284.0567626953125" startY="252.7965087890625" stroke="TRANSPARENT" />
+      <Label fx:id="userNameLabel" layoutX="71.0" layoutY="220.0" prefHeight="59.0" prefWidth="146.0" text="Username">
          <font>
-            <Font name="DejaVu Sans Condensed Bold" size="45.0" />
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="passwordLabel" layoutX="71.0" layoutY="348.0" prefHeight="59.0" prefWidth="146.0" text="Password">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="logInBtn" buttonType="RAISED" layoutX="54.0" layoutY="557.0" onAction="#LogInBtnClickOnAction" prefHeight="52.0" prefWidth="369.0" style="-fx-background-color: GREEN;" text="Log in" textAlignment="CENTER" textFill="#fffefe">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="704.0" layoutY="421.0" prefHeight="128.0" prefWidth="274.0" text="Welcome...">
+         <font>
+            <Font name="FreeSans Bold" size="37.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="userNameTxt" layoutX="70.0" layoutY="265.0" prefHeight="59.0" prefWidth="274.0" promptText="Enter Username Here" />
+      <JFXTextField fx:id="showPassword" layoutX="70.0" layoutY="396.0" prefHeight="59.0" prefWidth="274.0" promptText="Enter Password Here" />
+      <JFXPasswordField fx:id="hidePassword" layoutX="70.0" layoutY="396.0" onKeyReleased="#hidePasswordOnAction" prefHeight="59.0" prefWidth="274.0" />
+      <JFXToggleButton fx:id="showToggleBtn" layoutX="58.0" layoutY="456.0" onAction="#showToggleBtnClickOnAction" text="Show Password" />
+      <Circle layoutX="573.0" layoutY="192.0" radius="52.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="694.0" layoutY="227.0" radius="29.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="436.0" layoutY="34.0" radius="73.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="646.0" layoutY="290.0" radius="19.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="497.0" layoutY="701.0" radius="26.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <Circle layoutX="534.0" layoutY="588.0" radius="63.0" stroke="TRANSPARENT" strokeType="INSIDE">
+         <fill>
+            <RadialGradient centerX="0.6444444444444444" centerY="0.4285714285714286" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12999999523162842" green="1.0" blue="0.2428598701953888" opacity="0.5099999904632568" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3490196168422699" green="1.0" blue="0.12941177189350128" opacity="0.5299999713897705" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Circle>
+      <ImageView fitHeight="297.0" fitWidth="288.0" layoutX="645.0" layoutY="111.0">
+         <image>
+            <Image url="@../image/Untitled design (29).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="167.0" layoutY="97.0" prefHeight="69.0" prefWidth="250.0" text="Medplus Care ">
+         <font>
+            <Font name="URW Gothic L Demi" size="35.0" />
+         </font>
+      </Label>
+      <Group layoutX="711.0" layoutY="528.0">
+         <children>
+            <Label layoutX="-31.0" prefHeight="59.0" prefWidth="288.0" text="&quot;Your Path to Health and Healing, ">
+               <font>
+                  <Font name="FreeSans" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="-31.0" layoutY="30.0" prefHeight="59.0" prefWidth="288.0" text="Every Prescription with Care.&quot;">
+               <font>
+                  <Font name="FreeSans" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <ImageView fitHeight="182.0" fitWidth="191.0" layoutX="17.0" layoutY="58.0">
+         <image>
+            <Image url="@../image/Untitled design (30).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="167.0" layoutY="142.0" prefHeight="59.0" prefWidth="250.0" text="Pharmacy">
+         <font>
+            <Font name="URW Gothic L Demi" size="35.0" />
          </font>
       </Label>
    </children>

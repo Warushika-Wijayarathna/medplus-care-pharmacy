@@ -6,7 +6,7 @@
 
     <groupId>org.example</groupId>
     <artifactId>medplus-care-pharmacy</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -18,13 +18,13 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>20</version>
+            <version>21.0.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>20</version>
+            <version>21.0.2</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
-            <version>9.0.10</version>
+            <version>9.0.1</version>
         </dependency>
     </dependencies>
 
