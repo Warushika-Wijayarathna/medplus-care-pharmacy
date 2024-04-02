@@ -4,26 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="RadioButton action creation">
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/MainFormController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/dbConnection/DbConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (31).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (32).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (33).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (34).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (35).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (36).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/image/Untitled design (29).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/image/Untitled design (30).png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/Dashboard.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/main_form.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Dashboard Creation">
       <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/memberIdentifierFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/memberIdentifierFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/icon/10617681.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/icon/476844.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/member_identifier_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/member_identifier_form.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +117,7 @@
       <workItem from="1712027937620" duration="429000" />
       <workItem from="1712037471347" duration="733000" />
       <workItem from="1712043101498" duration="656000" />
-      <workItem from="1712074167336" duration="447000" />
+      <workItem from="1712074167336" duration="1588000" />
     </task>
     <task id="LOCAL-00001" summary="memeberIdentifierForm Creation">
       <option name="closed" value="true" />
@@ -161,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707363988045</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Dashboard Creation">
+      <option name="closed" value="true" />
+      <created>1712074680515</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712074680515</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +161,8 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="memeberIdentifierForm Creation" />
     <MESSAGE value="RadioButton action creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="RadioButton action creation" />
+    <MESSAGE value="Dashboard Creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dashboard Creation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -31,7 +31,6 @@ public class memberIdentifierFormController {
 
         showToggleBtn.setOnAction(this::showToggleBtnClickOnAction);
 
-        // Initially hide the plain text password field
         showPassword.setVisible(false);
 
 
