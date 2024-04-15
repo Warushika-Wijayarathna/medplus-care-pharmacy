@@ -1,4 +1,80 @@
 package lk.ijse.medpluscarepharmacy.controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 public class DashBoardController {
+    public AnchorPane rootPane;
+    public AnchorPane root;
+    public Label titleText;
+
+    public void cashRegBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Cash Register");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/cash_register.fxml"));
+            AnchorPane cashRegister = loader.load();
+
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(cashRegister);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void custBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void prescBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void employeeBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Employee");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/employee_form.fxml"));
+            AnchorPane cashRegister = loader.load();
+
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(cashRegister);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void supBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void itemBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void reportBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void testBtnClickOnAction(ActionEvent actionEvent) {
+    }
+
+    public void logOutBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/member_identifier_form.fxml"));
+            Scene scene = new Scene(rootNode);
+
+            Stage stage = (Stage)this.root.getScene().getWindow();
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setTitle("Log in");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

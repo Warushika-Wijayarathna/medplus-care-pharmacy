@@ -6,26 +6,29 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import lk.ijse.medpluscarepharmacy.repository.UserRepo;
 
-public class memberIdentifierFormController {
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class MemberIdentifierFormController {
     public JFXTextField userNameTxt;
     public Label userNameLabel;
     public Label passwordLabel;
     public JFXButton logInBtn;
-    public AnchorPane rootPane;
     public JFXTextField showPassword;
     public JFXPasswordField hidePassword;
     public JFXToggleButton showToggleBtn;
-
-    @FXML
-    private RadioButton employerBtn, employeeBtn;
-    private ToggleGroup positionGroup;
     String password;
+    public AnchorPane rootNode;
 
     public void initialize(){
 
@@ -38,7 +41,34 @@ public class memberIdentifierFormController {
 
     @FXML
     public void LogInBtnClickOnAction(ActionEvent actionEvent) {
+        String username=userNameTxt.getText();
+        String password=hidePassword.getText();
 
+        boolean isUserVerified = false;
+        try {
+            isUserVerified = UserRepo.check(username, password);
+            if (isUserVerified) {
+                navigateToDashboard();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR,"Username or password is incorrect").show();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void navigateToDashboard()  {
+        try {
+            Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/Dashboard.fxml"));
+            Scene scene = new Scene(rootNode);
+
+            Stage stage = (Stage)this.rootNode.getScene().getWindow();
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setTitle("Dashboard Form");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void showToggleBtnClickOnAction(ActionEvent actionEvent) {

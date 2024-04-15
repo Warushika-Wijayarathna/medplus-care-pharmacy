@@ -4,8 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Dashboard Creation">
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/memberIdentifierFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/memberIdentifierFormController.java" afterDir="false" />
+    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Icons added">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/CashRegisterFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/EmployeeFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/PaymentPopController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/UpdateEmFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/UpdateUsrFormController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Prescription.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Report.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Supplier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/EmployeeTm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/ItemTm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/UserTm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/CustomerRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/EmployeeRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/ItemRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/OrderRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/PaymentRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/PrescriptionRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/ReportRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/SupplierRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/TestRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/UserRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (43).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/icon/Untitled design (44).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sql/query" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/cash_register.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/employee_form.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/payment_pop.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/update_em_form.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/view/update_usr_form.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/memberIdentifierFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/MemberIdentifierFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/dbConnection/DbConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/dbConnection/DbConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/Dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/Dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/view/member_identifier_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/member_identifier_form.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +87,7 @@
     &quot;Application.LauncherWrapper.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/user/IdeaProjects/medplus-care-pharmacy/src/main/resources/icon&quot;,
@@ -57,9 +101,17 @@
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="lk.ijse.medpluscarepharmacy.model.Tm" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/icon" />
       <recent name="$PROJECT_DIR$/src/main/resources/image" />
@@ -117,7 +169,16 @@
       <workItem from="1712027937620" duration="429000" />
       <workItem from="1712037471347" duration="733000" />
       <workItem from="1712043101498" duration="656000" />
-      <workItem from="1712074167336" duration="1588000" />
+      <workItem from="1712074167336" duration="4589000" />
+      <workItem from="1712117951178" duration="1675000" />
+      <workItem from="1712422308277" duration="12209000" />
+      <workItem from="1712590129937" duration="2466000" />
+      <workItem from="1712630753792" duration="1505000" />
+      <workItem from="1712643415481" duration="4054000" />
+      <workItem from="1712653489999" duration="415000" />
+      <workItem from="1712727039142" duration="3305000" />
+      <workItem from="1712857603872" duration="18528000" />
+      <workItem from="1713083328920" duration="34501000" />
     </task>
     <task id="LOCAL-00001" summary="memeberIdentifierForm Creation">
       <option name="closed" value="true" />
@@ -151,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712074680515</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Icons added">
+      <option name="closed" value="true" />
+      <created>1712076107992</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712076107992</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,7 +231,8 @@
     <MESSAGE value="memeberIdentifierForm Creation" />
     <MESSAGE value="RadioButton action creation" />
     <MESSAGE value="Dashboard Creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dashboard Creation" />
+    <MESSAGE value="Icons added" />
+    <option name="LAST_COMMIT_MESSAGE" value="Icons added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

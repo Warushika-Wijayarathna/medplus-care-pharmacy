@@ -1,0 +1,246 @@
+DROP DATABASE MedplusCarePharmacy;
+
+CREATE DATABASE MedplusCarePharmacy;
+
+USE MedplusCarePharmacy;
+
+CREATE TABLE Item (
+    item_id INT PRIMARY KEY AUTO_INCREMENT,
+    description VARCHAR(255),
+    qty INT,
+    whole_sale_price DECIMAL(10, 2),
+    retail_price DECIMAL(10, 2),
+    discount DECIMAL(5, 2),
+    exp_date DATE
+);
+
+CREATE TABLE Supplier (
+    sp_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    origin_country VARCHAR(100)
+);
+
+CREATE TABLE item_supplier_detail (
+    sp_id INT,
+    item_id INT,
+    FOREIGN KEY (sp_id) REFERENCES Supplier(sp_id),
+    FOREIGN KEY (item_id) REFERENCES Item(item_id)
+);
+
+CREATE TABLE Orders (
+    o_id INT PRIMARY KEY AUTO_INCREMENT,
+    qty INT,
+    total DECIMAL(10, 2)
+);
+
+CREATE TABLE order_item_detail (
+    o_id INT,
+    item_id INT,
+    FOREIGN KEY (o_id) REFERENCES `Order`(o_id),
+    FOREIGN KEY (item_id) REFERENCES Item(item_id)
+);
+
+CREATE TABLE User (
+    usr_id INT PRIMARY KEY AUTO_INCREMENT,
+    usr_name VARCHAR(255),
+    password VARCHAR(255)
+);
+
+CREATE TABLE Employee (
+    emp_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    position VARCHAR(20),
+    address VARCHAR(255),
+    contact_no VARCHAR(20),
+    salary DECIMAL(10, 2),
+    usr_id INT,
+    FOREIGN KEY (usr_id) REFERENCES `User`(usr_id)
+);
+
+CREATE TABLE Payment (
+    pay_id INT PRIMARY KEY AUTO_INCREMENT,
+    cash DECIMAL(10, 2),
+    balance DECIMAL(10, 2),
+    date DATE,
+    usr_id INT,
+    o_id INT,
+    sp_id INT,
+    FOREIGN KEY (usr_id) REFERENCES User(usr_id),
+    FOREIGN KEY (o_id) REFERENCES `Order`(o_id),
+    FOREIGN KEY (sp_id) REFERENCES Supplier(sp_id)
+);
+
+CREATE TABLE Test (
+    test_id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE Report (
+    r_id INT AUTO_INCREMENT PRIMARY KEY,
+    type VARCHAR(255) NOT NULL,
+    issue_date DATE NOT NULL,
+    pickup_date DATE,
+    result VARCHAR(255),
+    test_id INT,
+    FOREIGN KEY (test_id) REFERENCES Test(test_id)
+);
+
+CREATE TABLE Customer (
+    cust_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255),
+    contact_no VARCHAR(20)
+);
+
+CREATE TABLE Prescription (
+    presc_id INT AUTO_INCREMENT PRIMARY KEY,
+    patient_name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    medical_officer_name VARCHAR(255) NOT NULL,
+    context VARCHAR(255),
+    duration VARCHAR(50),
+    date DATE NOT NULL,
+    cust_id INT,
+    FOREIGN KEY (cust_id) REFERENCES Customer(cust_id)
+);
+
+CREATE TABLE presc_test_detail (
+    presc_id INT,
+    test_id INT,
+    FOREIGN KEY (presc_id) REFERENCES Prescription(presc_id),
+    FOREIGN KEY (test_id) REFERENCES Test(test_id)
+);
+
+CREATE TABLE test_pay_detail (
+    pay_id INT,
+    test_id INT,
+    FOREIGN KEY (pay_id) REFERENCES Payment(pay_id),
+    FOREIGN KEY (test_id) REFERENCES Test(test_id)
+);
+
+-- Inserting records into the Item table
+INSERT INTO Item (description, qty, whole_sale_price, retail_price, discount, exp_date)
+VALUES
+    ('Paracetamol Tablets', 100, 5.99, 7.99, 0.1, '2024-12-31'),
+    ('Amoxicillin Capsules', 50, 10.50, 15.99, 0.05, '2024-10-15'),
+    ('Ibuprofen Tablets', 80, 8.25, 11.49, 0.08, '2025-02-28'),
+    ('Aspirin Tablets', 120, 4.75, 6.99, 0.15, '2024-09-30'),
+    ('Cough Syrup', 60, 12.99, 18.75, 0.12, '2024-11-20');
+
+-- Inserting records into the Supplier table
+INSERT INTO Supplier (name, origin_country)
+VALUES
+    ('Pharma Suppliers Inc.', 'USA'),
+    ('MediCare Pharmaceuticals', 'UK'),
+    ('Global Pharma Solutions', 'Canada'),
+    ('HealthyLife Pharma', 'Australia'),
+    ('MediWorld Enterprises', 'Germany');
+
+-- Inserting records into the item_supplier_detail table
+INSERT INTO item_supplier_detail (sp_id, item_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+-- Inserting records into the Order table
+INSERT INTO `Order` (qty, total)
+VALUES
+    (50, 399.50),
+    (30, 325.80),
+    (70, 620.50),
+    (40, 300.25),
+    (60, 975.00);
+
+-- Inserting records into the order_item_detail table
+INSERT INTO order_item_detail (o_id, item_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+-- Inserting records into the User table
+INSERT INTO User (usr_name, password)
+VALUES
+    ('john_doe', 'password123'),
+    ('jane_smith', 'secure456'),
+    ('admin', '1234'),
+    ('manager', 'manager123'),
+    ('pharmacist', 'pharma789');
+
+-- Inserting records into the Employee table
+INSERT INTO Employee (name, position, address, contact_no, salary, usr_id)
+VALUES
+    ('John Doe', '123456789V', '123 Main Street, City, Country', '+1234567890', 2500.00, 1),
+    ('Jane Smith', '987654321V', '456 Elm Street, City, Country', '+0987654321', 2800.00, 2),
+    ('Admin User', '555555555V', '789 Oak Street, City, Country', '+5555555555', 3500.00, 3),
+    ('Manager User', '666666666V', '101 Pine Street, City, Country', '+6666666666', 4000.00, 4),
+    ('Pharmacist User', '777777777V', '202 Cedar Street, City, Country', '+7777777777', 3800.00, 5);
+
+-- Inserting records into the Payment table
+INSERT INTO Payment (cash, balance, date, usr_id, o_id, sp_id)
+VALUES
+    (400.00, 1.50, '2024-04-08', 1, 1, 1),
+    (350.00, 24.80, '2024-04-09', 2, 2, 2),
+    (700.00, 79.50, '2024-04-09', 3, 3, 3),
+    (300.00, 0.25, '2024-04-07', 4, 4, 4),
+    (1000.00, 25.00, '2024-04-08', 5, 5, 5);
+
+-- Inserting records into the Test table
+INSERT INTO Test (description, price)
+VALUES
+    ('Blood Test', 75.00),
+    ('Urine Test', 50.00),
+    ('X-Ray', 150.00),
+    ('MRI Scan', 300.00),
+    ('ECG', 100.00);
+
+-- Inserting records into the Report table
+INSERT INTO Report (type, issue_date, pickup_date, result, test_id)
+VALUES
+    ('Blood Test', '2024-04-08', '2024-04-10', 'Normal', 1),
+    ('X-Ray', '2024-04-09', '2024-04-11', 'Abnormal', 3),
+    ('MRI Scan', '2024-04-07', '2024-04-09', 'Normal', 4),
+    ('ECG', '2024-04-08', '2024-04-10', 'Abnormal', 5),
+    ('Blood Test', '2024-04-09', '2024-04-11', 'Normal', 1);
+
+-- Inserting records into the Customer table
+INSERT INTO Customer (name, email, contact_no)
+VALUES
+    ('Alice Johnson', 'alice@example.com', '+1234567890'),
+    ('Bob Smith', 'bob@example.com', '+1987654321'),
+    ('Charlie Brown', 'charlie@example.com', '+1111111111'),
+    ('David Lee', 'david@example.com', '+2222222222'),
+    ('Emma Wilson', 'emma@example.com', '+3333333333');
+
+-- Inserting records into the Prescription table
+INSERT INTO Prescription (patient_name, age, medical_officer_name, context, duration, date, cust_id)
+VALUES
+    ('Alice Johnson', 35, 'Dr. Smith', 'Fever', '5 days', '2024-04-08', 1),
+    ('Bob Smith', 45, 'Dr. Williams', 'Pain', '7 days', '2024-04-09', 2),
+    ('Charlie Brown', 25, 'Dr. Martin', 'Cold', '3 days', '2024-04-07', 3),
+    ('David Lee', 50, 'Dr. Davis', 'Allergy', '10 days', '2024-04-08', 4),
+    ('Emma Wilson', 40, 'Dr. Miller', 'Headache', '2 days', '2024-04-09', 5);
+
+-- Inserting records into the presc_test_detail table
+INSERT INTO presc_test_detail (presc_id, test_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);
+
+-- Inserting records into the test_pay_detail table
+INSERT INTO test_pay_detail (pay_id, test_id)
+VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5);

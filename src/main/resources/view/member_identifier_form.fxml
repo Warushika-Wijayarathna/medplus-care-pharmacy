@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.QuadCurve?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.memberIdentifierFormController">
+<AnchorPane fx:id="rootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.MemberIdentifierFormController">
    <children>
       <ButtonBar layoutX="104.0" layoutY="377.0" />
       <QuadCurve controlX="165.93310546875" controlY="609.0098266601562" endX="77.93310546875" endY="-6.99017333984375" layoutX="982.0" layoutY="-8.0" startX="-504.06689453125" startY="-6.99017333984375" stroke="TRANSPARENT" strokeType="INSIDE">
@@ -185,16 +185,20 @@
       </Label>
       <Group layoutX="711.0" layoutY="528.0">
          <children>
-            <Label layoutX="-31.0" prefHeight="59.0" prefWidth="288.0" text="&quot;Your Path to Health and Healing, ">
-               <font>
-                  <Font name="FreeSans" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="-31.0" layoutY="30.0" prefHeight="59.0" prefWidth="288.0" text="Every Prescription with Care.&quot;">
-               <font>
-                  <Font name="FreeSans" size="18.0" />
-               </font>
-            </Label>
+            <Group layoutX="-31.0">
+               <children>
+                  <Label prefHeight="59.0" prefWidth="288.0" text="&quot;Your Path to Health and Healing, ">
+                     <font>
+                        <Font name="FreeSans" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutY="30.0" prefHeight="59.0" prefWidth="288.0" text="Every Prescription with Care.&quot;">
+                     <font>
+                        <Font name="FreeSans" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
          </children>
       </Group>
       <ImageView fitHeight="182.0" fitWidth="191.0" layoutX="17.0" layoutY="58.0">
