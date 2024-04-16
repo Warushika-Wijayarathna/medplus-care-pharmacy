@@ -1060,7 +1060,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Charset>utf8mb4</Charset>
     </collation>
     <schema id="288" parent="1" name="MedplusCarePharmacy">
-      <LastIntrospectionLocalTimestamp>2024-04-14.09:43:21</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-04-16.10:08:23</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="289" parent="1" name="information_schema">
@@ -1112,7 +1112,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="302" parent="288" name="Orders">
+    <table id="302" parent="288" name="Order">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
@@ -1235,7 +1235,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="330" parent="301" name="item_id">
-      <AutoIncrement>5</AutoIncrement>
+      <AutoIncrement>6</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1275,7 +1275,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="339" parent="302" name="o_id">
-      <AutoIncrement>5</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1336,7 +1336,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <foreign-key id="352" parent="303" name="Payment_ibfk_2">
       <ColNames>o_id</ColNames>
       <RefColNames>o_id</RefColNames>
-      <RefTableName>Orders</RefTableName>
+      <RefTableName>Order</RefTableName>
     </foreign-key>
     <foreign-key id="353" parent="303" name="Payment_ibfk_3">
       <ColNames>sp_id</ColNames>
@@ -1470,7 +1470,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="381" parent="306" name="sp_id">
-      <AutoIncrement>5</AutoIncrement>
+      <AutoIncrement>1</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1479,171 +1479,175 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="383" parent="306" name="origin_country">
-      <DasType>varchar(100)|0s</DasType>
+    <column id="383" parent="306" name="contact">
+      <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="384" parent="306" name="PRIMARY">
+    <column id="384" parent="306" name="email">
+      <DasType>varchar(100)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <index id="385" parent="306" name="PRIMARY">
       <ColNames>sp_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="385" parent="306" name="PRIMARY">
+    <key id="386" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="386" parent="307" name="test_id">
+    <column id="387" parent="307" name="test_id">
       <AutoIncrement>5</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="387" parent="307" name="description">
+    <column id="388" parent="307" name="description">
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="388" parent="307" name="price">
+    <column id="389" parent="307" name="price">
       <DasType>decimal(10,2 digit)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <index id="389" parent="307" name="PRIMARY">
+    <index id="390" parent="307" name="PRIMARY">
       <ColNames>test_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="390" parent="307" name="PRIMARY">
+    <key id="391" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="391" parent="308" name="usr_id">
+    <column id="392" parent="308" name="usr_id">
       <AutoIncrement>5</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="392" parent="308" name="usr_name">
+    <column id="393" parent="308" name="usr_name">
       <DasType>varchar(255)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="393" parent="308" name="password">
+    <column id="394" parent="308" name="password">
       <DasType>varchar(255)|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="394" parent="308" name="PRIMARY">
+    <index id="395" parent="308" name="PRIMARY">
       <ColNames>usr_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="395" parent="308" name="PRIMARY">
+    <key id="396" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="396" parent="309" name="sp_id">
+    <column id="397" parent="309" name="sp_id">
       <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="397" parent="309" name="item_id">
+    <column id="398" parent="309" name="item_id">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="398" parent="309" name="item_supplier_detail_ibfk_1">
+    <foreign-key id="399" parent="309" name="item_supplier_detail_ibfk_1">
       <ColNames>sp_id</ColNames>
       <RefColNames>sp_id</RefColNames>
       <RefTableName>Supplier</RefTableName>
     </foreign-key>
-    <foreign-key id="399" parent="309" name="item_supplier_detail_ibfk_2">
+    <foreign-key id="400" parent="309" name="item_supplier_detail_ibfk_2">
       <ColNames>item_id</ColNames>
       <RefColNames>item_id</RefColNames>
       <RefTableName>Item</RefTableName>
     </foreign-key>
-    <index id="400" parent="309" name="sp_id">
+    <index id="401" parent="309" name="sp_id">
       <ColNames>sp_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="401" parent="309" name="item_id">
+    <index id="402" parent="309" name="item_id">
       <ColNames>item_id</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="402" parent="310" name="o_id">
+    <column id="403" parent="310" name="o_id">
       <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="403" parent="310" name="item_id">
+    <column id="404" parent="310" name="item_id">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="404" parent="310" name="order_item_detail_ibfk_1">
+    <foreign-key id="405" parent="310" name="order_item_detail_ibfk_1">
       <ColNames>o_id</ColNames>
       <RefColNames>o_id</RefColNames>
-      <RefTableName>Orders</RefTableName>
+      <RefTableName>Order</RefTableName>
     </foreign-key>
-    <foreign-key id="405" parent="310" name="order_item_detail_ibfk_2">
+    <foreign-key id="406" parent="310" name="order_item_detail_ibfk_2">
       <ColNames>item_id</ColNames>
       <RefColNames>item_id</RefColNames>
       <RefTableName>Item</RefTableName>
     </foreign-key>
-    <index id="406" parent="310" name="o_id">
+    <index id="407" parent="310" name="o_id">
       <ColNames>o_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="407" parent="310" name="item_id">
+    <index id="408" parent="310" name="item_id">
       <ColNames>item_id</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="408" parent="311" name="presc_id">
+    <column id="409" parent="311" name="presc_id">
       <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="409" parent="311" name="test_id">
+    <column id="410" parent="311" name="test_id">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="410" parent="311" name="presc_test_detail_ibfk_1">
+    <foreign-key id="411" parent="311" name="presc_test_detail_ibfk_1">
       <ColNames>presc_id</ColNames>
       <RefColNames>presc_id</RefColNames>
       <RefTableName>Prescription</RefTableName>
     </foreign-key>
-    <foreign-key id="411" parent="311" name="presc_test_detail_ibfk_2">
+    <foreign-key id="412" parent="311" name="presc_test_detail_ibfk_2">
       <ColNames>test_id</ColNames>
       <RefColNames>test_id</RefColNames>
       <RefTableName>Test</RefTableName>
     </foreign-key>
-    <index id="412" parent="311" name="presc_id">
+    <index id="413" parent="311" name="presc_id">
       <ColNames>presc_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="413" parent="311" name="test_id">
+    <index id="414" parent="311" name="test_id">
       <ColNames>test_id</ColNames>
       <Type>btree</Type>
     </index>
-    <column id="414" parent="312" name="pay_id">
+    <column id="415" parent="312" name="pay_id">
       <DasType>int|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="415" parent="312" name="test_id">
+    <column id="416" parent="312" name="test_id">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <foreign-key id="416" parent="312" name="test_pay_detail_ibfk_1">
+    <foreign-key id="417" parent="312" name="test_pay_detail_ibfk_1">
       <ColNames>pay_id</ColNames>
       <RefColNames>pay_id</RefColNames>
       <RefTableName>Payment</RefTableName>
     </foreign-key>
-    <foreign-key id="417" parent="312" name="test_pay_detail_ibfk_2">
+    <foreign-key id="418" parent="312" name="test_pay_detail_ibfk_2">
       <ColNames>test_id</ColNames>
       <RefColNames>test_id</RefColNames>
       <RefTableName>Test</RefTableName>
     </foreign-key>
-    <index id="418" parent="312" name="pay_id">
+    <index id="419" parent="312" name="pay_id">
       <ColNames>pay_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="419" parent="312" name="test_id">
+    <index id="420" parent="312" name="test_id">
       <ColNames>test_id</ColNames>
       <Type>btree</Type>
     </index>

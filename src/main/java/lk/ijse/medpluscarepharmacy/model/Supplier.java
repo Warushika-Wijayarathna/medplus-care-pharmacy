@@ -1,21 +1,22 @@
 package lk.ijse.medpluscarepharmacy.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.Data;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@ToString
 @Data
 
 public class Supplier {
     private int supplierId;
     private String name;
-    private String originCountry;
+    private int contact;
+    private String email;
+
+    public Supplier(String name, int contact, String email) {
+        this.name=name;
+        this.contact=contact;
+        this.email=email;
+    }
 }

@@ -17,7 +17,8 @@ CREATE TABLE Item (
 CREATE TABLE Supplier (
     sp_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255),
-    origin_country VARCHAR(100)
+    contact INT,
+    email VARCHAR(100)
 );
 
 CREATE TABLE item_supplier_detail (
@@ -129,13 +130,13 @@ VALUES
     ('Cough Syrup', 60, 12.99, 18.75, 0.12, '2024-11-20');
 
 -- Inserting records into the Supplier table
-INSERT INTO Supplier (name, origin_country)
+INSERT INTO Supplier (name, contact, email)
 VALUES
-    ('Pharma Suppliers Inc.', 'USA'),
-    ('MediCare Pharmaceuticals', 'UK'),
-    ('Global Pharma Solutions', 'Canada'),
-    ('HealthyLife Pharma', 'Australia'),
-    ('MediWorld Enterprises', 'Germany');
+    ('Pharma Suppliers Inc.', 124345789,'USA'),
+    ('MediCare Pharmaceuticals',124345789, 'UK'),
+    ('Global Pharma Solutions', 124345789,'Canada'),
+    ('HealthyLife Pharma', 124345789,'Australia'),
+    ('MediWorld Enterprises', 124345789,'Germany');
 
 -- Inserting records into the item_supplier_detail table
 INSERT INTO item_supplier_detail (sp_id, item_id)

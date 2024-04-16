@@ -23,7 +23,6 @@ public class DashBoardController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/cash_register.fxml"));
             AnchorPane cashRegister = loader.load();
 
-
             rootPane.getChildren().clear();
             rootPane.getChildren().add(cashRegister);
         } catch (Exception e) {
@@ -32,6 +31,16 @@ public class DashBoardController {
     }
 
     public void custBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Customer");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/customer_form.fxml"));
+            AnchorPane customer = loader.load();
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(customer);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void prescBtnClickOnAction(ActionEvent actionEvent) {
@@ -41,17 +50,26 @@ public class DashBoardController {
         try {
             titleText.setText("Employee");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/employee_form.fxml"));
-            AnchorPane cashRegister = loader.load();
-
+            AnchorPane employee = loader.load();
 
             rootPane.getChildren().clear();
-            rootPane.getChildren().add(cashRegister);
+            rootPane.getChildren().add(employee);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void supBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Supplier");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/supplier_form.fxml"));
+            AnchorPane supplier = loader.load();
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(supplier);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void itemBtnClickOnAction(ActionEvent actionEvent) {
