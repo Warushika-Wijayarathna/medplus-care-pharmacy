@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Improved">
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/ReportFormController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/TestFormController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/CustomerTm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/ReportTm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Tm/TestTm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/report_form.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/view/test_form.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b93999ca-6e9a-44c5-9f80-4e77fd6ddc1e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b93999ca-6e9a-44c5-9f80-4e77fd6ddc1e.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/CustomerFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/CustomerFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/SupplierFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/SupplierFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Report.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/model/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/CustomerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/CustomerRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/SupplierRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/SupplierRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/TestRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/repository/TestRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sql/query" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sql/query" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/view/customer_form.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/view/customer_form.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Improved ii" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +138,7 @@
       <workItem from="1713383948960" duration="8041000" />
       <workItem from="1713418127211" duration="6741000" />
       <workItem from="1713539388724" duration="2069000" />
-      <workItem from="1713687036350" duration="2813000" />
+      <workItem from="1713687036350" duration="3095000" />
     </task>
     <task id="LOCAL-00001" summary="memeberIdentifierForm Creation">
       <option name="closed" value="true" />
@@ -210,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713270888785</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Improved ii">
+      <option name="closed" value="true" />
+      <created>1713691521767</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1713691521767</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,7 +209,8 @@
     <MESSAGE value="Dashboard Creation" />
     <MESSAGE value="Icons added" />
     <MESSAGE value="Improved" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved" />
+    <MESSAGE value="Improved ii" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved ii" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
