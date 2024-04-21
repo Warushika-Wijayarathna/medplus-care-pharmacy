@@ -14,6 +14,12 @@ import lombok.Data;
 public class Customer {
     private int customerId;
     private String name;
+    private int contactNo;
     private String email;
-    private String contactNo;
+
+    public Customer(String name, int contact, String email) {
+        this.name=name;
+        this.contactNo=contact;
+        this.email=email;
+    }
 }

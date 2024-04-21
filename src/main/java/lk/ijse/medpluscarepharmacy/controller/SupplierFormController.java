@@ -8,6 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -16,12 +17,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import lk.ijse.medpluscarepharmacy.model.Supplier;
-import lk.ijse.medpluscarepharmacy.model.Tm.ItemTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class SupplierFormController {
 
@@ -39,6 +40,8 @@ public class SupplierFormController {
     public JFXTextField searchBar;
     ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
     public SupplierTm selectedSupplier;
+    public JFXButton updateButton;
+    public JFXButton deleteButton;
 
     public void initialize(){
         setCellValueFactory();
@@ -91,7 +94,7 @@ public class SupplierFormController {
                 updateIcon.setFitWidth(20);
                 updateIcon.setFitHeight(20);
 
-                JFXButton updateButton = new JFXButton();
+                updateButton = new JFXButton();
                 updateButton.setGraphic(updateIcon);
                 updateButton.setOnAction(event -> handleUpdateSupplier(supplier));
 
@@ -99,7 +102,7 @@ public class SupplierFormController {
                 deleteIcon.setFitWidth(20);
                 deleteIcon.setFitHeight(20);
 
-                JFXButton deleteButton = new JFXButton();
+                deleteButton = new JFXButton();
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteSupplier(supplier));
 
@@ -120,7 +123,28 @@ public class SupplierFormController {
     }
 
     private void handleDeleteSupplier(Supplier supplier) {
+        if (supplier != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirm Deletion");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete this supplier?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                try {
+                    SupplierRepo.delete(supplier);
+                    obList.remove(supplier);
+                    new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").showAndWait();
+                } catch (SQLException e) {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete supplier!").showAndWait();
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select a supplier to delete!").showAndWait();
+        }
     }
+
 
     private void handleUpdateSupplier(Supplier supplier) {
         if (selectedSupplier != null) {
@@ -150,9 +174,10 @@ public class SupplierFormController {
                 emailTxt.clear();
 
                 new Alert(Alert.AlertType.CONFIRMATION, "SupplierUpdated");
+                loadAllSuppliers();
+                searchSupplier();
             } catch (SQLException e) {
                 e.printStackTrace();
-
             }
         } else {
             new Alert(Alert.AlertType.WARNING, "Please select a supplier to update!");
@@ -188,7 +213,7 @@ public class SupplierFormController {
 
             new Alert(Alert.AlertType.CONFIRMATION, "Supplier added successfully!").showAndWait();
 
-            obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, null, null));
+            obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, updateButton, deleteButton));
 
             suppTxt.clear();
             contactTxt.clear();

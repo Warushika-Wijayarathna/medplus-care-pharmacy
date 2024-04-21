@@ -1,22 +1,21 @@
-package lk.ijse.medpluscarepharmacy.model;
+package lk.ijse.medpluscarepharmacy.model.Tm;
+
+import com.jfoenix.controls.JFXButton;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import lombok.Data;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
-public class Report {
+public class ReportTm {
     private int reportId;
     private int testId;
     private String result;
     private Date issueDate;
     private Date pickupDate;
+    private JFXButton update;
+    private JFXButton delete;
 }
-

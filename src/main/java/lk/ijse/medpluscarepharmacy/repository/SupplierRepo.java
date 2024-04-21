@@ -67,4 +67,21 @@ public class SupplierRepo {
             }
         }
     }
+
+    public static void delete(Supplier supplier) throws SQLException {
+        String sql = "DELETE FROM Supplier WHERE sp_id = ?";
+
+        try (PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
+            preparedStatement.setInt(1, supplier.getSupplierId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Supplier deleted successfully.");
+            } else {
+                System.out.println("Failed to delete supplier.");
+            }
+        }
+    }
+
 }

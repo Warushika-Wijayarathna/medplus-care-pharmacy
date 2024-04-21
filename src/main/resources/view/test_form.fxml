@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.TestFormController">
+   <children>
+      <TableView fx:id="testTable" layoutX="55.0" layoutY="435.0" onMouseClicked="#onMouseClickAction" prefHeight="371.0" prefWidth="1463.0">
+         <columns>
+            <TableColumn fx:id="colTestId" prefWidth="132.0" text="Test Id" />
+            <TableColumn fx:id="colDesc" prefWidth="271.0" text="Description" />
+            <TableColumn fx:id="colLab" prefWidth="197.0" text="Lab" />
+            <TableColumn fx:id="colSampleType" prefWidth="220.0" text="Sample Type" />
+            <TableColumn fx:id="colTestType" prefWidth="198.0" text="Test Type" />
+            <TableColumn fx:id="colPrice" prefWidth="169.0" text="Price" />
+            <TableColumn fx:id="colUpdate" prefWidth="145.0" text="Update" />
+            <TableColumn fx:id="colDelete" prefWidth="130.0" text="Delete" />
+         </columns>
+      </TableView>
+      <Label layoutX="55.0" layoutY="96.0" prefHeight="40.0" prefWidth="243.0" text="Description">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="descTxt" layoutX="298.0" layoutY="96.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="55.0" layoutY="149.0" prefHeight="40.0" prefWidth="243.0" text="Lab">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="labTxt" layoutX="298.0" layoutY="149.0" prefHeight="40.0" prefWidth="259.0" />
+      <JFXButton fx:id="addBtn" layoutX="435.0" layoutY="369.0" onAction="#addBtnOnAction" prefHeight="40.0" prefWidth="124.0" style="-fx-background-color: GREEN;" text="add" textFill="WHITE" />
+      <JFXTextField fx:id="searchBar" layoutX="55.0" layoutY="43.0" prefHeight="40.0" prefWidth="504.0" promptText="Search Customer" text="Search Test" />
+      <Label layoutX="56.0" layoutY="197.0" prefHeight="40.0" prefWidth="243.0" text="Sample Type">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="sampleTypeTxt" layoutX="299.0" layoutY="197.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="56.0" layoutY="247.0" prefHeight="40.0" prefWidth="243.0" text="Test Type">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="testTypeTxt" layoutX="299.0" layoutY="247.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="56.0" layoutY="300.0" prefHeight="40.0" prefWidth="243.0" text="Price">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="priceTxt" layoutX="299.0" layoutY="300.0" prefHeight="40.0" prefWidth="259.0" />
+   </children>
+</AnchorPane>

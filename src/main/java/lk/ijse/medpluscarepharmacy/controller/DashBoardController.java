@@ -76,9 +76,29 @@ public class DashBoardController {
     }
 
     public void reportBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Report");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/report_form.fxml"));
+            AnchorPane report = loader.load();
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(report);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void testBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Test");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/test_form.fxml"));
+            AnchorPane cashRegister = loader.load();
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(cashRegister);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void logOutBtnClickOnAction(ActionEvent actionEvent) {
