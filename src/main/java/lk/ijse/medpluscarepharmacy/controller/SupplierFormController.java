@@ -2,6 +2,7 @@ package lk.ijse.medpluscarepharmacy.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.medpluscarepharmacy.model.Supplier;
 import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
+import lk.ijse.medpluscarepharmacy.repository.TestRepo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -40,8 +42,6 @@ public class SupplierFormController {
     public JFXTextField searchBar;
     ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
     public SupplierTm selectedSupplier;
-    public JFXButton updateButton;
-    public JFXButton deleteButton;
 
     public void initialize(){
         setCellValueFactory();
@@ -94,7 +94,7 @@ public class SupplierFormController {
                 updateIcon.setFitWidth(20);
                 updateIcon.setFitHeight(20);
 
-                updateButton = new JFXButton();
+                JFXButton updateButton = new JFXButton();
                 updateButton.setGraphic(updateIcon);
                 updateButton.setOnAction(event -> handleUpdateSupplier(supplier));
 
@@ -102,7 +102,7 @@ public class SupplierFormController {
                 deleteIcon.setFitWidth(20);
                 deleteIcon.setFitHeight(20);
 
-                deleteButton = new JFXButton();
+                JFXButton deleteButton = new JFXButton();
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteSupplier(supplier));
 
@@ -134,14 +134,20 @@ public class SupplierFormController {
                 try {
                     SupplierRepo.delete(supplier);
                     obList.remove(supplier);
-                    new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").showAndWait();
+                    Platform.runLater(()-> {
+                        new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").showAndWait();
+                    });
                 } catch (SQLException e) {
-                    new Alert(Alert.AlertType.ERROR, "Failed to delete supplier!").showAndWait();
+                    Platform.runLater(()-> {
+                        new Alert(Alert.AlertType.ERROR, "Failed to delete supplier!").showAndWait();
+                    });
                     e.printStackTrace();
                 }
             }
         } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a supplier to delete!").showAndWait();
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.WARNING, "Please select a supplier to delete!").showAndWait();
+            });
         }
     }
 
@@ -149,7 +155,7 @@ public class SupplierFormController {
     private void handleUpdateSupplier(Supplier supplier) {
         if (selectedSupplier != null) {
 
-            int supplierId = selectedSupplier.getSupplierId();
+            String supplierId = selectedSupplier.getSupplierId();
             String name = selectedSupplier.getName();
             String contact = String.valueOf(selectedSupplier.getContact());
             String email = selectedSupplier.getEmail();
@@ -173,14 +179,18 @@ public class SupplierFormController {
                 contactTxt.clear();
                 emailTxt.clear();
 
-                new Alert(Alert.AlertType.CONFIRMATION, "SupplierUpdated");
+                Platform.runLater(()-> {
+                    new Alert(Alert.AlertType.CONFIRMATION, "SupplierUpdated");
+                });
                 loadAllSuppliers();
                 searchSupplier();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a supplier to update!");
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.WARNING, "Please select a supplier to update!");
+            });
 
         }
     }
@@ -201,7 +211,9 @@ public class SupplierFormController {
         String email = emailTxt.getText().trim();
 
         if (name.isEmpty() || contactText.isEmpty() || email.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
+            });
             return;
         }
 
@@ -211,7 +223,28 @@ public class SupplierFormController {
 
             SupplierRepo.add(newSupplier);
 
-            new Alert(Alert.AlertType.CONFIRMATION, "Supplier added successfully!").showAndWait();
+            String generatedSupplierId = SupplierRepo.generateSupplierId(newSupplier);
+            newSupplier.setSupplierId(generatedSupplierId);
+
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.CONFIRMATION, "Supplier added successfully!").showAndWait();
+            });
+
+            ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+            updateIcon.setFitWidth(20);
+            updateIcon.setFitHeight(20);
+
+            JFXButton updateButton = new JFXButton();
+            updateButton.setGraphic(updateIcon);
+            updateButton.setOnAction(event -> handleUpdateSupplier(newSupplier));
+
+            ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+            deleteIcon.setFitWidth(20);
+            deleteIcon.setFitHeight(20);
+
+            JFXButton deleteButton = new JFXButton();
+            deleteButton.setGraphic(deleteIcon);
+            deleteButton.setOnAction(event -> handleDeleteSupplier(newSupplier));
 
             obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, updateButton, deleteButton));
 
@@ -220,9 +253,13 @@ public class SupplierFormController {
             emailTxt.clear();
 
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
+            });
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to add supplier!").showAndWait();
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.ERROR, "Failed to add supplier!").showAndWait();
+            });
             e.printStackTrace();
         }
     }
@@ -235,7 +272,7 @@ public class SupplierFormController {
             if (selectedIndex >= 0) {
                 selectedSupplier = supplierTable.getItems().get(selectedIndex);
 
-                int supplierId = selectedSupplier.getSupplierId();
+                String supplierId = selectedSupplier.getSupplierId();
                 String name = selectedSupplier.getName();
                 String contact = String.valueOf(selectedSupplier.getContact());
                 String email = selectedSupplier.getEmail();

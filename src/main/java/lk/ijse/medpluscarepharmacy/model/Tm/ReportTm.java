@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 
 public class ReportTm {
-    private int reportId;
+    private String reportId;
     private int testId;
     private String result;
     private Date issueDate;

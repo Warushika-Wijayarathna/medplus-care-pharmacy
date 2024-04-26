@@ -1,6 +1,8 @@
 package lk.ijse.medpluscarepharmacy.model;
 
 import java.util.Date;
+
+import lk.ijse.medpluscarepharmacy.model.Tm.ReportTm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,7 @@ import lombok.Data;
 @Data
 
 public class Report {
-    private int reportId;
+    private Report reportId;
     private int testId;
     private String result;
     private Date issueDate;

@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 
 public class Order {
-    private int orderId;
+    private String orderId;
     private int qty;
     private double total;
 }

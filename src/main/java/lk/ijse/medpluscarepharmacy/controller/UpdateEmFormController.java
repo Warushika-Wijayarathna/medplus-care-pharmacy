@@ -21,7 +21,7 @@ public class UpdateEmFormController {
     public JFXTextField contactNo;
     public JFXTextField salaryTxt;
 
-    public Integer id;
+    public String id;
 
     public void setEmployeeData(EmployeeTm employee) {
         id = employee.getEmployeeId();

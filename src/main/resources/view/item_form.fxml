@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane onMouseClicked="#onSelectOption" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.ItemFormController">
+   <children>
+      <TableView fx:id="itemTable" layoutX="55.0" layoutY="498.0" onMouseClicked="#onMouseClickAction" prefHeight="308.0" prefWidth="1463.0">
+         <columns>
+            <TableColumn fx:id="colItemId" prefWidth="148.0" text="Item Id" />
+            <TableColumn fx:id="colDesc" prefWidth="402.0" text="Description" />
+            <TableColumn fx:id="colQty" prefWidth="103.0" text="Qty" />
+            <TableColumn fx:id="colWholePrice" prefWidth="127.0" text="Whole sale price" />
+            <TableColumn fx:id="colRetailPrice" prefWidth="123.0" text="Retail price" />
+            <TableColumn fx:id="colDiscount" prefWidth="81.0" text="Discount " />
+            <TableColumn fx:id="colExpDate" prefWidth="152.0" text="Exp Date" />
+            <TableColumn fx:id="colSupp" prefWidth="129.0" text="Supplier" />
+            <TableColumn fx:id="colUpdate" prefWidth="100.0" text="Update" />
+            <TableColumn fx:id="colDelete" prefWidth="97.0" text="Delete" />
+         </columns>
+      </TableView>
+      <Label layoutX="55.0" layoutY="124.0" prefHeight="40.0" prefWidth="243.0" text="Description">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="descTxt" layoutX="298.0" layoutY="124.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="55.0" layoutY="174.0" prefHeight="40.0" prefWidth="243.0" text="Qty">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="qtyTxt" layoutX="298.0" layoutY="174.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="55.0" layoutY="227.0" prefHeight="40.0" prefWidth="243.0" text="Whole sale price">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="wholeSalePriceTxt" layoutX="298.0" layoutY="227.0" prefHeight="40.0" prefWidth="259.0" />
+      <JFXButton fx:id="addBtn" layoutX="1191.0" layoutY="381.0" onAction="#addBtnOnAction" prefHeight="40.0" prefWidth="124.0" style="-fx-background-color: GREEN;" text="add" textFill="WHITE" />
+      <JFXTextField fx:id="searchBar" layoutX="55.0" layoutY="43.0" prefHeight="40.0" prefWidth="504.0" promptText="Search Item" />
+      <Label layoutX="56.0" layoutY="276.0" prefHeight="40.0" prefWidth="243.0" text="Retail price">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="retailTxt" layoutX="299.0" layoutY="276.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="56.0" layoutY="327.0" prefHeight="40.0" prefWidth="243.0" text="Discount">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="discountTxt" layoutX="299.0" layoutY="327.0" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="56.0" layoutY="381.0" prefHeight="40.0" prefWidth="243.0" text="Exp Date">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="629.0" layoutY="124.0" prefHeight="40.0" prefWidth="243.0" text="Supplier">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="expDatePicker" layoutX="299.0" layoutY="381.0" prefHeight="40.0" prefWidth="259.0" />
+      <TableView fx:id="supplierCart" layoutX="629.0" layoutY="186.0" prefHeight="238.0" prefWidth="513.0">
+        <columns>
+          <TableColumn fx:id="colSuppId" prefWidth="167.0" text=" Supplier Id" />
+          <TableColumn fx:id="colSuppName" prefWidth="216.0" text="Supplier Name" />
+            <TableColumn fx:id="colRemove" prefWidth="129.0" text="Remove" />
+        </columns>
+      </TableView>
+      <JFXTextField fx:id="searchTextField" layoutX="772.0" layoutY="124.0" prefHeight="40.0" prefWidth="243.0" />
+      <JFXListView fx:id="optionsListView" layoutX="770.0" layoutY="166.0" />
+   </children>
+</AnchorPane>

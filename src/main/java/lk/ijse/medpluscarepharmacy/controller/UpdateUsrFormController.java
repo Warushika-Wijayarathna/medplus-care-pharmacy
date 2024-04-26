@@ -21,7 +21,7 @@ public class UpdateUsrFormController {
     public JFXPasswordField passwordTxt;
     public JFXPasswordField reEnterTxt;
 
-    public Integer id;
+    public String id;
 
     public void cancelBtnOnAction(ActionEvent actionEvent) {
         closeForm();

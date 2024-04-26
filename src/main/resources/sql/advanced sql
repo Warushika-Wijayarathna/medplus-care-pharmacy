@@ -1,0 +1,428 @@
+DROP DATABASE MedplusCarePharmacy;
+
+CREATE DATABASE MedplusCarePharmacy;
+
+USE MedplusCarePharmacy;
+
+CREATE TABLE Item (
+                      item_id VARCHAR(10) PRIMARY KEY,
+                      description VARCHAR(255),
+                      qty INT,
+                      whole_sale_price DECIMAL(10, 2),
+                      retail_price DECIMAL(10, 2),
+                      discount DECIMAL(5, 2),
+                      exp_date DATE
+);
+
+CREATE TABLE AutoIncrement_Item (
+                                    next_id INT
+);
+
+INSERT INTO AutoIncrement_Item (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_item_id
+    BEFORE INSERT ON Item
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Item SET next_id = next_id + 1;
+    SET NEW.item_id = CONCAT('I', LPAD((SELECT next_id FROM AutoIncrement_Item), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Supplier (
+                          sp_id VARCHAR(10) PRIMARY KEY,
+                          name VARCHAR(255),
+                          contact INT,
+                          email VARCHAR(100)
+);
+
+CREATE TABLE AutoIncrement_Supplier (
+                                        next_id INT
+);
+
+INSERT INTO AutoIncrement_Supplier (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_supplier_id
+    BEFORE INSERT ON Supplier
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Supplier SET next_id = next_id + 1;
+    SET NEW.sp_id = CONCAT('S', LPAD((SELECT next_id FROM AutoIncrement_Supplier), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE `Order` (
+                         o_id VARCHAR(10) PRIMARY KEY,
+                         qty INT,
+                         total DECIMAL(10, 2)
+);
+
+CREATE TABLE AutoIncrement_Order (
+                                     next_id INT
+);
+
+INSERT INTO AutoIncrement_Order (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_order_id
+    BEFORE INSERT ON `Order`
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Order SET next_id = next_id + 1;
+    SET NEW.o_id = CONCAT('O', LPAD((SELECT next_id FROM AutoIncrement_Order), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE User (
+                      usr_id VARCHAR(10) PRIMARY KEY,
+                      usr_name VARCHAR(255),
+                      password VARCHAR(255)
+);
+
+CREATE TABLE AutoIncrement_User (
+                                    next_id INT
+);
+
+INSERT INTO AutoIncrement_User (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_user_id
+    BEFORE INSERT ON User
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_User SET next_id = next_id + 1;
+    SET NEW.usr_id = CONCAT('U', LPAD((SELECT next_id FROM AutoIncrement_User), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Employee (
+                          emp_id VARCHAR(10) PRIMARY KEY,
+                          name VARCHAR(255),
+                          position VARCHAR(20),
+                          address VARCHAR(255),
+                          contact_no VARCHAR(20),
+                          salary DECIMAL(10, 2),
+                          usr_id VARCHAR(10),
+                          FOREIGN KEY (usr_id) REFERENCES User(usr_id) ON DELETE SET NULL
+);
+
+CREATE TABLE AutoIncrement_Employee (
+                                        next_id INT
+);
+
+INSERT INTO AutoIncrement_Employee (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_employee_id
+    BEFORE INSERT ON Employee
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Employee SET next_id = next_id + 1;
+    SET NEW.emp_id = CONCAT('E', LPAD((SELECT next_id FROM AutoIncrement_Employee), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Payment (
+                         pay_id VARCHAR(10) PRIMARY KEY,
+                         cash DECIMAL(10, 2),
+                         balance DECIMAL(10, 2),
+                         date DATE,
+                         usr_id VARCHAR(10),
+                         o_id VARCHAR(10),
+                         sp_id VARCHAR(10),
+                         FOREIGN KEY (o_id) REFERENCES `Order`(o_id) ON DELETE SET NULL,
+                         FOREIGN KEY (sp_id) REFERENCES Supplier(sp_id) ON DELETE SET NULL
+);
+
+CREATE TABLE AutoIncrement_Payment (
+                                       next_id INT
+);
+
+INSERT INTO AutoIncrement_Payment (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_payment_id
+    BEFORE INSERT ON Payment
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Payment SET next_id = next_id + 1;
+    SET NEW.pay_id = CONCAT('P', LPAD((SELECT next_id FROM AutoIncrement_Payment), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Customer (
+                          cust_id VARCHAR(10) PRIMARY KEY,
+                          name VARCHAR(255) NOT NULL,
+                          contact_no INT,
+                          email VARCHAR(255)
+);
+
+CREATE TABLE AutoIncrement_Customer (
+                                        next_id INT
+);
+
+INSERT INTO AutoIncrement_Customer (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_customer_id
+    BEFORE INSERT ON Customer
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Customer SET next_id = next_id + 1;
+    SET NEW.cust_id = CONCAT('C', LPAD((SELECT next_id FROM AutoIncrement_Customer), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Test (
+                      test_id VARCHAR(10) PRIMARY KEY,
+                      description VARCHAR(255) NOT NULL,
+                      lab VARCHAR(40) NOT NULL,
+                      sample_type VARCHAR(10) NOT NULL,
+                      test_type VARCHAR(20) NOT NULL,
+                      price DECIMAL(10, 2) NOT NULL
+);
+
+CREATE TABLE AutoIncrement_Test (
+                                    next_id INT
+);
+
+INSERT INTO AutoIncrement_Test (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_test_id
+    BEFORE INSERT ON Test
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Test SET next_id = next_id + 1;
+    SET NEW.test_id = CONCAT('T', LPAD((SELECT next_id FROM AutoIncrement_Test), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Report (
+                        r_id VARCHAR(10) PRIMARY KEY,
+                        type VARCHAR(255) NOT NULL,
+                        issue_date DATE NOT NULL,
+                        pickup_date DATE,
+                        result VARCHAR(255),
+                        test_id VARCHAR(10),
+                        FOREIGN KEY (test_id) REFERENCES Test(test_id) ON DELETE SET NULL
+);
+
+CREATE TABLE AutoIncrement_Report (
+                                      next_id INT
+);
+
+INSERT INTO AutoIncrement_Report (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_report_id
+    BEFORE INSERT ON Report
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Report SET next_id = next_id + 1;
+    SET NEW.r_id = CONCAT('R', LPAD((SELECT next_id FROM AutoIncrement_Report), 4, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE Prescription (
+                              presc_id VARCHAR(10) PRIMARY KEY,
+                              patient_name VARCHAR(255) NOT NULL,
+                              age INT NOT NULL,
+                              medical_officer_name VARCHAR(255) NOT NULL,
+                              context VARCHAR(255),
+                              duration VARCHAR(50),
+                              date DATE NOT NULL,
+                              cust_id VARCHAR(10),
+                              FOREIGN KEY (cust_id) REFERENCES Customer(cust_id) ON DELETE SET NULL
+);
+
+CREATE TABLE AutoIncrement_Prescription (
+                                            next_id INT
+);
+
+INSERT INTO AutoIncrement_Prescription (next_id) VALUES (0);
+
+DELIMITER //
+
+CREATE TRIGGER increment_prescription_id
+    BEFORE INSERT ON Prescription
+    FOR EACH ROW
+BEGIN
+    UPDATE AutoIncrement_Prescription SET next_id = next_id + 1;
+    SET NEW.presc_id = CONCAT('PR', LPAD((SELECT next_id FROM AutoIncrement_Prescription), 3, '0'));
+END;
+//
+
+DELIMITER ;
+
+CREATE TABLE presc_test_detail (
+                                   presc_id VARCHAR(10),
+                                   test_id VARCHAR(10),
+                                   FOREIGN KEY (presc_id) REFERENCES Prescription(presc_id) ON DELETE SET NULL,
+                                   FOREIGN KEY (test_id) REFERENCES Test(test_id) ON DELETE SET NULL
+);
+
+CREATE TABLE test_pay_detail (
+                                 pay_id VARCHAR(10),
+                                 test_id VARCHAR(10),
+                                 FOREIGN KEY (pay_id) REFERENCES Payment(pay_id) ON DELETE SET NULL,
+                                 FOREIGN KEY (test_id) REFERENCES Test(test_id) ON DELETE SET NULL
+);
+
+CREATE TABLE order_item_detail (
+                                   o_id VARCHAR(10),
+                                   item_id VARCHAR(10),
+                                   FOREIGN KEY (o_id) REFERENCES `Order`(o_id) ON DELETE SET NULL,
+                                   FOREIGN KEY (item_id) REFERENCES Item(item_id) ON DELETE SET NULL
+);
+
+CREATE TABLE item_supplier_detail (
+                                      sp_id VARCHAR(10),
+                                      item_id VARCHAR(10),
+                                      FOREIGN KEY (sp_id) REFERENCES Supplier(sp_id) ON DELETE SET NULL,
+                                      FOREIGN KEY (item_id) REFERENCES Item(item_id) ON DELETE SET NULL
+);
+
+
+
+
+INSERT INTO Item (description, qty, whole_sale_price, retail_price, discount, exp_date)
+VALUES
+    ('Paracetamol Tablets', 100, 5.99, 7.99, 0.1, '2024-12-31'),
+    ('Amoxicillin Capsules', 50, 10.50, 15.99, 0.05, '2024-10-15'),
+    ('Ibuprofen Tablets', 80, 8.25, 11.49, 0.08, '2025-02-28'),
+    ('Aspirin Tablets', 120, 4.75, 6.99, 0.15, '2024-09-30'),
+    ('Cough Syrup', 60, 12.99, 18.75, 0.12, '2024-11-20');
+
+INSERT INTO Supplier (name, contact, email)
+VALUES
+    ('Pharma Suppliers Inc.', 124345789, 'USA'),
+    ('MediCare Pharmaceuticals', 124345789, 'UK'),
+    ('Global Pharma Solutions', 124345789, 'Canada'),
+    ('HealthyLife Pharma', 124345789, 'Australia'),
+    ('MediWorld Enterprises', 124345789, 'Germany');
+
+INSERT INTO `Order` (qty, total)
+VALUES
+    (50, 399.50),
+    (30, 325.80),
+    (70, 620.50),
+    (40, 300.25),
+    (60, 975.00);
+
+INSERT INTO User (usr_name, password)
+VALUES
+    ('john_doe', 'password123'),
+    ('jane_smith', 'secure456'),
+    ('admin', '1234'),
+    ('manager', 'manager123'),
+    ('pharmacist', 'pharma789');
+
+INSERT INTO Employee (name, position, address, contact_no, salary, usr_id)
+VALUES
+    ('John Doe', '123456789V', '123 Main Street, City, Country', '+1234567890', 2500.00, 'U0001'),
+    ('Jane Smith', '987654321V', '456 Elm Street, City, Country', '+0987654321', 2800.00, 'U0002'),
+    ('Admin User', '555555555V', '789 Oak Street, City, Country', '+5555555555', 3500.00, 'U0003'),
+    ('Manager User', '666666666V', '101 Pine Street, City, Country', '+6666666666', 4000.00, 'U0004'),
+    ('Pharmacist User', '777777777V', '202 Cedar Street, City, Country', '+7777777777', 3800.00, 'U0005');
+
+INSERT INTO Payment (cash, balance, date, usr_id, o_id, sp_id)
+VALUES
+    (400.00, 1.50, '2024-04-08', 'U0001', 'O0001', 'S0001'),
+    (350.00, 24.80, '2024-04-09', 'U0002', 'O0002', 'S0002'),
+    (700.00, 79.50, '2024-04-09', 'U0003', 'O0003', 'S0003'),
+    (300.00, 0.25, '2024-04-07', 'U0004', 'O0004', 'S0004'),
+    (1000.00, 25.00, '2024-04-08', 'U0005', 'O0005', 'S0005');
+
+INSERT INTO Customer (name, contact_no, email)
+VALUES
+    ('Alice Johnson', '+123456789', 'alice@example.com'),
+    ('Bob Smith', '+198765432', 'bob@example.com'),
+    ('Charlie Brown', '+111111111', 'charlie@example.com'),
+    ('David Lee', '+222222222', 'david@example.com'),
+    ('Emma Wilson', '+333333333', 'emma@example.com');
+
+INSERT INTO Test (description, lab, sample_type, test_type, price)
+VALUES
+    ('Blood Test', 'medihelp', 'blood', 'instant', 75.00),
+    ('Urine Test', 'medihelp', 'blood', 'instant', 50.00),
+    ('X-Ray', 'medihelp', 'blood', 'instant', 150.00),
+    ('MRI Scan', 'medihelp', 'blood', 'delayed', 300.00),
+    ('ECG', 'medihelp', 'blood', 'delayed', 100.00);
+
+INSERT INTO Report (type, issue_date, pickup_date, result, test_id)
+VALUES
+    ('Blood Test', '2024-04-08', '2024-04-10', 'Normal', 'T0001'),
+    ('X-Ray', '2024-04-09', '2024-04-11', 'Abnormal', 'T0003'),
+    ('MRI Scan', '2024-04-07', '2024-04-09', 'Normal', 'T0004'),
+    ('ECG', '2024-04-08', '2024-04-10', 'Abnormal', 'T0005'),
+    ('Blood Test', '2024-04-09', '2024-04-11', 'Normal', 'T0002');
+
+INSERT INTO Prescription (patient_name, age, medical_officer_name, context, duration, date, cust_id)
+VALUES
+    ('Alice Johnson', 35, 'Dr. Smith', 'Fever', '5 days', '2024-04-08', 'C0001'),
+    ('Bob Smith', 45, 'Dr. Williams', 'Pain', '7 days', '2024-04-09', 'C0002'),
+    ('Charlie Brown', 25, 'Dr. Martin', 'Cold', '3 days', '2024-04-07', 'C0003'),
+    ('David Lee', 50, 'Dr. Davis', 'Allergy', '10 days', '2024-04-08', 'C0004'),
+    ('Emma Wilson', 40, 'Dr. Miller', 'Headache', '2 days', '2024-04-09', 'C0005');
+
+INSERT INTO presc_test_detail (presc_id, test_id)
+VALUES
+    ('PR001', 'T0001'),
+    ('PR002', 'T0002'),
+    ('PR003', 'T0003'),
+    ('PR004', 'T0004'),
+    ('PR005', 'T0005');
+
+INSERT INTO test_pay_detail (pay_id, test_id)
+VALUES
+    ('P0001', 'T0001'),
+    ('P0002', 'T0002'),
+    ('P0003', 'T0003'),
+    ('P0004', 'T0004'),
+    ('P0005', 'T0005');
+
+INSERT INTO order_item_detail (o_id, item_id)
+VALUES
+    ('O0001', 'I0001'),
+    ('O0002', 'I0002'),
+    ('O0003', 'I0003'),
+    ('O0004', 'I0004'),
+    ('O0005', 'I0005');
+
+INSERT INTO item_supplier_detail (sp_id, item_id)
+VALUES
+    ('S0001', 'I0001'),
+    ('S0002', 'I0002'),
+    ('S0003', 'I0003'),
+    ('S0004', 'I0004'),
+    ('S0005', 'I0005');

@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 
 public class Supplier {
-    private int supplierId;
+    private String supplierId;
     private String name;
     private int contact;
     private String email;

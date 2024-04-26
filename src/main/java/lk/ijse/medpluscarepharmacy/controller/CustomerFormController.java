@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import lk.ijse.medpluscarepharmacy.model.Customer;
 import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.repository.CustomerRepo;
+import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -38,8 +39,6 @@ public class CustomerFormController {
     public JFXTextField searchBar;
     ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
     public CustomerTm selectedCustomer;
-    public JFXButton updateButton;
-    public JFXButton deleteButton;
 
     public void initialize(){
         setCellValueFactory();
@@ -92,7 +91,7 @@ public class CustomerFormController {
                 updateIcon.setFitWidth(20);
                 updateIcon.setFitHeight(20);
 
-                updateButton = new JFXButton();
+                JFXButton updateButton = new JFXButton();
                 updateButton.setGraphic(updateIcon);
                 updateButton.setOnAction(event -> handleUpdateCustomer(customer));
 
@@ -100,7 +99,7 @@ public class CustomerFormController {
                 deleteIcon.setFitWidth(20);
                 deleteIcon.setFitHeight(20);
 
-                deleteButton = new JFXButton();
+                JFXButton deleteButton = new JFXButton();
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteCustomer(customer));
 
@@ -139,7 +138,7 @@ public class CustomerFormController {
     private void handleUpdateCustomer(Customer customer) {
         if (selectedCustomer != null) {
 
-            int custId = selectedCustomer.getCustomerId();
+            String custId = selectedCustomer.getCustomerId();
             String name = selectedCustomer.getName();
             String contact = String.valueOf(selectedCustomer.getContactNo());
             String email = selectedCustomer.getEmail();
@@ -200,7 +199,26 @@ public class CustomerFormController {
 
             CustomerRepo.add(newCustomer);
 
+            String generatedCustomerId = CustomerRepo.generateCustomerId(newCustomer);
+            newCustomer.setCustomerId(generatedCustomerId);
+
             new Alert(Alert.AlertType.CONFIRMATION, "Customer added successfully!").showAndWait();
+
+            ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+            updateIcon.setFitWidth(20);
+            updateIcon.setFitHeight(20);
+
+            JFXButton updateButton = new JFXButton();
+            updateButton.setGraphic(updateIcon);
+            updateButton.setOnAction(event -> handleUpdateCustomer(newCustomer));
+
+            ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+            deleteIcon.setFitWidth(20);
+            deleteIcon.setFitHeight(20);
+
+            JFXButton deleteButton = new JFXButton();
+            deleteButton.setGraphic(deleteIcon);
+            deleteButton.setOnAction(event -> handleDeleteCustomer(newCustomer));
 
             obList.add(new CustomerTm(newCustomer.getCustomerId(), name, contact, email, updateButton, deleteButton));
 
@@ -222,7 +240,7 @@ public class CustomerFormController {
             if (selectedIndex >= 0) {
                 selectedCustomer = customerTable.getItems().get(selectedIndex);
 
-                int custId = selectedCustomer.getCustomerId();
+                String custId = selectedCustomer.getCustomerId();
                 String name = selectedCustomer.getName();
                 String contact = String.valueOf(selectedCustomer.getContactNo());
                 String email = selectedCustomer.getEmail();

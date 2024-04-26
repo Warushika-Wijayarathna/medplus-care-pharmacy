@@ -10,13 +10,13 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class EmployeeTm {
-    private int employeeId;
+    private String employeeId;
     private String name;
     private String position;
     private String address;
     private String contactNo;
     private double salary;
-    private int userId;
+    private String userId;
     private JFXButton update;
 
 }

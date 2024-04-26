@@ -37,7 +37,7 @@ public class UserRepo {
         List<User> employeeList = new ArrayList<>();
 
         while (resultSet.next()){
-            int id = resultSet.getInt(1);
+            String id = resultSet.getString(1);
             String name = resultSet.getString(2);
             String password = resultSet.getString(3);
 
@@ -56,7 +56,7 @@ public class UserRepo {
         preparedStatement.executeUpdate();
     }
 
-    public static int getIdByUsername(String username) throws SQLException {
+    public static String getIdByUsername(String username) throws SQLException {
         String sql = "SELECT usr_id FROM User WHERE usr_name = ?";
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -64,9 +64,9 @@ public class UserRepo {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            return resultSet.getInt("usr_id");
+            return resultSet.getString("usr_id");
         } else {
-            return -1;
+            return null;
         }
     }
 

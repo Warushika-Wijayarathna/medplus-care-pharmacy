@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 
 public class Prescription {
-    private int prescriptionId;
+    private String prescriptionId;
     private String patientName;
     private int age;
     private String medicalOfficerName;

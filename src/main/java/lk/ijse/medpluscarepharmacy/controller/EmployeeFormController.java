@@ -233,12 +233,14 @@ public class EmployeeFormController {
         boolean isUserFilled = !usernameTxt.getText().isEmpty() && !passwordTxt.getText().isEmpty() && !reEnterTxt.getText().isEmpty();
 
 
+
+
         if (isUserRequired && isUserFilled) {
             try {
                 String username = usernameTxt.getText();
                 String password = passwordTxt.getText();
                 UserRepo.save(new User(username, password));
-                int userId = UserRepo.getIdByUsername(username);
+                String userId = UserRepo.getIdByUsername(username);
 
                 saveEmployee(userId);
             } catch (SQLException e) {
@@ -250,7 +252,7 @@ public class EmployeeFormController {
         }
     }
 
-    private void saveEmployee(Integer userId) {
+    private void saveEmployee(String  userId) {
         try {
             if (userId == null) {
                 EmployeeRepo.save(new Employee(

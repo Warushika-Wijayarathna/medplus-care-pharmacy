@@ -2,6 +2,7 @@ package lk.ijse.medpluscarepharmacy.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,10 +16,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Test;
 import lk.ijse.medpluscarepharmacy.model.Tm.TestTm;
 import lk.ijse.medpluscarepharmacy.repository.TestRepo;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,8 +49,6 @@ public class TestFormController {
 
     ObservableList<TestTm> obList = FXCollections.observableArrayList();
     public TestTm selectedTest;
-    public JFXButton updateButton;
-    public JFXButton deleteButton;
 
     public void initialize(){
         setCellValueFactory();
@@ -101,7 +105,7 @@ public class TestFormController {
                 updateIcon.setFitWidth(20);
                 updateIcon.setFitHeight(20);
 
-                updateButton = new JFXButton();
+                JFXButton updateButton = new JFXButton();
                 updateButton.setGraphic(updateIcon);
                 updateButton.setOnAction(event -> handleUpdateTest(test));
 
@@ -109,7 +113,7 @@ public class TestFormController {
                 deleteIcon.setFitWidth(20);
                 deleteIcon.setFitHeight(20);
 
-                deleteButton = new JFXButton();
+                JFXButton deleteButton = new JFXButton();
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteTest(test));
 
@@ -136,13 +140,19 @@ public class TestFormController {
             try {
                 TestRepo.delete(test);
                 obList.remove(selectedTest);
-                new Alert(Alert.AlertType.CONFIRMATION, "Test deleted successfully!").showAndWait();
+                Platform.runLater(()-> {
+                    new Alert(Alert.AlertType.CONFIRMATION, "Test deleted successfully!").showAndWait();
+                });
             } catch (SQLException e) {
-                new Alert(Alert.AlertType.ERROR, "Failed to delete test!").showAndWait();
+                Platform.runLater(()-> {
+                            new Alert(Alert.AlertType.ERROR, "Failed to delete test!").showAndWait();
+                });
                 e.printStackTrace();
             }
         } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a test to delete!").showAndWait();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.WARNING, "Please select a test to delete!").showAndWait();
+            });
         }
     }
 
@@ -150,7 +160,7 @@ public class TestFormController {
     private void handleUpdateTest(Test test) {
         if (selectedTest != null) {
 
-            int testId = selectedTest.getTestId();
+            String testId = selectedTest.getTestId();
             String desc = selectedTest.getDescription();
             String lab = selectedTest.getLab();
             String sampleType = selectedTest.getSampleType();
@@ -178,7 +188,9 @@ public class TestFormController {
 
                 clear();
 
-                new Alert(Alert.AlertType.CONFIRMATION, "Test Updated");
+                Platform.runLater(()->{
+                    new Alert(Alert.AlertType.CONFIRMATION, "Test Updated");
+                });
                 loadAllTests();
                 searchTest();
             } catch (SQLException e) {
@@ -186,7 +198,9 @@ public class TestFormController {
 
             }
         } else {
-            new Alert(Alert.AlertType.WARNING, "Please select a test to update!");
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.WARNING, "Please select a test to update!");
+            });
 
         }
     }
@@ -212,7 +226,9 @@ public class TestFormController {
         String price = priceTxt.getText().trim();
 
         if (desc.isEmpty() || lab.isEmpty() || sampleType.isEmpty() || testType.isEmpty() || price.isEmpty()) {
-            new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
+            });
             return;
         }
 
@@ -223,15 +239,38 @@ public class TestFormController {
 
             TestRepo.add(newTest);
 
-            new Alert(Alert.AlertType.CONFIRMATION, "Test added successfully!").showAndWait();
+            String generatedTestId = TestRepo.generateTestId(newTest);
+            newTest.setTestId(generatedTestId);
+
+            JFXButton updateButton = new JFXButton();
+            ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+            updateIcon.setFitWidth(20);
+            updateIcon.setFitHeight(20);
+            updateButton.setGraphic(updateIcon);
+            updateButton.setOnAction(event -> handleUpdateTest(newTest));
+
+            JFXButton deleteButton = new JFXButton();
+            ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+            deleteIcon.setFitWidth(20);
+            deleteIcon.setFitHeight(20);
+            deleteButton.setGraphic(deleteIcon);
+            deleteButton.setOnAction(event -> handleDeleteTest(newTest));
+
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.CONFIRMATION, "Test added successfully!").showAndWait();
+            });
 
             obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, priceOf, updateButton, deleteButton));
 
             clear();
         } catch (NumberFormatException e) {
-            new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
+            Platform.runLater(()-> {
+                new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
+            });
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to add customer!").showAndWait();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.ERROR, "Failed to add customer!").showAndWait();
+            });
             e.printStackTrace();
         }
     }
@@ -244,7 +283,7 @@ public class TestFormController {
             if (selectedIndex >= 0) {
                 selectedTest = testTable.getItems().get(selectedIndex);
 
-                int testId = selectedTest.getTestId();
+                String testId = selectedTest.getTestId();
                 String desc = selectedTest.getDescription();
                 String lab = selectedTest.getLab();
                 String sampleType = selectedTest.getSampleType();
@@ -267,4 +306,73 @@ public class TestFormController {
         testTypeTxt.clear();
         priceTxt.clear();
     }
+
+    public void onClickAction(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage stage = (Stage) testTable.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            insertTestData(filePath);
+        }
+    }
+
+    private void insertTestData(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] data = line.split(",");
+                    String desc = data[0].trim();
+                    String lab = data[1].trim();
+                    String sampleType = data[2].trim();
+                    String testType = data[3].trim();
+                    double price = Double.parseDouble(data[4].trim());
+
+                    Test newTest = new Test(desc, lab, sampleType, testType, price);
+                    TestRepo.add(newTest);
+
+                    String generatedTestId = TestRepo.generateTestId(newTest);
+                    newTest.setTestId(generatedTestId);
+
+                    JFXButton updateButton = new JFXButton();
+                    ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+                    updateIcon.setFitWidth(20);
+                    updateIcon.setFitHeight(20);
+                    updateButton.setGraphic(updateIcon);
+                    updateButton.setOnAction(event -> handleUpdateTest(newTest));
+
+                    JFXButton deleteButton = new JFXButton();
+                    ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+                    deleteIcon.setFitWidth(20);
+                    deleteIcon.setFitHeight(20);
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.setOnAction(event -> handleDeleteTest(newTest));
+
+
+                    obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, price, updateButton, deleteButton));
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid price value in CSV: " + line);
+                }
+            }
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.CONFIRMATION, "Test data imported successfully!").showAndWait();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.ERROR, "Failed to import test data!").showAndWait();
+            });
+        }
+    }
+
 }

@@ -20,13 +20,13 @@ public class EmployeeRepo {
         List<Employee> employeeList = new ArrayList<>();
 
         while (resultSet.next()){
-            int id = resultSet.getInt(1);
+            String  id = resultSet.getString(1);
             String name = resultSet.getString(2);
             String position = resultSet.getString(3);
             String address = resultSet.getString(4);
             String contactNo = resultSet.getString(5);
             double salary = resultSet.getDouble(6);
-            int user = resultSet.getInt(7);
+            String user = resultSet.getString(7);
 
             Employee employee = new Employee(id,name,position,address,contactNo,salary,user);
             employeeList.add(employee);
@@ -64,8 +64,8 @@ public class EmployeeRepo {
         preparedStatement.setString(3, employee.getAddress());
         preparedStatement.setString(4, employee.getContactNo());
         preparedStatement.setDouble(5, employee.getSalary());
-        preparedStatement.setObject(6, employee.getUserId());
-        preparedStatement.setObject(7, employee.getEmployeeId());
+        preparedStatement.setString(6, employee.getUserId());
+        preparedStatement.setString(7, employee.getEmployeeId());
         preparedStatement.executeUpdate();
     }
 

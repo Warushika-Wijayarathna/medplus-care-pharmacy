@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 
 public class Test {
-    private int testId;
+    private String  testId;
     private String description;
     private String lab;
     private String sampleType;

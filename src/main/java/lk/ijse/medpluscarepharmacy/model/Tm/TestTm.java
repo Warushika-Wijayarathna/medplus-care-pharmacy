@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class TestTm {
-    private int testId;
+    private String testId;
     private String description;
     private String lab;
     private String sampleType;

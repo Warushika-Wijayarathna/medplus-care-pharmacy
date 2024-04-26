@@ -73,6 +73,16 @@ public class DashBoardController {
     }
 
     public void itemBtnClickOnAction(ActionEvent actionEvent) {
+        try {
+            titleText.setText("Item");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/item_form.fxml"));
+            AnchorPane item = loader.load();
+
+            rootPane.getChildren().clear();
+            rootPane.getChildren().add(item);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void reportBtnClickOnAction(ActionEvent actionEvent) {

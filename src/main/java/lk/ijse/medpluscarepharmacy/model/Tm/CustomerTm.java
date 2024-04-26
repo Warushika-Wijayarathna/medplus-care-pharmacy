@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class CustomerTm {
-    private int customerId;
+    private String customerId;
     private String name;
     private int contactNo;
     private String email;

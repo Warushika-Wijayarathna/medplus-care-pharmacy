@@ -4,16 +4,19 @@ import com.jfoenix.controls.JFXButton;
 import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
+
 public class UserTm {
 
-    private int userId;
+    private String userId;
     private String userName;
     private String password;
     private JFXButton update;
 
 
-    public UserTm(int userId, String userName, String password){
+    public UserTm(String userId, String userName, String password){
         this.userId=userId;
         this.userName=userName;
         this.password=password;

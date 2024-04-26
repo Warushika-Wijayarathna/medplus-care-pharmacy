@@ -9,15 +9,15 @@ import lombok.Data;
 @Data
 
 public class Employee {
-    private Integer employeeId;
+    private String employeeId;
     private String name;
     private String position;
     private String address;
     private String contactNo;
     private double salary;
-    private Integer userId;
+    private String  userId;
 
-    public Employee(String name, String position, String address, String contactNo, double salary, Integer userId) {
+    public Employee(String name, String position, String address, String contactNo, double salary, String userId) {
         this.name=name;
         this.position=position;
         this.address=address;
@@ -26,7 +26,7 @@ public class Employee {
         this.userId=userId;
     }
 
-    public Employee(Integer id,String name, String position, String address, String contactNo, double salary) {
+    public Employee(String id,String name, String position, String address, String contactNo, double salary) {
         this.employeeId=id;
         this.name=name;
         this.position=position;

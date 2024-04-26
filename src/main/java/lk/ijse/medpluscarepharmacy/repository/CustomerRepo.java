@@ -19,7 +19,7 @@ public class CustomerRepo {
             List<Customer> customerList = new ArrayList<>();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt(1);
+                String id = resultSet.getString(1);
                 String name = resultSet.getString(2);
                 int contactNo = Integer.parseInt(resultSet.getString(3));
                 String email = resultSet.getString(4);
@@ -55,7 +55,7 @@ public class CustomerRepo {
         String sql = "DELETE FROM Customer WHERE cust_id = ?";
 
         try (PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
-            preparedStatement.setInt(1, customer.getCustomerId());
+            preparedStatement.setString(1, customer.getCustomerId());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -74,7 +74,7 @@ public class CustomerRepo {
             preparedStatement.setString(1, updatedCustomer.getName());
             preparedStatement.setString(2, String.valueOf(updatedCustomer.getContactNo()));
             preparedStatement.setString(3, updatedCustomer.getEmail());
-            preparedStatement.setInt(4, updatedCustomer.getCustomerId());
+            preparedStatement.setString(4, updatedCustomer.getCustomerId());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -84,6 +84,20 @@ public class CustomerRepo {
                 System.out.println("Failed to update customer.");
             }
         }
+    }
+
+    public static String generateCustomerId(Customer newCustomer) throws SQLException {
+        String generatedCustomerId = null;
+        String sql = "SELECT CONCAT('C', LPAD(next_id, 4, '0')) FROM AutoIncrement_Customer";
+
+        try (PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    generatedCustomerId = resultSet.getString(1);
+                }
+            }
+        }
+        return generatedCustomerId;
     }
 
 }

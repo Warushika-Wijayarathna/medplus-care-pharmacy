@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 
 public class Payment {
-    private int paymentId;
+    private String  paymentId;
     private double cash;
     private double balance;
     private Date date;

@@ -19,7 +19,7 @@ public class TestRepo {
             List<Test> testList = new ArrayList<>();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("test_id");
+                String id = resultSet.getString("test_id");
                 String description = resultSet.getString("description");
                 String lab = resultSet.getString("lab");
                 String sampleType = resultSet.getString("sample_type");
@@ -42,7 +42,7 @@ public class TestRepo {
             preparedStatement.setString(3, updatedTest.getSampleType());
             preparedStatement.setString(4, updatedTest.getTestType());
             preparedStatement.setDouble(5, updatedTest.getPrice());
-            preparedStatement.setInt(6, updatedTest.getTestId());
+            preparedStatement.setString(6, updatedTest.getTestId());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -78,7 +78,7 @@ public class TestRepo {
         String sql = "DELETE FROM Test WHERE test_id = ?";
 
         try (PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
-            preparedStatement.setInt(1, test.getTestId());
+            preparedStatement.setString(1, test.getTestId());
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -89,4 +89,19 @@ public class TestRepo {
             }
         }
     }
+
+    public static String generateTestId(Test newTest) throws SQLException {
+        String generatedTestId = null;
+        String sql = "SELECT CONCAT('T', LPAD(next_id, 4, '0')) FROM AutoIncrement_Test";
+
+        try (PreparedStatement statement = DbConnection.getInstance().getConnection().prepareStatement(sql)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    generatedTestId = resultSet.getString(1);
+                }
+            }
+        }
+        return generatedTestId;
+    }
+
 }
