@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Temperature" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="395c443c-ae40-4b1c-83dc-a081b387c9dc">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (14)"/>
+	<queryString language="SQL">
+		<![CDATA[select * from  Temperature;]]>
+	</queryString>
+	<field name="temp_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="temp_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="temp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Temperature"/>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date"/>
+		<property name="com.jaspersoft.studio.field.label" value="date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Temperature"/>
+	</field>
+	<field name="time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="time"/>
+		<property name="com.jaspersoft.studio.field.label" value="time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Temperature"/>
+	</field>
+	<field name="temperature" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="temperature"/>
+		<property name="com.jaspersoft.studio.field.label" value="temperature"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Temperature"/>
+	</field>
+	<group name="temp_id">
+		<groupExpression><![CDATA[$F{temp_id}]]></groupExpression>
+	</group>
+	<group name="date">
+		<groupExpression><![CDATA[$F{date}]]></groupExpression>
+	</group>
+	<group name="time">
+		<groupExpression><![CDATA[$F{time}]]></groupExpression>
+	</group>
+	<group name="temperature">
+		<groupExpression><![CDATA[$F{temperature}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="57" y="8" width="440" height="40" uuid="105d40b5-41f2-4cba-9d61-b1c03c681a0d"/>
+				<textElement textAlignment="Center">
+					<font size="29"/>
+				</textElement>
+				<text><![CDATA[Temperature]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="21" width="130" height="30" uuid="54a469aa-9bd8-4c54-aa86-695b7a5ccee2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667bf6ca-6eb3-4d34-a688-7f06e20c2910"/>
+				</reportElement>
+				<text><![CDATA[Temp_id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="21" width="124" height="30" uuid="6a90f961-42b2-4006-8b2b-d387c3a3e658">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceef88e2-9311-4c93-8bc4-b7809cf3140c"/>
+				</reportElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="22" width="154" height="30" uuid="257c61c8-40f4-4ab9-80c5-26f5f5ebd9b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89b12f34-6882-4f90-a8c6-b677adf4111e"/>
+				</reportElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="22" width="140" height="30" uuid="4c9ed097-8954-409a-a908-889b0742f5ea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25165ad5-2405-4df1-9f98-53776c283427"/>
+				</reportElement>
+				<text><![CDATA[Temperature]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="45" width="600" height="30" uuid="6a377009-898c-4a97-885d-4ad3bdadf560"/>
+				<textElement>
+					<font size="19"/>
+				</textElement>
+				<text><![CDATA[------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-23" y="-1" width="600" height="30" uuid="0b8d1a91-59ff-4161-9c08-d5a48cb7cb6a"/>
+				<textElement>
+					<font size="19"/>
+				</textElement>
+				<text><![CDATA[------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="145" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="9" width="130" height="30" uuid="20621a8e-b32d-4d9d-aa78-ccf078c561a6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="667bf6ca-6eb3-4d34-a688-7f06e20c2910"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{temp_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="9" width="126" height="30" uuid="3f84b993-3f50-4d6f-aac9-c5dbe6fe576f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ceef88e2-9311-4c93-8bc4-b7809cf3140c"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="256" y="10" width="154" height="30" uuid="66b26b60-b4ac-4276-8315-6a05fea8ab2a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="89b12f34-6882-4f90-a8c6-b677adf4111e"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="10" width="140" height="30" uuid="ccee15d4-9e17-4318-bb3b-fb64da3af955">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="25165ad5-2405-4df1-9f98-53776c283427"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{temperature}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="440" y="5" width="125" height="45" uuid="488f1abf-3d9e-483b-bdd1-918c1c2b05b8"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[--------------------------------
+
+Signature]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
