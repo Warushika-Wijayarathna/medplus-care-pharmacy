@@ -15,20 +15,20 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="usernameTxt" layoutX="39.0" layoutY="86.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="usernameTxt" onKeyReleased="#onUsrKeyReleased" layoutX="39.0" layoutY="86.0" prefHeight="44.0" prefWidth="291.0" />
       <Label fx:id="passwordLbl" layoutX="39.0" layoutY="130.0" prefHeight="44.0" prefWidth="291.0" text="Password">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="passwordTxt" layoutX="39.0" layoutY="174.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXPasswordField fx:id="passwordTxt" onKeyReleased="#onPasswordKeyReleased" layoutX="39.0" layoutY="174.0" prefHeight="44.0" prefWidth="291.0" />
       <Label fx:id="reEnterLbl" layoutX="39.0" layoutY="218.0" prefHeight="44.0" prefWidth="291.0" text="Re-enter">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="reEnterTxt" layoutX="39.0" layoutY="262.0" prefHeight="44.0" prefWidth="291.0" />
-      <JFXButton fx:id="cancelBtn" layoutX="127.0" layoutY="360.0" onAction="#cancelBtnOnAction" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: YELLOW;" text="Cancel" />
+      <JFXPasswordField fx:id="reEnterTxt" onKeyReleased="#onReEnterKeyReleased" layoutX="39.0" layoutY="262.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXButton fx:id="cancelBtn" layoutX="127.0" layoutY="360.0" onAction="#cancelBtnOnAction" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: #f57882;" text="Cancel" />
       <JFXButton fx:id="updateBtn" layoutX="250.0" layoutY="360.0" onAction="#updateBtnOnAction" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: GREEN;" text="Update" />
    </children>
 </AnchorPane>

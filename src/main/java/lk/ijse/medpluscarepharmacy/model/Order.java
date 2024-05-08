@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,4 +20,7 @@ public class Order {
     private String orderId;
     private int qty;
     private double total;
+    private String cust_id;
+    private String user_id;
+    private LocalDate date;
 }

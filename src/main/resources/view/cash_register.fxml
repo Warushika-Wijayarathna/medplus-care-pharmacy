@@ -5,15 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.CashRegisterFormController">
+<AnchorPane fx:id="rootPane" onKeyPressed="#onFPressed" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.CashRegisterFormController">
    <children>
-      <Line endX="100.0" layoutX="813.0" layoutY="15.0" startX="100.0" startY="810.0" />
-      <JFXTextField fx:id="itemSearchBar" layoutX="24.0" layoutY="197.0" onAction="#itemSearchBarOnAction" prefHeight="44.0" prefWidth="219.0" promptText="Search Item" />
-      <TableView fx:id="itemTable" layoutX="20.0" layoutY="254.0" prefHeight="559.0" prefWidth="521.0">
+      <Line endX="100.0" layoutX="793.0" layoutY="15.0" startX="100.0" startY="810.0" />
+      <JFXTextField fx:id="itemSearchBar" layoutX="24.0" layoutY="197.0" onKeyPressed="#onSearchKeyPressed" prefHeight="44.0" prefWidth="219.0" promptText="Search Item" />
+      <TableView fx:id="itemTable" layoutX="20.0" layoutY="254.0" onKeyPressed="#onItemMouseClick" onMouseClicked="#onItemsTableClick" prefHeight="559.0" prefWidth="521.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="103.0" text="item_id" />
           <TableColumn fx:id="colDesc" prefWidth="192.0" text="description" />
@@ -47,50 +49,103 @@
          </font>
       </Label>
       <JFXTextField fx:id="qtyTxt" layoutX="573.0" layoutY="535.0" prefHeight="44.0" prefWidth="298.0" />
-      <JFXButton fx:id="addBtn" layoutX="573.0" layoutY="626.0" onAction="#addBtnClickOnAction" prefHeight="64.0" prefWidth="298.0" style="-fx-background-color: YELLOW;" text="Add">
+      <JFXButton fx:id="addBtn" layoutX="573.0" layoutY="626.0" onAction="#addOnAction" onKeyPressed="#addBtnClickOnAction" prefHeight="64.0" prefWidth="298.0" style="-fx-background-color: #0e9956;" text="Add to cart" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="26.0" />
+            <Font name="Lohit Tamil Classical" size="26.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (46).png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <TableView layoutX="932.0" layoutY="22.0" prefHeight="559.0" prefWidth="604.0">
+      <TableView fx:id="cartTable" layoutX="907.0" layoutY="22.0" onKeyPressed="#addBtnClickOnAction" prefHeight="559.0" prefWidth="629.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="item_id" />
-          <TableColumn prefWidth="148.0" text="description" />
-            <TableColumn prefWidth="82.0" text="unit price" />
-            <TableColumn prefWidth="70.0" text="discount" />
-            <TableColumn prefWidth="61.0" text="qty" />
-            <TableColumn prefWidth="109.0" text="total" />
-            <TableColumn prefWidth="56.0" text="Action" />
+          <TableColumn fx:id="itemIdColumn" prefWidth="75.0" text="item_id" />
+          <TableColumn fx:id="descriptionColumn" prefWidth="148.0" text="description" />
+            <TableColumn fx:id="unitPriceColumn" prefWidth="82.0" text="unit price" />
+            <TableColumn fx:id="discountColumn" prefWidth="70.0" text="discount" />
+            <TableColumn fx:id="qtyColumn" prefWidth="61.0" text="qty" />
+            <TableColumn fx:id="totalColumn" prefWidth="99.0" text="total" />
+            <TableColumn fx:id="removeColumn" prefWidth="93.0" text="Remove" />
         </columns>
       </TableView>
-      <Label layoutX="932.0" layoutY="602.0" prefHeight="64.0" prefWidth="187.0" text="Net total :">
+      <Label layoutX="932.0" layoutY="602.0" prefHeight="64.0" prefWidth="187.0" text="Net total ">
          <font>
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Label fx:id="totalLbl" layoutX="1109.0" layoutY="612.0" prefHeight="54.0" prefWidth="287.0" textFill="#eb0101" />
-      <Label fx:id="balanceTxt" layoutX="1213.0" layoutY="705.0" prefHeight="44.0" prefWidth="287.0" />
-      <JFXButton fx:id="checkOutBtn" layoutX="1133.0" layoutY="749.0" onAction="#checkOutBtnClickOnAction" prefHeight="64.0" prefWidth="238.0" style="-fx-background-color: GREEN;" text="Check out" textFill="WHITE">
+      <Label fx:id="totalLbl" layoutX="1109.0" layoutY="612.0" prefHeight="44.0" prefWidth="287.0" textFill="#eb0101">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font></Label>
+      <Label fx:id="balanceLbl" layoutX="1109.0" layoutY="715.0" prefHeight="44.0" prefWidth="287.0" textFill="#5405ff">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font></Label>
+      <JFXButton fx:id="checkOutBtn" layoutX="1121.0" layoutY="769.0" onAction="#checkoutAction" onKeyPressed="#checkOutBtnClickOnAction" prefHeight="64.0" prefWidth="263.0" style="-fx-background-color: GREEN;" text="Check out" textFill="WHITE">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="87.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (48).png" />
+               </image>
+            </ImageView>
+         </graphic>
       </JFXButton>
-      <Label fx:id="idLbl" layoutX="573.0" layoutY="162.0" prefHeight="44.0" prefWidth="298.0" text="Label" />
-      <Label fx:id="descLbl" layoutX="573.0" layoutY="256.0" prefHeight="44.0" prefWidth="298.0" text="Label" />
-      <Label fx:id="priceLbl" layoutX="573.0" layoutY="358.0" prefHeight="44.0" prefWidth="298.0" text="Label" />
-      <Label fx:id="discLbl" layoutX="573.0" layoutY="447.0" prefHeight="44.0" prefWidth="298.0" text="Label" />
-      <JFXTextField layoutX="22.0" layoutY="83.0" prefHeight="44.0" prefWidth="219.0" promptText="Search Customer" />
+      <Label fx:id="idLbl" layoutX="573.0" layoutY="162.0" prefHeight="44.0" prefWidth="298.0" />
+      <Label fx:id="descLbl" layoutX="573.0" layoutY="256.0" prefHeight="44.0" prefWidth="298.0" />
+      <Label fx:id="priceLbl" layoutX="573.0" layoutY="358.0" prefHeight="44.0" prefWidth="298.0" />
+      <Label fx:id="discLbl" layoutX="573.0" layoutY="447.0" prefHeight="44.0" prefWidth="298.0" />
+      <JFXTextField fx:id="searchCustomer" layoutX="22.0" layoutY="83.0" onKeyPressed="#onSearchCustomer" prefHeight="44.0" prefWidth="219.0" promptText="Search Customer" />
       <Label layoutX="21.0" layoutY="136.0" prefHeight="44.0" prefWidth="150.0" text="Customer :">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label fx:id="custLbl" layoutX="178.0" layoutY="136.0" prefHeight="44.0" prefWidth="206.0" text="Label" />
-      <Label layoutX="20.0" layoutY="8.0" prefHeight="44.0" prefWidth="119.0" text="Order Id:">
+      <Label fx:id="custLbl" layoutX="178.0" layoutY="136.0" prefHeight="44.0" prefWidth="206.0" />
+      <Label layoutX="932.0" layoutY="652.0" prefHeight="64.0" prefWidth="172.0" text="Cash        ">
          <font>
-            <Font name="System Bold" size="22.0" />
+            <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Label fx:id="orderLbl" layoutX="146.0" layoutY="8.0" prefHeight="44.0" prefWidth="132.0" text="Label" />
+      <JFXTextField fx:id="cashTxt" layoutX="1109.0" layoutY="662.0" onKeyPressed="#onCashKeyPressed" prefHeight="44.0" prefWidth="287.0" />
+      <Label layoutX="932.0" layoutY="705.0" prefHeight="64.0" prefWidth="172.0" text="Balance">
+         <font>
+            <Font name="System Bold" size="29.0" />
+         </font>
+      </Label>
+      <Label fx:id="dateLbl" layoutX="22.0" layoutY="4.0" prefHeight="35.0" prefWidth="219.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="usrLbl" layoutX="178.0" layoutY="45.0" prefHeight="35.0" prefWidth="150.0">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font></Label>
+      <Label layoutX="1406.0" layoutY="674.0" prefHeight="44.0" prefWidth="94.0" text="(Press F12)">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="addNewCustBtn" layoutX="253.0" layoutY="92.0" onAction="#addNewCustBtnOnAction" prefHeight="35.0" prefWidth="74.0" style="-fx-background-color: #0e9956;" text="New" textFill="WHITE">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (49).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <Label layoutX="334.0" layoutY="88.0" prefHeight="44.0" prefWidth="94.0" text="(Press F11)">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

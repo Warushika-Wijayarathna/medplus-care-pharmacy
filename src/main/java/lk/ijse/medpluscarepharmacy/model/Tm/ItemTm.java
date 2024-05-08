@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,14 +20,23 @@ public class ItemTm {
     private double retailPrice;
     private double discount;
     private LocalDate expDate;
-    private String suppId;
-    private JFXButton update;
-    private JFXButton delete;
+    private List<JFXButton> action;
+
 
     public ItemTm(String itemId, String description, double retailPrice, double discount) {
         this.itemId = itemId;
         this.description = description;
         this.retailPrice = retailPrice;
         this.discount = discount;
+    }
+
+    public ItemTm(String itemId, String description, int qty, double wholeSalePrice, double retailPrice, double discount, LocalDate expDate) {
+        this.itemId = itemId;
+        this.description = description;
+        this.qty = qty;
+        this.wholeSalePrice = wholeSalePrice;
+        this.retailPrice = retailPrice;
+        this.discount = discount;
+        this.expDate = expDate;
     }
 }

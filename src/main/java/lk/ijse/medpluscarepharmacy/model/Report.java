@@ -1,5 +1,6 @@
 package lk.ijse.medpluscarepharmacy.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import lk.ijse.medpluscarepharmacy.model.Tm.ReportTm;
@@ -15,10 +16,17 @@ import lombok.Data;
 @Data
 
 public class Report {
-    private Report reportId;
-    private int testId;
+    private String reportId;
+    private String testId;
     private String result;
-    private Date issueDate;
-    private Date pickupDate;
+    private LocalDate issueDate;
+    private LocalDate pickupDate;
+
+    public Report(String testId, String result, LocalDate issueDate, LocalDate pickUpDate) {
+        this.testId=testId;
+        this.result=result;
+        this.issueDate=issueDate;
+        this.pickupDate=pickUpDate;
+    }
 }
 

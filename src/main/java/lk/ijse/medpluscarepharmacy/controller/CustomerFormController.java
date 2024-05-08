@@ -2,25 +2,31 @@ package lk.ijse.medpluscarepharmacy.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import lk.ijse.medpluscarepharmacy.model.Customer;
 import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.repository.CustomerRepo;
-import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerFormController {
@@ -30,13 +36,12 @@ public class CustomerFormController {
     public TableColumn <?,?>colCustName;
     public TableColumn<?,?> colContact;
     public TableColumn<?,?> colEmail;
-    public TableColumn<?,?> colUpdate;
-    public TableColumn<?,?> colDelete;
     public JFXTextField custTxt;
     public JFXTextField contactTxt;
     public JFXTextField emailTxt;
     public TableView<CustomerTm> customerTable;
     public JFXTextField searchBar;
+    public TableColumn<CustomerTm, List<JFXButton>> colAction;
     ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
     public CustomerTm selectedCustomer;
 
@@ -51,6 +56,25 @@ public class CustomerFormController {
             }
         });
         searchBar.requestFocus();
+
+        Platform.runLater(()->{
+            custTxt.requestFocus();
+            custTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    contactTxt.requestFocus();
+                }
+            });
+            contactTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    emailTxt.requestFocus();
+                }
+            });
+            emailTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtnOnAction(null);
+                }
+            });
+        });
     }
 
     private void searchCustomer() {
@@ -103,13 +127,16 @@ public class CustomerFormController {
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteCustomer(customer));
 
+                List<JFXButton> actionBtns = new ArrayList<>();
+                actionBtns.add(updateButton);
+                actionBtns.add(deleteButton);
+
                 CustomerTm customerTm = new CustomerTm(
                         customer.getCustomerId(),
                         customer.getName(),
                         customer.getContactNo(),
                         customer.getEmail(),
-                        updateButton,
-                        deleteButton
+                        actionBtns
                 );
                 obList.add(customerTm);
             }
@@ -124,6 +151,7 @@ public class CustomerFormController {
             try {
                 CustomerRepo.delete(customer);
                 obList.remove(selectedCustomer);
+                clear();
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully!").showAndWait();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").showAndWait();
@@ -179,8 +207,28 @@ public class CustomerFormController {
         colCustName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contactNo"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colUpdate.setCellValueFactory(new PropertyValueFactory<>("update"));
-        colDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+            colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+            colAction.setCellFactory((TableColumn<CustomerTm, List<JFXButton>> column) -> {
+                return new TableCell<CustomerTm, List<JFXButton>>() {
+                    @Override
+                    protected void updateItem(List<JFXButton> buttons, boolean empty) {
+                        super.updateItem(buttons, empty);
+                        if (empty || buttons == null || buttons.isEmpty()) {
+                            setGraphic(null);
+                        } else {
+                            HBox hbox = new HBox();
+                            for (JFXButton button : buttons) {
+                                hbox.getChildren().add(button);
+                            }
+                            setGraphic(hbox);
+                        }
+                    }
+
+                };
+            });
+
+
     }
 
     public void addBtnOnAction(ActionEvent actionEvent) {
@@ -195,7 +243,18 @@ public class CustomerFormController {
 
         try {
             int contact = Integer.parseInt(contactText);
-            Customer newCustomer = new Customer( name, contact, email);
+
+            if (isContactNoDuplicate(contact)) {
+                new Alert(Alert.AlertType.WARNING, "Contact number already exists!").showAndWait();
+                return;
+            }
+
+            if (isEmailDuplicate(email)) {
+                new Alert(Alert.AlertType.WARNING, "Email already exists!").showAndWait();
+                return;
+            }
+
+            Customer newCustomer = new Customer(name, contact, email);
 
             CustomerRepo.add(newCustomer);
 
@@ -220,9 +279,15 @@ public class CustomerFormController {
             deleteButton.setGraphic(deleteIcon);
             deleteButton.setOnAction(event -> handleDeleteCustomer(newCustomer));
 
-            obList.add(new CustomerTm(newCustomer.getCustomerId(), name, contact, email, updateButton, deleteButton));
+            List<JFXButton> actionBtns = new ArrayList<>();
+            actionBtns.add(updateButton);
+            actionBtns.add(deleteButton);
+
+            obList.add(new CustomerTm(newCustomer.getCustomerId(), name, contact, email, actionBtns));
 
             clear();
+
+            custTxt.requestFocus();
 
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
@@ -257,5 +322,44 @@ public class CustomerFormController {
         contactTxt.clear();
         emailTxt.clear();
     }
+
+    public void onFKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.F11){
+            searchBar.requestFocus();
+        }
+    }
+
+    public void onNameReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, custTxt);
+    }
+
+    public void onContactReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.CONTACT, contactTxt);
+    }
+
+    public void onEmailReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.EMAIL, emailTxt);
+    }
+
+    private boolean isContactNoDuplicate(int contact) throws SQLException {
+        List<Customer> existingCustomers = CustomerRepo.getAll();
+        for (Customer existingCustomer : existingCustomers) {
+            if (existingCustomer.getContactNo() == contact) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isEmailDuplicate(String email) throws SQLException {
+        List<Customer> existingCustomers = CustomerRepo.getAll();
+        for (Customer existingCustomer : existingCustomers) {
+            if (existingCustomer.getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

@@ -13,9 +13,12 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/member_identifier_form.fxml"));
 
+
         Scene scene = new Scene(rootPane);
+        scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Member Identifier");

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -13,6 +15,6 @@ public class CustomerTm {
     private String name;
     private int contactNo;
     private String email;
-    private JFXButton update;
-    private JFXButton delete;
+    private List<JFXButton> action;
+
 }

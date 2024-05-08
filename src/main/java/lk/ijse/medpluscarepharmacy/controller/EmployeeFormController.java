@@ -3,6 +3,8 @@ package lk.ijse.medpluscarepharmacy.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +16,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Employee;
@@ -22,6 +26,8 @@ import lk.ijse.medpluscarepharmacy.model.Tm.UserTm;
 import lk.ijse.medpluscarepharmacy.model.User;
 import lk.ijse.medpluscarepharmacy.repository.EmployeeRepo;
 import lk.ijse.medpluscarepharmacy.repository.UserRepo;
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -77,6 +83,53 @@ public class EmployeeFormController {
             boolean isSelected = usrCheckBox.isSelected();
             setFieldOpacity(isSelected);
             setTextFieldEditable(isSelected);
+        });
+
+        Platform.runLater(() -> {
+            employeeNameTxt.requestFocus();
+            employeeNameTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    positionTxt.requestFocus();
+                }
+            });
+            positionTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    addressTxt.requestFocus();
+                }
+            });
+            addressTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    contactNo.requestFocus();
+                }
+            });
+            contactNo.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    salaryTxt.requestFocus();
+                }
+            });
+            salaryTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER){
+                    usrCheckBox.requestFocus();
+                }
+            });
+            if (usrCheckBox.isSelected()) {
+                usernameTxt.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER){
+                        passwordTxt.requestFocus();
+                    }
+                });
+                passwordTxt.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER){
+                        reEnterTxt.requestFocus();
+                    }
+                });
+                reEnterTxt.setOnKeyPressed(event -> {
+                    if (event.getCode() == KeyCode.ENTER){
+                        addBtn.requestFocus();
+                    }
+                });
+            }
+
         });
     }
 
@@ -301,5 +354,53 @@ public class EmployeeFormController {
         }
     }
 
+    public void onEmNameKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, employeeNameTxt);
+    }
+
+    public void onPositionKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.POSITION, positionTxt);
+    }
+
+    public void onAddressKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.ADDRESS, addressTxt);
+    }
+
+    public void onContactKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.CONTACT, contactNo);
+    }
+
+    public void onSalaryKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.SALARY, salaryTxt);
+    }
+
+    public void onUsrKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, usernameTxt);
+    }
+
+    public void onPasswordKeyReleased(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PASSWORD, passwordTxt);
+    }
+
+    public void onReEnterKeyReleased(KeyEvent keyEvent) {
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        validator.setMessage("Should match with password");
+
+        //input should match with passwordtxt
+        if (passwordTxt.getText().equals(reEnterTxt.getText())) {
+            reEnterTxt.setFocusColor(javafx.scene.paint.Paint.valueOf("Green"));
+            reEnterTxt.setUnFocusColor(javafx.scene.paint.Paint.valueOf("Green"));
+        } else {
+            reEnterTxt.setFocusColor(javafx.scene.paint.Paint.valueOf("Red"));
+            reEnterTxt.setUnFocusColor(javafx.scene.paint.Paint.valueOf("Red"));
+            //validating msg
+            reEnterTxt.getValidators().add(validator);
+            reEnterTxt.focusedProperty().addListener((o, oldVal, newVal) -> {
+                if (!newVal) {
+                    reEnterTxt.validate();
+                }
+            });
+        }
+    }
 }
 

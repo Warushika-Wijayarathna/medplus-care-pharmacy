@@ -17,31 +17,31 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="employeeNameTxt" layoutX="37.0" layoutY="46.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="employeeNameTxt" layoutX="37.0" layoutY="46.0" onKeyReleased="#onEmNameKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label layoutX="37.0" layoutY="90.0" prefHeight="44.0" prefWidth="291.0" text="Position">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="positionTxt" layoutX="37.0" layoutY="134.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="positionTxt" layoutX="37.0" layoutY="134.0" onKeyReleased="#onPositionKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label layoutX="37.0" layoutY="178.0" prefHeight="44.0" prefWidth="291.0" text="Address">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="addressTxt" layoutX="37.0" layoutY="222.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="addressTxt" layoutX="37.0" layoutY="222.0" onKeyReleased="#onAddressKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label layoutX="37.0" layoutY="266.0" prefHeight="44.0" prefWidth="291.0" text="Contact No">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="contactNo" layoutX="37.0" layoutY="310.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="contactNo" layoutX="37.0" layoutY="310.0" onKeyReleased="#onContactKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label layoutX="37.0" layoutY="354.0" prefHeight="44.0" prefWidth="291.0" text="Salary">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="salaryTxt" layoutX="37.0" layoutY="398.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="salaryTxt" layoutX="37.0" layoutY="398.0" onKeyReleased="#onSalaryKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <TableView fx:id="employeeTable" layoutX="395.0" layoutY="17.0" onMouseClicked="#onEmMouseClicked" prefHeight="432.0" prefWidth="1124.0">
         <columns>
           <TableColumn fx:id="colId" prefWidth="99.0" text="Employee Id" />
@@ -60,19 +60,19 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="usernameTxt" layoutX="37.0" layoutY="535.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXTextField fx:id="usernameTxt" layoutX="37.0" layoutY="535.0" onKeyReleased="#onUsrKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label fx:id="passwordLbl" layoutX="37.0" layoutY="579.0" prefHeight="44.0" prefWidth="291.0" text="Password">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="passwordTxt" layoutX="37.0" layoutY="623.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXPasswordField fx:id="passwordTxt" layoutX="37.0" layoutY="623.0" onKeyReleased="#onPasswordKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <Label fx:id="reEnterLbl" layoutX="37.0" layoutY="667.0" prefHeight="44.0" prefWidth="291.0" text="Re-enter">
          <font>
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXPasswordField fx:id="reEnterTxt" layoutX="37.0" layoutY="711.0" prefHeight="44.0" prefWidth="291.0" />
+      <JFXPasswordField fx:id="reEnterTxt" layoutX="37.0" layoutY="711.0" onKeyReleased="#onReEnterKeyReleased" prefHeight="44.0" prefWidth="291.0" />
       <JFXButton fx:id="addBtn" layoutX="64.0" layoutY="769.0" onAction="#addBtnClickOnAction" prefHeight="64.0" prefWidth="238.0" style="-fx-background-color: GREEN;" text="Add" textFill="WHITE">
          <font>
             <Font name="System Bold" size="26.0" />

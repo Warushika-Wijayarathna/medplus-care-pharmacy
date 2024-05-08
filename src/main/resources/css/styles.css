@@ -1,0 +1,11 @@
+.expiring {
+    -fx-background-color: orange;
+}
+
+.table-row-cell.understock {
+    -fx-background-color: red;
+}
+
+.table-row-cell.understock-expiring {
+    -fx-background-color: purple;
+}

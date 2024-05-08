@@ -18,9 +18,9 @@ public class Item {
     private double retailPrice;
     private double discount;
     private LocalDate expDate;
-    private String suppId;
 
-    public Item(String id, String desc, int qty, Double price, Double discount, double wholeSalePrice, LocalDate exp, String suppId) {
+
+    public Item(String id, String desc, int qty, Double price, Double discount, double wholeSalePrice, LocalDate exp ){
         this.itemId=id;
         this.description=desc;
         this.qty=qty;
@@ -28,7 +28,7 @@ public class Item {
         this.retailPrice=price;
         this.discount=discount;
         this.expDate=exp;
-        this.suppId=suppId;
+
     }
 
     public Item(String id, String desc, double price, double discount) {
@@ -38,8 +38,7 @@ public class Item {
         this.discount=discount;
     }
 
-    public Item(String id, String desc, int qty, double wholeSalePrice, double retailPrice, double discount, LocalDate expDate) {
-        this.itemId=id;
+    public Item(String desc, int qty, double wholeSalePrice, double retailPrice, double discount, LocalDate expDate) {
         this.description=desc;
         this.qty=qty;
         this.wholeSalePrice=wholeSalePrice;

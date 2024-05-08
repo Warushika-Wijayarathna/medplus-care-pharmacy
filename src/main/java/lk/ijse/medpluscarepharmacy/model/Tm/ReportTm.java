@@ -5,17 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 
 public class ReportTm {
     private String reportId;
-    private int testId;
+    private String testId;
     private String result;
-    private Date issueDate;
-    private Date pickupDate;
-    private JFXButton update;
-    private JFXButton delete;
+    private LocalDate issueDate;
+    private LocalDate pickupDate;
+    private List<JFXButton> action;
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.PrescFormController">
+   <children>
+      <TableView fx:id="prescTable" layoutX="55.0" layoutY="498.0" onMouseClicked="#onMouseClickAction" prefHeight="308.0" prefWidth="1463.0">
+         <columns>
+            <TableColumn fx:id="colPrescId" prefWidth="125.0" text="Prescription Id" />
+            <TableColumn fx:id="colCustomer" prefWidth="142.0" text="Customer" />
+            <TableColumn fx:id="colPatient" prefWidth="152.0" text="Patient Name" />
+            <TableColumn fx:id="colAge" prefWidth="98.0" text="Age" />
+            <TableColumn fx:id="colMedicalOfficer" prefWidth="200.0" text="Medical Officer " />
+            <TableColumn fx:id="colContext" prefWidth="300.0" text="Context" />
+            <TableColumn fx:id="colDuration" prefWidth="133.0" text="Duration" />
+            <TableColumn fx:id="colDate" prefWidth="127.0" text="Date" />
+            <TableColumn fx:id="colAction" prefWidth="185.0" text="Update" />
+         </columns>
+      </TableView>
+      <Label layoutX="55.0" layoutY="153.0" prefHeight="40.0" prefWidth="243.0" text="Patient Name">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="patientTxt" layoutX="371.0" layoutY="153.0" onKeyReleased="#onPatientName" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="55.0" layoutY="203.0" prefHeight="40.0" prefWidth="243.0" text="Age">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="ageTxt" layoutX="371.0" layoutY="203.0" onKeyReleased="#onAge" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="55.0" layoutY="256.0" prefHeight="40.0" prefWidth="273.0" text="Medical Officer ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="medicalOfficerTxt" layoutX="371.0" layoutY="256.0" onKeyReleased="#onMedicalOfficer" prefHeight="40.0" prefWidth="259.0" />
+      <JFXButton fx:id="addBtn" layoutX="1086.0" layoutY="438.0" onAction="#addBtnOnAction" prefHeight="40.0" prefWidth="124.0" style="-fx-background-color: GREEN;" text="add" textFill="WHITE" />
+      <JFXTextField fx:id="searchBar" layoutX="55.0" layoutY="43.0" onKeyPressed="#onKeyPressedAction" prefHeight="40.0" prefWidth="504.0" promptText="Search Prescription" />
+      <Label layoutX="56.0" layoutY="305.0" prefHeight="40.0" prefWidth="243.0" text="Context">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="697.0" layoutY="197.0" prefHeight="40.0" prefWidth="243.0" text="Test">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TableView fx:id="testCart" layoutX="697.0" layoutY="261.0" prefHeight="163.0" prefWidth="513.0">
+         <columns>
+            <TableColumn fx:id="colTestId" prefWidth="167.0" text="Test Id" />
+            <TableColumn fx:id="colDescName" prefWidth="216.0" text="Description" />
+            <TableColumn fx:id="colRemove" prefWidth="129.0" text="Remove" />
+         </columns>
+      </TableView>
+      <JFXComboBox fx:id="testComBox" editable="true" layoutX="1013.0" layoutY="202.0" onAction="#onTestSelectOption" onKeyPressed="#testComboxKeyPressed" prefHeight="40.0" prefWidth="259.0" promptText="Select Test" />
+      <Label layoutX="56.0" layoutY="104.0" prefHeight="40.0" prefWidth="243.0" text="Customer ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="custCombox" editable="true" layoutX="371.0" layoutY="107.0" onKeyPressed="#custComboxKeyPressed" prefHeight="40.0" prefWidth="259.0" promptText="Select Customer" />
+      <Label layoutX="697.0" layoutY="95.0" prefHeight="40.0" prefWidth="243.0" text="Duration">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="durationTxt" layoutX="1013.0" layoutY="95.0" onKeyReleased="#onDuration" prefHeight="40.0" prefWidth="259.0" />
+      <Label layoutX="697.0" layoutY="149.0" prefHeight="40.0" prefWidth="243.0" text="Date">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePicker" layoutX="1013.0" layoutY="149.0" prefHeight="40.0" prefWidth="259.0" />
+      <JFXTextArea fx:id="contextText" layoutX="371.0" layoutY="325.0" onKeyReleased="#onContext" prefHeight="156.0" prefWidth="259.0" />
+   </children>
+</AnchorPane>

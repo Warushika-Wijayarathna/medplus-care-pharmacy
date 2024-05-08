@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -16,6 +18,5 @@ public class TestTm {
     private String sampleType;
     private String testType;
     private double price;
-    private JFXButton update;
-    private JFXButton delete;
+    private List<JFXButton> action;
 }

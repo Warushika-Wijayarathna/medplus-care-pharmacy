@@ -26,4 +26,9 @@ public class Test {
         this.testType=testType;
         this.price=priceOf;
     }
+
+    public Test(String testId, String testName) {
+        this.testId=testId;
+        this.description=testName;
+    }
 }

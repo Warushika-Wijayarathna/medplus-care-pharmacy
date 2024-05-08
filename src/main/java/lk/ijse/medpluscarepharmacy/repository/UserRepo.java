@@ -87,4 +87,19 @@ public class UserRepo {
         preparedStatement.setObject(1, userId);
         preparedStatement.executeUpdate();
     }
+
+    public static String getUserId(String adminPassword) throws SQLException {
+        System.out.println(adminPassword);
+        String sql = "SELECT usr_id FROM User WHERE usr_name = ?";
+        Connection connection = DbConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, adminPassword);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            return resultSet.getString("usr_id");
+        } else {
+            throw new SQLException("No user found with the provided password");
+        }
+    }
 }

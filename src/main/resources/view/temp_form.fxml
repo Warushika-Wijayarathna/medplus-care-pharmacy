@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane fx:id="rootPane" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.TempFormController">
+   <children>
+      <Line endX="556.666748046875" endY="870.0" layoutX="270.0" layoutY="-46.0" startX="556.6666870117188" startY="63.66666793823242" stroke="#00000079" />
+      <TableView fx:id="itemTable" layoutX="856.0" layoutY="17.0" prefHeight="808.0" prefWidth="664.0" stylesheets="@../css/styles.css">
+         <columns>
+            <TableColumn fx:id="colItemId" prefWidth="64.0" text="Item Id" />
+            <TableColumn fx:id="colDesc" prefWidth="165.0" text="Description" />
+            <TableColumn fx:id="colQty" prefWidth="51.0" text="Qty" />
+            <TableColumn fx:id="colWholePrice" prefWidth="136.0" text="Whole sale price" />
+            <TableColumn fx:id="colRetailPrice" prefWidth="92.0" text="Retail price" />
+            <TableColumn fx:id="colDiscount" prefWidth="77.0" text="Discount " />
+            <TableColumn fx:id="colExpDate" prefWidth="78.0" text="Exp Date" />
+         </columns>
+      </TableView>
+      <JFXButton fx:id="reportBtn" layoutX="149.0" layoutY="788.0" onAction="#reportBtnOnAction" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: GREEN;" text="Report" textFill="WHITE" />
+   </children>
+</AnchorPane>

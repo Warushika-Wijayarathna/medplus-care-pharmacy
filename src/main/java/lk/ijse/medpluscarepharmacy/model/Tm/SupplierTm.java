@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -14,12 +16,6 @@ public class SupplierTm {
         private String name;
         private int contact;
         private String email;
-        private JFXButton update;
-        private JFXButton delete;
+        private List<JFXButton> action;
 
-    public SupplierTm(String selectedSupplierId, String selectedOption, JFXButton remove) {
-        this.supplierId=selectedSupplierId;
-        this.name=selectedOption;
-        this.delete=remove;
-    }
 }

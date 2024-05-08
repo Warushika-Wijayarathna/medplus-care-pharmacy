@@ -2,8 +2,8 @@ package lk.ijse.medpluscarepharmacy.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,31 +15,37 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import lk.ijse.medpluscarepharmacy.model.Item;
+import lk.ijse.medpluscarepharmacy.model.Supplier;
+import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.ItemTm;
+import lk.ijse.medpluscarepharmacy.model.Tm.SmallSupplierTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.ItemRepo;
+import lk.ijse.medpluscarepharmacy.repository.ItemSupplierRepo;
 import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFormController {
     public TableView<ItemTm> itemTable;
-    public TableColumn<?,?> colItemId;
-    public TableColumn<?,?> colDesc;
-    public TableColumn<?,?> colQty;
-    public TableColumn<?,?> colWholePrice;
-    public TableColumn<?, ?> colRetailPrice;
-    public TableColumn<?,?> colDiscount;
-    public TableColumn<?,?> colExpDate;
-    public TableColumn<?,?> colSupp;
-    public TableColumn<?,?> colUpdate;
-    public TableColumn<?,?> colDelete;
+    public TableColumn<ItemTm, ?> colItemId;
+    public TableColumn<ItemTm, ?> colDesc;
+    public TableColumn<ItemTm, ?> colQty;
+    public TableColumn<ItemTm, ?> colWholePrice;
+    public TableColumn<ItemTm, ?> colRetailPrice;
+    public TableColumn<ItemTm, ?> colDiscount;
+    public TableColumn<ItemTm, ?> colExpDate;
+    public TableColumn<ItemTm, List<JFXButton>> colAction;
     public JFXTextField descTxt;
     public JFXTextField qtyTxt;
     public JFXTextField wholeSalePriceTxt;
@@ -48,82 +54,97 @@ public class ItemFormController {
     public JFXTextField retailTxt;
     public JFXTextField discountTxt;
     public DatePicker expDatePicker;
-    public TableView<SupplierTm> supplierCart;
-    public TableColumn<?,?> colSuppId;
-    public TableColumn<?,?> colSuppName;
-    public TableColumn<?,?> colRemove;
+    public TableView<SmallSupplierTm> supplierCart;
+    public TableColumn<?, ?> colSuppId;
+    public TableColumn<?, ?> colSuppName;
+    public TableColumn<?, ?> colRemove;
     @FXML
-    private JFXTextField searchTextField;
-
-    @FXML
-    private JFXListView<String> optionsListView;
-
+    public JFXComboBox suppComBox;
     private ObservableList<String> allSupplierNames;
 
     ObservableList<ItemTm> observableList = FXCollections.observableArrayList();
+    ObservableList<SmallSupplierTm> obList = FXCollections.observableArrayList();
     public ItemTm selectedItem;
-    public void initialize(){
-        setCellValueFactory();
-        loadAllItems();
-        searchItem();
+    public SmallSupplierTm selectedSupplierOfCart;
 
-        searchBar.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                itemTable.requestFocus();
-            }
-        });
-        searchBar.requestFocus();
+    public void initialize() throws SQLException {
+        setCellValueFactoryForItemTable();
+        setCellValueFactoryForSupplierTable();
+        loadAllItems();
+
 
         try {
             allSupplierNames = FXCollections.observableArrayList(SupplierRepo.getAllSupplierNames());
+            suppComBox.setItems(allSupplierNames);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
-        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            updateDropdownOptions(newValue.toLowerCase());
-        });
 
-        optionsListView.setPrefWidth(200);
-        optionsListView.setVisible(false);
+        Platform.runLater(()->{
+            loadAllItems();
 
-        searchTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) {
-                optionsListView.setVisible(false);
-            }
-        });
-    }
-
-    private void updateDropdownOptions(String lowerCase) {
-        optionsListView.setVisible(true);
-        FilteredList<String> filteredOptions = allSupplierNames.filtered(name -> name.toLowerCase().contains(lowerCase));
-
-        optionsListView.setItems(filteredOptions);
-    }
-
-
-    @FXML
-    void onSelectOption(MouseEvent event) {
-        String selectedOption = optionsListView.getSelectionModel().getSelectedItem();
-        if (selectedOption != null) {
-            searchTextField.setText(selectedOption);
-            optionsListView.setVisible(false);
-
-            try {
-                String selectedSupplierId = SupplierRepo.getSupplierIdByName(selectedOption);
-                if (selectedSupplierId != null) {
-                    SupplierTm selectedSupplier = new SupplierTm(selectedSupplierId, selectedOption, new JFXButton("Remove"));
-                    supplierCart.getItems().add(selectedSupplier);
-                } else {
-                    System.out.println("Supplier ID not found for " + selectedOption);
+            descTxt.requestFocus();
+            descTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    qtyTxt.requestFocus();
                 }
-            } catch (SQLException e) {
+            });
 
-                e.printStackTrace();
-            }
-        }
+            qtyTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    wholeSalePriceTxt.requestFocus();
+                }
+            });
+
+            wholeSalePriceTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    retailTxt.requestFocus();
+                }
+            });
+
+            retailTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    discountTxt.requestFocus();
+                }
+            });
+
+            discountTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    expDatePicker.requestFocus();
+                }
+            });
+
+            expDatePicker.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    suppComBox.requestFocus();
+                }
+            });
+
+            suppComBox.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtn.requestFocus();
+                }
+            });
+
+            addBtn.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtnOnAction(new ActionEvent());
+                }
+            });
+        });
+
+
     }
 
+
+    public void onKeyPressedAction(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            itemTable.requestFocus();
+        }
+        searchBar.requestFocus();
+        searchItem();
+    }
 
     private void searchItem() {
         FilteredList<ItemTm> filteredData = new FilteredList<>(observableList, b -> true);
@@ -135,8 +156,7 @@ public class ItemFormController {
 
                 String searchKey = newValue.toLowerCase();
 
-
-                if ((itemTm.getItemId()).contains(searchKey)) {
+                if (itemTm.getItemId().toLowerCase().contains(searchKey)) {
                     return true;
                 } else if (itemTm.getDescription().toLowerCase().contains(searchKey)) {
                     return true;
@@ -146,28 +166,25 @@ public class ItemFormController {
                     return true;
                 } else if (String.valueOf(itemTm.getDiscount()).contains(searchKey)) {
                     return true;
-                } else if (new SimpleDateFormat("dd-MM-yyyy").format(itemTm.getExpDate()).contains(searchKey)) {
-                    return true;
-
-                } else if (itemTm.getSuppId().toLowerCase().contains(searchKey)) {
-                    return true;
                 }
+
                 return false;
             });
         });
-
-        observableList.clear();
-        observableList.addAll(filteredData);
 
         SortedList<ItemTm> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(itemTable.comparatorProperty());
         itemTable.setItems(sortedData);
     }
 
+
+
     private void loadAllItems() {
-        observableList.clear();
+
         try {
             List<Item> itemList = ItemRepo.getAllItem();
+            observableList.clear();
+
             for (Item item : itemList) {
                 ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
                 updateIcon.setFitWidth(20);
@@ -185,6 +202,10 @@ public class ItemFormController {
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteItem(item));
 
+                List<JFXButton> actionBtns = new ArrayList<>();
+                actionBtns.add(updateButton);
+                actionBtns.add(deleteButton);
+
                 ItemTm itemTm = new ItemTm(
                         item.getItemId(),
                         item.getDescription(),
@@ -193,24 +214,36 @@ public class ItemFormController {
                         item.getRetailPrice(),
                         item.getDiscount(),
                         item.getExpDate(),
-                        item.getSuppId(),
-                        updateButton,
-                        deleteButton
+                        actionBtns
                 );
+
                 observableList.add(itemTm);
             }
             itemTable.setItems(observableList);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("SQL Exception occurred while loading items: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Exception occurred while loading items: " + e.getMessage());
+            e.printStackTrace();
         }
-
     }
+
 
     private void handleDeleteItem(Item item) {
         if (item != null) {
             try {
-                ItemRepo.delete(item);
-                observableList.remove(selectedItem);
+                boolean isDeleted = false;
+
+                isDeleted = ItemSupplierRepo.deleteItem(item);
+
+                if (isDeleted){
+                    obList.clear();
+                    loadAllItems();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to delete item!").showAndWait();
+                    return;
+                }
                 new Alert(Alert.AlertType.CONFIRMATION, "Item deleted successfully!").showAndWait();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Item to delete customer!").showAndWait();
@@ -223,28 +256,38 @@ public class ItemFormController {
 
     private void handleUpdateItem(Item item) {
         if (selectedItem != null) {
-            String itemId = selectedItem.getItemId();
-            String description = selectedItem.getDescription();
-            int qty = selectedItem.getQty();
-            double wholeSalePrice = selectedItem.getWholeSalePrice();
-            double retailPrice = selectedItem.getRetailPrice();
-            double discount = selectedItem.getDiscount();
-            LocalDate expDate = selectedItem.getExpDate();
-            String suppId = selectedItem.getSuppId();
-
-            Item updatedItem = new Item(
-                    itemId,
-                    descTxt.getText(),
-                    Integer.parseInt(qtyTxt.getText()),
-                    Double.parseDouble(wholeSalePriceTxt.getText()),
-                    Double.parseDouble(retailTxt.getText()),
-                    Double.parseDouble(discountTxt.getText()),
-                    expDatePicker.getValue(),
-                    suppId
-            );
-
             try {
-                ItemRepo.update(updatedItem);
+                String itemId = selectedItem.getItemId();
+                String description = selectedItem.getDescription();
+                int qty = selectedItem.getQty();
+                double wholeSalePrice = selectedItem.getWholeSalePrice();
+                double retailPrice = selectedItem.getRetailPrice();
+                double discount = selectedItem.getDiscount();
+                LocalDate expDate = selectedItem.getExpDate();
+
+                Item updatedItem = new Item(
+                        itemId,
+                        descTxt.getText(),
+                        Integer.parseInt(qtyTxt.getText()),
+                        Double.parseDouble(wholeSalePriceTxt.getText()),
+                        Double.parseDouble(retailTxt.getText()),
+                        Double.parseDouble(discountTxt.getText()),
+                        expDatePicker.getValue()
+                );
+
+                List<String> allSupplierIds = new ArrayList<>();
+                for (SmallSupplierTm supplier : supplierCart.getItems()) {
+                    allSupplierIds.add(supplier.getSupplierId());
+                }
+
+                boolean isUpdated = ItemSupplierRepo.updateItem(updatedItem, allSupplierIds);
+
+                if (isUpdated) {
+                    obList.clear();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Failed to update item!").showAndWait();
+                    return;
+                }
 
                 selectedItem.setDescription(description);
                 selectedItem.setQty(qty);
@@ -255,12 +298,12 @@ public class ItemFormController {
 
                 clear();
 
-                new Alert(Alert.AlertType.CONFIRMATION, "Item Updated").showAndWait();
+                new Alert(Alert.AlertType.CONFIRMATION, "Item updated successfully!").showAndWait();
 
                 loadAllItems();
                 searchItem();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (NumberFormatException e) {
+                new Alert(Alert.AlertType.ERROR, "Invalid input format! Please enter valid numbers.").showAndWait();
             }
         } else {
             new Alert(Alert.AlertType.WARNING, "Please select an item to update!").showAndWait();
@@ -268,7 +311,8 @@ public class ItemFormController {
     }
 
 
-    private void setCellValueFactory() {
+
+    private void setCellValueFactoryForItemTable() {
         colItemId.setCellValueFactory(new PropertyValueFactory<>("itemId"));
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
@@ -276,17 +320,176 @@ public class ItemFormController {
         colRetailPrice.setCellValueFactory(new PropertyValueFactory<>("retailPrice"));
         colDiscount.setCellValueFactory(new PropertyValueFactory<>("discount"));
         colExpDate.setCellValueFactory(new PropertyValueFactory<>("expDate"));
-        colSuppId.setCellValueFactory(new PropertyValueFactory<>("suppId"));
-        colUpdate.setCellValueFactory(new PropertyValueFactory<>("update"));
-        colDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+        colAction.setCellFactory((TableColumn<ItemTm, List<JFXButton>> column) -> {
+            return new TableCell<ItemTm, List<JFXButton>>() {
+                @Override
+                protected void updateItem(List<JFXButton> buttons, boolean empty) {
+                    super.updateItem(buttons, empty);
+                    if (empty || buttons == null || buttons.isEmpty()) {
+                        setGraphic(null);
+                    } else {
+                        HBox hbox = new HBox();
+                        for (JFXButton button : buttons) {
+                            hbox.getChildren().add(button);
+                        }
+                        setGraphic(hbox);
+                    }
+                }
+
+            };
+        });
+    }
+
+    private void setCellValueFactoryForSupplierTable() {
+        colSuppId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
+        colSuppName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colRemove.setCellValueFactory(new PropertyValueFactory<>("remove"));
     }
 
     public void onMouseClickAction(MouseEvent mouseEvent) {
+        obList.clear();
+
+        try {
+            if (mouseEvent.getClickCount() == 1) {
+                int selectedIndex = itemTable.getSelectionModel().getSelectedIndex();
+                int selectedIndexOfSupplier = supplierCart.getSelectionModel().getSelectedIndex();
+
+                if (selectedIndex >= 0) {
+                    selectedItem = itemTable.getItems().get(selectedIndex);
+
+                    String itemId = selectedItem.getItemId();
+                    String desc = selectedItem.getDescription();
+                    int qty = selectedItem.getQty();
+                    double wholeSalePrice = selectedItem.getWholeSalePrice();
+                    double retailPrice = selectedItem.getRetailPrice();
+                    double discount = selectedItem.getDiscount();
+                    LocalDate expDate = selectedItem.getExpDate();
+
+                    descTxt.setText(desc);
+                    qtyTxt.setText(String.valueOf(qty));
+                    wholeSalePriceTxt.setText(String.valueOf(wholeSalePrice));
+                    retailTxt.setText(String.valueOf(retailPrice));
+                    discountTxt.setText(String.valueOf(discount));
+                    expDatePicker.setValue(expDate);
+
+                    if (selectedIndexOfSupplier >= 0) {
+                        selectedSupplierOfCart = supplierCart.getItems().get(selectedIndexOfSupplier);
+                    }
+                    List<Supplier> supplierTm = null;
+                    try {
+                        List<String> suppliers = ItemSupplierRepo.getSupplierIdsByItemId(itemId);
+                        System.out.println(suppliers);
+                        supplierTm = SupplierRepo.getSupplierDetailsBySupplierId(suppliers);
+                        System.out.println(supplierTm);
+                        for(Supplier supplier : supplierTm){
+                            ImageView removeIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (47).png")));
+                            removeIcon.setFitWidth(20);
+                            removeIcon.setFitHeight(20);
+
+                            JFXButton remove = new JFXButton();
+                            remove.setGraphic(removeIcon);
+                            remove.setOnAction(event-> {
+                                supplierCart.getItems().remove(new SmallSupplierTm(supplier.getSupplierId(), supplier.getName(), remove));
+                            });
+
+                            SmallSupplierTm smallSupplierTm = new SmallSupplierTm(
+                                    supplier.getSupplierId(),
+                                    supplier.getName(),
+                                    remove
+                            );
+                            obList.add(smallSupplierTm);
+
+                        }
+                        supplierCart.setItems(obList);
+                        System.out.println(obList);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+
 
     public void addBtnOnAction(ActionEvent actionEvent) {
-    }
+        String desc = descTxt.getText().trim();
+        String qtyText = qtyTxt.getText().trim();
+        String wholeSalePriceText = wholeSalePriceTxt.getText().trim();
+        String retailPriceText = retailTxt.getText().trim();
+        String discountText = discountTxt.getText().trim();
+        LocalDate expDate = expDatePicker.getValue();
 
+        if (desc.isEmpty() || qtyText.isEmpty() || wholeSalePriceText.isEmpty() || retailPriceText.isEmpty() || discountText.isEmpty() || expDate == null || supplierCart.getItems().isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
+            return;
+        }
+
+        try {
+            int qty = Integer.parseInt(qtyText);
+            double wholeSalePrice = Double.parseDouble(wholeSalePriceText);
+            double retailPrice = Double.parseDouble(retailPriceText);
+            double discount = Double.parseDouble(discountText);
+
+            String itemId = ItemRepo.generateItemId(new Item(desc, qty, wholeSalePrice, retailPrice, discount, expDate));
+
+
+            Item newItem = new Item(itemId,desc, qty, wholeSalePrice, retailPrice, discount, expDate);
+
+            List<String> allSupplierIds = new ArrayList<>();
+            for (SmallSupplierTm supplier : supplierCart.getItems()) {
+                allSupplierIds.add(supplier.getSupplierId());
+            }
+
+            boolean isSaved = false;
+
+            isSaved = ItemSupplierRepo.saveItem(newItem, allSupplierIds);
+
+            if (isSaved) {
+                Platform.runLater(()->{
+                    new Alert(Alert.AlertType.CONFIRMATION, "Item added successfully!").showAndWait();
+                });
+
+
+                ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+                updateIcon.setFitWidth(20);
+                updateIcon.setFitHeight(20);
+
+                JFXButton updateButton = new JFXButton();
+                updateButton.setGraphic(updateIcon);
+                updateButton.setOnAction(event -> handleUpdateItem(newItem));
+
+                ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+                deleteIcon.setFitWidth(20);
+                deleteIcon.setFitHeight(20);
+
+                JFXButton deleteButton = new JFXButton();
+                deleteButton.setGraphic(deleteIcon);
+                deleteButton.setOnAction(event -> handleDeleteItem(newItem));
+
+                List<JFXButton> actionBtns = new ArrayList<>();
+                actionBtns.add(updateButton);
+                actionBtns.add(deleteButton);
+
+                observableList.add(new ItemTm(itemId, desc, qty, wholeSalePrice, retailPrice, discount, expDate, actionBtns));
+                obList.clear();
+                clear();
+                descTxt.requestFocus();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to add item!").showAndWait();
+            }
+
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.ERROR, "Invalid number format!").showAndWait();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to add item!").showAndWait();
+            e.printStackTrace();
+        }
+    }
     public void clear() {
         descTxt.clear();
         qtyTxt.clear();
@@ -296,7 +499,58 @@ public class ItemFormController {
         expDatePicker.setValue(null);
     }
 
+    @FXML
 
+    void onSelectOption(ActionEvent event) {
+        String selectedSupplierName = (String) suppComBox.getSelectionModel().getSelectedItem();
+        if (selectedSupplierName != null) {
+            try {
+                SupplierTm selectedSupplier = SupplierRepo.getSupplierTmByName(selectedSupplierName);
+                if (selectedSupplier != null) {
+                    ImageView removeIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (47).png")));
+                    removeIcon.setFitWidth(20);
+                    removeIcon.setFitHeight(20);
 
+                    JFXButton remove = new JFXButton();
+                    remove.setGraphic(removeIcon);
+                    remove.setOnAction(e -> {
+                        supplierCart.getItems().remove(new SmallSupplierTm(selectedSupplier.getSupplierId(), selectedSupplier.getName(), remove));
+                    });
+                    SmallSupplierTm smallSupplierTm = new SmallSupplierTm(selectedSupplier.getSupplierId(), selectedSupplier.getName(), remove);
+                    supplierCart.getItems().add(smallSupplierTm);
+                } else {
+                    System.out.println("Supplier not found for " + selectedSupplierName);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public void onDescription(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.DESCRIPTION, descTxt);
+    }
+
+    public void onQty(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.QTY, qtyTxt);
+    }
+
+    public void onWholeSale(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PRICE, wholeSalePriceTxt);
+    }
+
+    public void onRetailPrice(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PRICE, retailTxt);
+    }
+
+    public void onDiscount(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PRICE, discountTxt);
+    }
+
+    public void onFKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.F11){
+            searchBar.requestFocus();
+        }
+    }
 }
+

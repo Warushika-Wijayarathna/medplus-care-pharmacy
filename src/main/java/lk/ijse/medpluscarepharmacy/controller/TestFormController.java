@@ -9,23 +9,30 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Test;
+import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.TestTm;
 import lk.ijse.medpluscarepharmacy.repository.TestRepo;
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,8 +44,6 @@ public class TestFormController {
     public TableColumn<?,?> colSampleType;
     public TableColumn<?,?> colTestType;
     public TableColumn<?,?> colPrice;
-    public TableColumn<?,?> colUpdate;
-    public TableColumn<?,?> colDelete;
     public JFXTextField testTxt;
     public JFXTextField descTxt;
     public JFXTextField labTxt;
@@ -46,9 +51,11 @@ public class TestFormController {
     public JFXTextField sampleTypeTxt;
     public JFXTextField testTypeTxt;
     public JFXTextField priceTxt;
+    public JFXButton addBtn;
 
     ObservableList<TestTm> obList = FXCollections.observableArrayList();
     public TestTm selectedTest;
+    public TableColumn<TestTm, List<JFXButton>> colAction;
 
     public void initialize(){
         setCellValueFactory();
@@ -60,7 +67,45 @@ public class TestFormController {
                 testTable.requestFocus();
             }
         });
-        searchBar.requestFocus();
+
+        Platform.runLater(()->{
+            descTxt.requestFocus();
+            descTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    labTxt.requestFocus();
+                }
+            });
+
+            labTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    sampleTypeTxt.requestFocus();
+                }
+            });
+
+            sampleTypeTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    testTypeTxt.requestFocus();
+                }
+            });
+
+            testTypeTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    priceTxt.requestFocus();
+                }
+            });
+
+            priceTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtn.requestFocus();
+                }
+            });
+
+            addBtn.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtnOnAction(new ActionEvent());
+                }
+            });
+        });
     }
 
     private void searchTest() {
@@ -117,6 +162,10 @@ public class TestFormController {
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteTest(test));
 
+                List<JFXButton> actionBtns = new ArrayList<>();
+                actionBtns.add(updateButton);
+                actionBtns.add(deleteButton);
+
                 TestTm testTm = new TestTm(
                         test.getTestId(),
                         test.getDescription(),
@@ -124,8 +173,7 @@ public class TestFormController {
                         test.getSampleType(),
                         test.getTestType(),
                         test.getPrice(),
-                        updateButton,
-                        deleteButton
+                        actionBtns
                 );
                 obList.add(testTm);
             }
@@ -213,8 +261,26 @@ public class TestFormController {
         colSampleType.setCellValueFactory(new PropertyValueFactory<>("sampleType"));
         colTestType.setCellValueFactory(new PropertyValueFactory<>("testType"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
-        colUpdate.setCellValueFactory(new PropertyValueFactory<>("update"));
-        colDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+        colAction.setCellFactory((TableColumn<TestTm, List<JFXButton>> column) -> {
+            return new TableCell<TestTm, List<JFXButton>>() {
+                @Override
+                protected void updateItem(List<JFXButton> buttons, boolean empty) {
+                    super.updateItem(buttons, empty);
+                    if (empty || buttons == null || buttons.isEmpty()) {
+                        setGraphic(null);
+                    } else {
+                        HBox hbox = new HBox();
+                        for (JFXButton button : buttons) {
+                            hbox.getChildren().add(button);
+                        }
+                        setGraphic(hbox);
+                    }
+                }
+
+            };
+        });
     }
 
     public void addBtnOnAction(ActionEvent actionEvent) {
@@ -256,11 +322,15 @@ public class TestFormController {
             deleteButton.setGraphic(deleteIcon);
             deleteButton.setOnAction(event -> handleDeleteTest(newTest));
 
+            List<JFXButton> actionBtns = new ArrayList<>();
+            actionBtns.add(updateButton);
+            actionBtns.add(deleteButton);
+
             Platform.runLater(()->{
                 new Alert(Alert.AlertType.CONFIRMATION, "Test added successfully!").showAndWait();
             });
 
-            obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, priceOf, updateButton, deleteButton));
+            obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, priceOf, actionBtns));
 
             clear();
         } catch (NumberFormatException e) {
@@ -359,7 +429,11 @@ public class TestFormController {
                     deleteButton.setOnAction(event -> handleDeleteTest(newTest));
 
 
-                    obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, price, updateButton, deleteButton));
+                    List<JFXButton> actionBtns = new ArrayList<>();
+                    actionBtns.add(updateButton);
+                    actionBtns.add(deleteButton);
+
+                    obList.add(new TestTm(newTest.getTestId(), desc, lab, sampleType, testType, price, actionBtns));
                 } catch (NumberFormatException e) {
                     System.err.println("Invalid price value in CSV: " + line);
                 }
@@ -375,4 +449,29 @@ public class TestFormController {
         }
     }
 
+    public void onFKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.F11){
+            searchBar.requestFocus();
+        }
+    }
+
+    public void onDesc(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.DESCRIPTION, descTxt);
+    }
+
+    public void onLab(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, labTxt);
+    }
+
+    public void onSample(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, sampleTypeTxt);
+    }
+
+    public void onType(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME, testTypeTxt);
+    }
+
+    public void onPrice(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PRICE, priceTxt);
+    }
 }

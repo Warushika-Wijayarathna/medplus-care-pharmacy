@@ -8,21 +8,24 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import lk.ijse.medpluscarepharmacy.model.Supplier;
+import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 import lk.ijse.medpluscarepharmacy.repository.TestRepo;
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +43,10 @@ public class SupplierFormController {
     public JFXTextField emailTxt;
     public TableView<SupplierTm> supplierTable;
     public JFXTextField searchBar;
+    public JFXButton addBtn;
     ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
     public SupplierTm selectedSupplier;
+    public TableColumn<SupplierTm, List<JFXButton>> colAction;
 
     public void initialize(){
         setCellValueFactory();
@@ -53,7 +58,20 @@ public class SupplierFormController {
                 supplierTable.requestFocus();
             }
         });
-        searchBar.requestFocus();
+        Platform.runLater(()->{
+            suppTxt.requestFocus();
+            suppTxt.setOnKeyPressed(event ->{
+                contactTxt.requestFocus();
+            });
+
+            contactTxt.setOnKeyPressed(event ->{
+                emailTxt.requestFocus();
+            });
+
+            emailTxt.setOnKeyPressed(keyEvent -> {
+                addBtn.requestFocus();
+            });
+        });
     }
 
     private void searchSupplier() {
@@ -106,13 +124,16 @@ public class SupplierFormController {
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setOnAction(event -> handleDeleteSupplier(supplier));
 
+                List<JFXButton> actionBtns = new ArrayList<>();
+                actionBtns.add(updateButton);
+                actionBtns.add(deleteButton);
+
                 SupplierTm supplierTm = new SupplierTm(
                         supplier.getSupplierId(),
                         supplier.getName(),
                         supplier.getContact(),
                         supplier.getEmail(),
-                        updateButton,
-                        deleteButton
+                        actionBtns
                 );
                 obList.add(supplierTm);
             }
@@ -201,8 +222,26 @@ public class SupplierFormController {
         colSuppName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colContact.setCellValueFactory(new PropertyValueFactory<>("contact"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colUpdate.setCellValueFactory(new PropertyValueFactory<>("update"));
-        colDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
+
+        colAction.setCellFactory((TableColumn<SupplierTm, List<JFXButton>> column) -> {
+            return new TableCell<SupplierTm, List<JFXButton>>() {
+                @Override
+                protected void updateItem(List<JFXButton> buttons, boolean empty) {
+                    super.updateItem(buttons, empty);
+                    if (empty || buttons == null || buttons.isEmpty()) {
+                        setGraphic(null);
+                    } else {
+                        HBox hbox = new HBox();
+                        for (JFXButton button : buttons) {
+                            hbox.getChildren().add(button);
+                        }
+                        setGraphic(hbox);
+                    }
+                }
+
+            };
+        });
     }
 
     public void addBtnOnAction(ActionEvent actionEvent) {
@@ -218,8 +257,24 @@ public class SupplierFormController {
         }
 
         try {
+
             int contact = Integer.parseInt(contactText);
-            Supplier newSupplier = new Supplier( name, contact, email);
+
+            if (isContactNoDuplicate(contact)) {
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.WARNING, "Contact number already exists!").showAndWait();
+                });
+                return;
+            }
+
+            if (isEmailDuplicate(email)) {
+                Platform.runLater(() -> {
+                    new Alert(Alert.AlertType.WARNING, "Email already exists!").showAndWait();
+                });
+                return;
+            }
+
+            Supplier newSupplier = new Supplier(name, contact, email);
 
             SupplierRepo.add(newSupplier);
 
@@ -246,7 +301,11 @@ public class SupplierFormController {
             deleteButton.setGraphic(deleteIcon);
             deleteButton.setOnAction(event -> handleDeleteSupplier(newSupplier));
 
-            obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, updateButton, deleteButton));
+            List<JFXButton> actionBtns = new ArrayList<>();
+            actionBtns.add(updateButton);
+            actionBtns.add(deleteButton);
+
+            obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, actionBtns));
 
             suppTxt.clear();
             contactTxt.clear();
@@ -282,6 +341,50 @@ public class SupplierFormController {
                 emailTxt.setText(email);
             }
         }
+    }
+
+    public void addKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode()==KeyCode.ENTER) {
+            addBtnOnAction(new ActionEvent());
+        }
+    }
+
+    public void onSuppName(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.NAME,suppTxt);
+    }
+
+    public void onSuppContact(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.CONTACT,contactTxt);
+    }
+
+    public void onSuppEmail(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.EMAIL,emailTxt);
+    }
+
+    public void onFKeyPressed(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.F11){
+            searchBar.requestFocus();
+        }
+    }
+
+    private boolean isContactNoDuplicate(int contact) throws SQLException {
+        List<Supplier> existingSuppliers = SupplierRepo.getAll(); // Retrieve all existing suppliers
+        for (Supplier existingSupplier : existingSuppliers) {
+            if (existingSupplier.getContact() == contact) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isEmailDuplicate(String email) throws SQLException {
+        List<Supplier> existingSuppliers = SupplierRepo.getAll(); // Retrieve all existing suppliers
+        for (Supplier existingSupplier : existingSuppliers) {
+            if (existingSupplier.getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

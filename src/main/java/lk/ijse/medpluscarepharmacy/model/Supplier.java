@@ -19,4 +19,10 @@ public class Supplier {
         this.contact=contact;
         this.email=email;
     }
+
+
+    public Supplier(String id, String name) {
+        this.supplierId=id;
+        this.name=name;
+    }
 }
