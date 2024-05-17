@@ -18,6 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.medpluscarepharmacy.dbConnection.DbConnection;
 import lk.ijse.medpluscarepharmacy.model.Item;
@@ -55,7 +57,7 @@ public class TempFormController {
     public Label lblDaily;
     public Label lblMonthly;
     public Label lblAnnual;
-    public AnchorPane itemPane;
+    public static AnchorPane itemPane;
     private AnchorPane temperatureChartPane;
     public TableView<ItemTm> itemTable;
     public TableColumn<?,?> colItemId;
@@ -74,21 +76,10 @@ public class TempFormController {
     public static final String AUTH_TOKEN = "954c7071c356703a0cd846aa73a4c697";
     private int alertCount = 0;
     public void initialize() {
+
         setCellValueFactories();
         loadAllItems();
-        LocalDate today= LocalDate.now();
-        Month Month = today.getMonth();
-        int year = today.getYear();
-
-        String daily = OrderRepo.getDailySales(today);
-        lblDaily.setText(daily);
-
-        String monthly = OrderRepo.getMonthlySales(Month, year);
-        lblMonthly.setText(monthly);
-
-        String annual = OrderRepo.getAnnualSales(year);
-        lblAnnual.setText(annual);
-
+        setSales();
         try {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 stopReading();
@@ -100,8 +91,10 @@ public class TempFormController {
                 protected void updateItem(ItemTm item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    if (item == null) {
+                    if (item == null|| empty) {
                         setStyle("");
+                        getStyleClass().removeAll("expiring", "understock", "understock-expiring");
+
                     } else {
                         LocalDate expDate = item.getExpDate();
                         LocalDate now = LocalDate.now();
@@ -267,7 +260,24 @@ public class TempFormController {
                 }
             }
         });
+
     }
+
+    private void setSales() {
+        LocalDate today= LocalDate.now();
+        Month Month = today.getMonth();
+        int year = today.getYear();
+
+        String daily = OrderRepo.getDailySales(today);
+        lblDaily.setText(daily);
+
+        String monthly = OrderRepo.getMonthlySales(Month, year);
+        lblMonthly.setText(monthly);
+
+        String annual = OrderRepo.getAnnualSales(year);
+        lblAnnual.setText(annual);
+    }
+
 
     public void stopReading() {
         if (thread != null) {
@@ -285,11 +295,15 @@ public class TempFormController {
 
     public void loadAllItems() {
         try {
+            itemTable.getItems().clear();
             List<Item> itemList = ItemRepo.getAllItem();
             observableList.clear();
+            itemTable.getItems().clear();
 
             for (Item item : itemList) {
-                observableList.add(new ItemTm(item.getItemId(), item.getDescription(), item.getQty(), item.getWholeSalePrice(), item.getRetailPrice(), item.getDiscount(), item.getExpDate()));
+                if (item != null && item.getItemId() != null && !item.getItemId().isEmpty()) {
+                    observableList.add(new ItemTm(item.getItemId(), item.getDescription(), item.getQty(), item.getWholeSalePrice(), item.getRetailPrice(), item.getDiscount(), item.getExpDate()));
+                }
             }
             itemTable.setItems(observableList);
         } catch (SQLException e) {
@@ -321,4 +335,15 @@ public class TempFormController {
         }
     }
 
+
+    public void onRefresh(ActionEvent actionEvent) {
+        loadAllItems();
+        setSales();
+    }
+
+    public void onRKey(KeyEvent keyEvent) {
+        if (keyEvent.getCode()== KeyCode.F11){
+            onRefresh(new ActionEvent());
+        }
+    }
 }

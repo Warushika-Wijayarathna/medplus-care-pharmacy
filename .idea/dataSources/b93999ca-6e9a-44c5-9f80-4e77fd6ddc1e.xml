@@ -1076,7 +1076,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="293" parent="1" name="MedplusCarePharmacy">
-      <LastIntrospectionLocalTimestamp>2024-05-16.08:46:35</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-17.22:12:36</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="294" parent="1" name="gdse69">
@@ -1819,12 +1819,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="456" parent="324" name="lab">
       <DasType>varchar(40)|0s</DasType>
-      <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
     <column id="457" parent="324" name="sample_type">
       <DasType>varchar(10)|0s</DasType>
-      <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <column id="458" parent="324" name="test_type">

@@ -1,6 +1,7 @@
 package lk.ijse.medpluscarepharmacy.controller;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,9 +45,11 @@ public class DashBoardController extends AnchorPane{
     public JFXButton testBtn;
     public JFXButton logOutBtn;
     public AnchorPane temp;
+    public JFXButton homeBtn;
 
 
     public void initialize() {
+        Platform.runLater(()-> root.requestFocus());
         try {
             titleText.setText("Temperature & Inventory Monitoring");
             try {
@@ -221,8 +224,8 @@ public class DashBoardController extends AnchorPane{
             logOutBtn.requestFocus();
             logOutBtnClickOnAction(new ActionEvent());
         } else if (keyEvent.getCode().toString().equals("F10")) {
-            rootPane.getChildren().clear();
-            rootPane.getChildren().add(temp);
+            homeBtn.requestFocus();
+            homeBtnClickOnAction(new ActionEvent());
         }
     }
 
@@ -264,5 +267,9 @@ public class DashBoardController extends AnchorPane{
         stage.show();
     }
 
+    public void homeBtnClickOnAction(ActionEvent actionEvent) {
+        rootPane.getChildren().clear();
+        rootPane.getChildren().add(temp);
+    }
 }
 

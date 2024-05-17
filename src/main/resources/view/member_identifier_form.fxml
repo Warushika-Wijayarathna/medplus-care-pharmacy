@@ -52,7 +52,7 @@
          </font>
       </Label>
       <JFXTextField fx:id="userNameTxt" layoutX="70.0" layoutY="265.0" onKeyPressed="#onUserNameOnKeyPressed" prefHeight="59.0" prefWidth="274.0" promptText="Enter Username Here" />
-      <JFXTextField fx:id="showPassword" layoutX="70.0" layoutY="396.0" prefHeight="59.0" prefWidth="274.0" promptText="Enter Password Here" />
+      <JFXTextField fx:id="showPassword" onKeyPressed="#onShowPasswordKeyPressed" layoutX="70.0" layoutY="396.0" prefHeight="59.0" prefWidth="274.0" promptText="Enter Password Here" />
       <JFXPasswordField fx:id="hidePassword" layoutX="70.0" layoutY="396.0" onKeyPressed="#onPasswordKeyPressed" onKeyReleased="#hidePasswordOnAction" prefHeight="59.0" prefWidth="274.0" />
       <JFXToggleButton fx:id="showToggleBtn" layoutX="58.0" layoutY="456.0" onAction="#showToggleBtnClickOnAction" text="Show Password" />
       <Circle layoutX="573.0" layoutY="192.0" radius="52.0" stroke="TRANSPARENT" strokeType="INSIDE">

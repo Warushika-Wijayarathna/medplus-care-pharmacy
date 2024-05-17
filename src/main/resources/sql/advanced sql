@@ -174,8 +174,8 @@ DELIMITER ;
 CREATE TABLE Test (
                       test_id VARCHAR(10) PRIMARY KEY,
                       description VARCHAR(255) NOT NULL,
-                      lab VARCHAR(40) NOT NULL,
-                      sample_type VARCHAR(10) NOT NULL,
+                      lab VARCHAR(40) ,
+                      sample_type VARCHAR(10) ,
                       test_type VARCHAR(20) NOT NULL,
                       price DECIMAL(10, 2) NOT NULL,
                       discount DECIMAL(5, 2) NULL

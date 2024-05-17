@@ -409,6 +409,7 @@ public class CashRegisterFormController {
                     }
                 }
 
+
                 // Create print attributes
                 PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
                 attributes.add(Sides.DUPLEX);
@@ -431,7 +432,6 @@ public class CashRegisterFormController {
                 } catch (JRException e) {
                     e.printStackTrace();
                 }
-
 
                 new Alert(Alert.AlertType.CONFIRMATION, "Check Out Successful").showAndWait();
                 searchCustomer.setText("");

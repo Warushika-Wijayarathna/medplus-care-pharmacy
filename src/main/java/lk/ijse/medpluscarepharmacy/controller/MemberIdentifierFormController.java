@@ -107,9 +107,11 @@ public class MemberIdentifierFormController {
 
     public void showToggleBtnClickOnAction(ActionEvent actionEvent) {
         if (showToggleBtn.isSelected()) {
+            showPassword.requestFocus();
             showPassword.setText(hidePassword.getText());
             showPassword.setVisible(true);
             hidePassword.setVisible(false);
+            hidePassword.setText(showPassword.getText());
             return;
         }
         hidePassword.setText(showPassword.getText());
@@ -121,4 +123,10 @@ public class MemberIdentifierFormController {
         showPassword.setVisible(false);
     }
 
+    public void onShowPasswordKeyPressed(KeyEvent keyEvent) {
+        if (keyEvent.getCode()== KeyCode.ENTER) {
+            LogInBtnClickOnAction(new ActionEvent());
+
+        }
+    }
 }

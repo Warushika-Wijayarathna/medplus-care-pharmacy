@@ -16,12 +16,12 @@
 <AnchorPane fx:id="root" onKeyPressed="#onBtnNavigation" prefHeight="1021.0" prefWidth="1848.0" style="-fx-background-color: #12372A;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.DashBoardController">
    <children>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="WHITE" height="996.0" layoutX="249.0" layoutY="11.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="BEVEL" width="1589.0" />
-      <ImageView fitHeight="118.0" fitWidth="112.0" layoutX="82.0" layoutY="11.0">
+      <ImageView fitHeight="75.0" fitWidth="77.0" layoutX="82.0" layoutY="11.0">
          <image>
             <Image url="@../icon/Untitled design (31).png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="cashRegBtn" layoutX="9.0" layoutY="201.0" onAction="#cashRegBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="   Cash Register" textFill="WHITE">
+      <JFXButton fx:id="cashRegBtn" layoutX="9.0" layoutY="223.0" onAction="#cashRegBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="   Cash Register" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -33,7 +33,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="custBtn" layoutX="9.0" layoutY="426.0" onAction="#custBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="          Customer" textFill="WHITE">
+      <JFXButton fx:id="custBtn" layoutX="9.0" layoutY="448.0" onAction="#custBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="          Customer" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -45,7 +45,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="prescBtn" layoutX="9.0" layoutY="506.0" onAction="#prescBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="        Prescription" textFill="WHITE">
+      <JFXButton fx:id="prescBtn" layoutX="9.0" layoutY="528.0" onAction="#prescBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="        Prescription" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -57,7 +57,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="employeeBtn" layoutX="9.0" layoutY="280.0" onAction="#employeeBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="          Employee" textFill="WHITE">
+      <JFXButton fx:id="employeeBtn" layoutX="9.0" layoutY="302.0" onAction="#employeeBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="          Employee" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -69,7 +69,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="supBtn" layoutX="9.0" layoutY="581.0" onAction="#supBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="              Supplier" textFill="WHITE">
+      <JFXButton fx:id="supBtn" layoutX="9.0" layoutY="603.0" onAction="#supBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="              Supplier" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -81,7 +81,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="itemBtn" layoutX="9.0" layoutY="353.0" onAction="#itemBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="                   Item" textFill="WHITE">
+      <JFXButton fx:id="itemBtn" layoutX="9.0" layoutY="375.0" onAction="#itemBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="                   Item" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -93,7 +93,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="reportBtn" layoutX="9.0" layoutY="658.0" onAction="#reportBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="               Report" textFill="WHITE">
+      <JFXButton fx:id="reportBtn" layoutX="9.0" layoutY="680.0" onAction="#reportBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="               Report" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -105,7 +105,7 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="testBtn" layoutX="9.0" layoutY="734.0" onAction="#testBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="                  Test" textFill="WHITE">
+      <JFXButton fx:id="testBtn" layoutX="9.0" layoutY="756.0" onAction="#testBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="                  Test" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -117,8 +117,8 @@
             </ImageView>
          </graphic>
       </JFXButton>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8150096" height="72.0" layoutX="9.0" layoutY="834.0" stroke="TRANSPARENT" strokeType="INSIDE" width="227.0" />
-      <JFXButton fx:id="logOutBtn" layoutX="9.0" layoutY="834.0" onAction="#logOutBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" style="-jfx-disable-visual-focus: RED;" text="      Log Out" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f8150096" height="72.0" layoutX="9.0" layoutY="856.0" stroke="TRANSPARENT" strokeType="INSIDE" width="227.0" />
+      <JFXButton fx:id="logOutBtn" layoutX="9.0" layoutY="856.0" onAction="#logOutBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" style="-jfx-disable-visual-focus: RED;" text="      Log Out" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="17.0" />
          </font>
@@ -133,9 +133,9 @@
             <Reflection />
          </effect>
       </JFXButton>
-      <Label fx:id="adminLabel" alignment="CENTER" layoutX="9.0" layoutY="138.0" prefHeight="42.0" prefWidth="227.0" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
+      <Label fx:id="adminLabel" alignment="CENTER" layoutX="13.0" layoutY="99.0" prefHeight="41.0" prefWidth="227.0" textFill="WHITE" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
-            <Font name="Lohit Tamil Classical" size="33.0" />
+            <Font name="Lohit Tamil Classical" size="20.0" />
          </font>
       </Label>
       <Line endX="1809.3333740234375" endY="182.6666717529297" layoutY="-39.0" startX="274.6666564941406" startY="182.6666717529297" stroke="#00000079" />
@@ -171,7 +171,7 @@
          </font>
       </Label>
       <AnchorPane fx:id="rootPane" layoutX="280.0" layoutY="156.0" prefHeight="841.0" prefWidth="1544.0" />
-      <Hyperlink fx:id="hyperHelp" layoutX="91.0" layoutY="955.0" prefHeight="23.0" prefWidth="94.0" text="Help" textFill="WHITE" onAction="#onHelp">
+      <Hyperlink fx:id="hyperHelp" layoutX="91.0" layoutY="955.0" onAction="#onHelp" prefHeight="23.0" prefWidth="94.0" text="Help" textFill="WHITE">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -180,6 +180,18 @@
             </ImageView>
          </graphic>
       </Hyperlink>
+      <JFXButton fx:id="homeBtn" layoutX="13.0" layoutY="144.0" onAction="#homeBtnClickOnAction" prefHeight="72.0" prefWidth="227.0" text="               Home" textFill="WHITE">
+         <font>
+            <Font name="Lohit Tamil Classical" size="17.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="54.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (51).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
    </children>
    <stylesheets>
       <URL value="@../css/styles.css" /> <!-- Path to your CSS file -->
