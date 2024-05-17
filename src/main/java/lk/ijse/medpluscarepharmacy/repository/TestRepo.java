@@ -192,4 +192,19 @@ public class TestRepo {
             return test;
 
     }
+
+    public static String getTestName(String testId) {
+        String sql = "SELECT description FROM Test WHERE test_id = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, testId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("description");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

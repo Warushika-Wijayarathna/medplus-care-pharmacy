@@ -32,7 +32,7 @@
       </Label>
       <JFXTextField fx:id="labTxt" onKeyPressed="#onLab" layoutX="298.0" layoutY="149.0" prefHeight="40.0" prefWidth="259.0" />
       <JFXButton fx:id="addBtn" layoutX="435.0" layoutY="369.0" onAction="#addBtnOnAction" prefHeight="40.0" prefWidth="124.0" style="-fx-background-color: GREEN;" text="add" textFill="WHITE" />
-      <JFXTextField fx:id="searchBar" layoutX="55.0" layoutY="43.0" prefHeight="40.0" prefWidth="504.0" promptText="Search Customer" text="Search Test" />
+      <JFXTextField fx:id="searchBar" onKeyPressed="#onSearchTest" layoutX="55.0" layoutY="43.0" prefHeight="40.0" prefWidth="504.0" promptText="Search Customer" text="Search Test" />
       <Label layoutX="56.0" layoutY="197.0" prefHeight="40.0" prefWidth="243.0" text="Sample Type">
          <font>
             <Font size="25.0" />

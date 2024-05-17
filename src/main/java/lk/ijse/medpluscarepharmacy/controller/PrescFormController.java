@@ -181,6 +181,36 @@ public class PrescFormController {
             String duration = selectedPresc.getDuration();
             String date = selectedPresc.getDate().toString();
 
+            if (!Regex.isTextFieldValid(TextField.NAME,patient)) {
+                new Alert(Alert.AlertType.ERROR, "Invalid patient name.").showAndWait();
+                patientTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.AGE,ageTxt.getText())) {
+                new Alert(Alert.AlertType.ERROR, "Invalid age.").showAndWait();
+                ageTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.NAME,medicalOfficer)) {
+                new Alert(Alert.AlertType.ERROR, "Invalid medical officer name.").showAndWait();
+                medicalOfficerTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.DESCRIPTION,context)) {
+                new Alert(Alert.AlertType.ERROR, "Invalid context.").showAndWait();
+                contextText.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.DESCRIPTION,duration)) {
+                new Alert(Alert.AlertType.ERROR, "Invalid duration.").showAndWait();
+                durationTxt.requestFocus();
+                return;
+            }
+
             Prescription updatedPresc = new Prescription(
                     prescId,
                     custCombox.getValue().toString(),
@@ -414,6 +444,37 @@ public class PrescFormController {
         String context = contextText.getText();
         String duration = durationTxt.getText();
         LocalDate date = datePicker.getValue();
+
+        if (!Regex.isTextFieldValid(TextField.NAME,patient)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid patient name.").showAndWait();
+            patientTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.AGE,ageTxt.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid age.").showAndWait();
+            ageTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.NAME,medicalOfficer)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid medical officer name.").showAndWait();
+            medicalOfficerTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.DESCRIPTION,context)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid context.").showAndWait();
+            contextText.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.DESCRIPTION,duration)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid duration.").showAndWait();
+            durationTxt.requestFocus();
+            return;
+        }
+
 
         Prescription newPresc = new Prescription(prescId, custId, patient, age, medicalOfficer, context, duration, date);
 

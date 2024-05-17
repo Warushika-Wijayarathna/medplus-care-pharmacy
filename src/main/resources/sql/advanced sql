@@ -202,11 +202,13 @@ DELIMITER ;
 
 CREATE TABLE Report (
                         r_id VARCHAR(10) PRIMARY KEY,
+                        cust_id VARCHAR(10),
                         test_id VARCHAR(10),
                         result VARCHAR(255),
                         issue_date DATE NOT NULL,
                         pickup_date DATE,
-                        FOREIGN KEY (test_id) REFERENCES Test(test_id) ON DELETE SET NULL
+                        FOREIGN KEY (test_id) REFERENCES Test(test_id) ON DELETE SET NULL,
+                        FOREIGN KEY (cust_id) REFERENCES Customer(cust_id) ON DELETE SET NULL
 );
 
 CREATE TABLE AutoIncrement_Report (
@@ -343,13 +345,13 @@ VALUES
     ('MRI Scan', 'medihelp', 'blood', 'delayed', 300.00),
     ('ECG', 'medihelp', 'blood', 'delayed', 100.00);
 
-INSERT INTO Report (test_id, issue_date, pickup_date, result)
+INSERT INTO Report (cust_id, test_id,issue_date, pickup_date, result)
 VALUES
-    ('T0001', '2024-04-08', '2024-04-10', 'Normal'),
-    ('T0003', '2024-04-09', '2024-04-11', 'Abnormal'),
-    ('T0004', '2024-04-07', '2024-04-09', 'Normal'),
-    ('T0005', '2024-04-08', '2024-04-10', 'Abnormal'),
-    ('T0002', '2024-04-09', '2024-04-11', 'Normal');
+    ('C0001','T0001', '2024-04-08', '2024-04-10', 'Normal'),
+    ('C0002','T0003', '2024-04-09', '2024-04-11', 'Abnormal'),
+    ('C0003','T0004', '2024-04-07', '2024-04-09', 'Normal'),
+    ('C0004','T0005', '2024-04-08', '2024-04-10', 'Abnormal'),
+    ('C0005','T0002', '2024-04-09', '2024-04-11', 'Normal');
 
 INSERT INTO Prescription (patient_name, age, medical_officer_name, context, duration, date, cust_id)
 VALUES
@@ -376,30 +378,12 @@ UNION ALL
 SELECT item_id, description,retail_price, discount FROM Item;
 
 CREATE TABLE Temperature (
-                             temp_id VARCHAR(10)PRIMARY KEY,
+                             temp_id int PRIMARY KEY AUTO_INCREMENT,
                              date DATE NOT NULL,
                              time TIME NOT NULL,
                              temperature DECIMAL(5,2) NOT NULL
 );
 
-CREATE TABLE AutoIncrement_Temperature (
-                                           next_id INT
-);
-
-INSERT INTO AutoIncrement_Temperature (next_id) VALUES (0);
-
-DELIMITER //
-
-CREATE TRIGGER increment_temperature_id
-    BEFORE INSERT ON Temperature
-    FOR EACH ROW
-BEGIN
-    UPDATE AutoIncrement_Temperature SET next_id = next_id + 1;
-    SET NEW.temp_id = CONCAT('TE', LPAD((SELECT next_id FROM AutoIncrement_Prescription), 5, '0'));
-END;
-//
-
-DELIMITER ;
 
 SELECT *
 FROM order_test_detail

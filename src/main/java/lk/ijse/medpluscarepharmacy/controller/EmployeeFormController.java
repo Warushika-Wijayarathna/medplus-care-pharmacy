@@ -292,6 +292,17 @@ public class EmployeeFormController {
             try {
                 String username = usernameTxt.getText();
                 String password = passwordTxt.getText();
+
+                if (!Regex.isTextFieldValid(TextField.NAME, username)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid username").show();
+                    usernameTxt.requestFocus();
+                    return;
+                }
+                if (!Regex.isTextFieldValid(TextField.PASSWORD, password)) {
+                    new Alert(Alert.AlertType.ERROR, "Invalid password").show();
+                    passwordTxt.requestFocus();
+                    return;
+                }
                 UserRepo.save(new User(username, password));
                 String userId = UserRepo.getIdByUsername(username);
 
@@ -306,6 +317,35 @@ public class EmployeeFormController {
     }
 
     private void saveEmployee(String  userId) {
+        if (!Regex.isTextFieldValid(TextField.NAME, employeeNameTxt.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid employee name").show();
+            employeeNameTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.POSITION, positionTxt.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid position").show();
+            positionTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.ADDRESS, addressTxt.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid address").show();
+            addressTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.CONTACT, contactNo.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid contact number").show();
+            contactNo.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.SALARY, salaryTxt.getText())) {
+            new Alert(Alert.AlertType.ERROR, "Invalid salary").show();
+            salaryTxt.requestFocus();
+            return;
+        }
         try {
             if (userId == null) {
                 EmployeeRepo.save(new Employee(

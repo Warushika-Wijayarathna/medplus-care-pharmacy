@@ -120,6 +120,7 @@ public class CustomerRepo {
             customer.setCustomerId(resultSet.getString("cust_id"));
             customer.setName(resultSet.getString("name"));
             customer.setContactNo(resultSet.getInt("contact_no"));
+            customer.setEmail(resultSet.getString("email"));
         }
 
         resultSet.close();
@@ -183,6 +184,31 @@ public class CustomerRepo {
             statement.close();
 
             return generatedCustomerId;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Customer searchCustomerByCustId(String custId) {
+        String sql = "SELECT * FROM Customer WHERE cust_id = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, custId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Customer customer = null;
+            if (resultSet.next()) {
+                customer = new Customer();
+                customer.setCustomerId(resultSet.getString("cust_id"));
+                customer.setName(resultSet.getString("name"));
+                customer.setContactNo(resultSet.getInt("contact_no"));
+                customer.setEmail(resultSet.getString("email"));
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+
+            return customer;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

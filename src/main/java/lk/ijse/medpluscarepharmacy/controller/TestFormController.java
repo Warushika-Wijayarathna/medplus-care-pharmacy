@@ -60,13 +60,6 @@ public class TestFormController {
     public void initialize(){
         setCellValueFactory();
         loadAllTests();
-        searchTest();
-
-        searchBar.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                testTable.requestFocus();
-            }
-        });
 
         Platform.runLater(()->{
             descTxt.requestFocus();
@@ -105,6 +98,15 @@ public class TestFormController {
                     addBtnOnAction(new ActionEvent());
                 }
             });
+        });
+    }
+
+    public void onSearchTest(KeyEvent keyEvent) {
+        searchBar.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                searchTest();
+                testTable.requestFocus();
+            }
         });
     }
 
@@ -215,6 +217,36 @@ public class TestFormController {
             String testType = selectedTest.getTestType();
             double price = selectedTest.getPrice();
 
+            if (!Regex.isTextFieldValid(TextField.DESCRIPTION, desc)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Description").showAndWait();
+                descTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.NAME, lab)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Lab").showAndWait();
+                labTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.NAME, sampleType)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Sample Type").showAndWait();
+                sampleTypeTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.NAME, testType)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Test Type").showAndWait();
+                testTypeTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.PRICE, String.valueOf(price))){
+                new Alert(Alert.AlertType.WARNING, "Invalid Price").showAndWait();
+                priceTxt.requestFocus();
+                return;
+            }
+
 
             Test updatedTest = new Test(
                     testId,
@@ -290,6 +322,38 @@ public class TestFormController {
         String sampleType = sampleTypeTxt.getText().trim();
         String testType = testTypeTxt.getText().trim();
         String price = priceTxt.getText().trim();
+
+        if (!Regex.isTextFieldValid(TextField.DESCRIPTION, desc)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Description").showAndWait();
+            descTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.NAME, lab)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Lab").showAndWait();
+            labTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.NAME, sampleType)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Sample Type").showAndWait();
+            sampleTypeTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.NAME, testType)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Test Type").showAndWait();
+            testTypeTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.PRICE, price)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Price").showAndWait();
+            priceTxt.requestFocus();
+            return;
+        }
+
+
 
         if (desc.isEmpty() || lab.isEmpty() || sampleType.isEmpty() || testType.isEmpty() || price.isEmpty()) {
             Platform.runLater(()->{

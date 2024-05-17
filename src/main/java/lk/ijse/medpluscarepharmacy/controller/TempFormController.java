@@ -5,12 +5,17 @@ import com.fazecast.jSerialComm.SerialPortInvalidPortException;
 import com.jfoenix.controls.JFXButton;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import com.vonage.client.VonageClient;
+import com.vonage.client.sms.MessageStatus;
+import com.vonage.client.sms.SmsSubmissionResponse;
+import com.vonage.client.sms.messages.TextMessage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -29,10 +34,13 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import lk.ijse.medpluscarepharmacy.repository.OrderRepo;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,6 +52,10 @@ public class TempFormController {
     static int i = 0;
     static double lastTemp = 0;
     public static String currentTemp = "Current Temperature: ";
+    public Label lblDaily;
+    public Label lblMonthly;
+    public Label lblAnnual;
+    public AnchorPane itemPane;
     private AnchorPane temperatureChartPane;
     public TableView<ItemTm> itemTable;
     public TableColumn<?,?> colItemId;
@@ -58,14 +70,24 @@ public class TempFormController {
     private Thread thread;
     private Scanner scanner;
 
-    public static final String ACCOUNT_SID = "AC847eabf52aa63dea6e78e0dc435d42d8";
-    public static final String AUTH_TOKEN = "16cc9d47309d48c5d20be56385d8ad20";
+    public static final String ACCOUNT_SID = "ACf512375e4b22ad144f92f222aa284c7e";
+    public static final String AUTH_TOKEN = "954c7071c356703a0cd846aa73a4c697";
     private int alertCount = 0;
     public void initialize() {
-
         setCellValueFactories();
         loadAllItems();
+        LocalDate today= LocalDate.now();
+        Month Month = today.getMonth();
+        int year = today.getYear();
 
+        String daily = OrderRepo.getDailySales(today);
+        lblDaily.setText(daily);
+
+        String monthly = OrderRepo.getMonthlySales(Month, year);
+        lblMonthly.setText(monthly);
+
+        String annual = OrderRepo.getAnnualSales(year);
+        lblAnnual.setText(annual);
 
         try {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -175,13 +197,13 @@ public class TempFormController {
                                     lastTemp = number;
                                     label1.setText(currentTemp + String.valueOf(lastTemp));
 
-                                    LocalTime lowerBound8 = LocalTime.of(8, 29, 0);
+                                    LocalTime lowerBound8 = LocalTime.of(8, 29, 30);
                                     LocalTime upperBound8 = LocalTime.of(8, 31, 0);
 
-                                    LocalTime lowerBound14 = LocalTime.of(14, 29, 0);
-                                    LocalTime upperBound14 = LocalTime.of(14, 31, 0);
+                                    LocalTime lowerBound14 = LocalTime.of(14, 29, 30);
+                                    LocalTime upperBound14 = LocalTime.of(14, 21, 0);
 
-                                    LocalTime lowerBound20 = LocalTime.of(22, 59, 0);
+                                    LocalTime lowerBound20 = LocalTime.of(22, 59, 30);
                                     LocalTime upperBound20 = LocalTime.of(23, 01, 0);
 
 
@@ -197,16 +219,35 @@ public class TempFormController {
                                     }
                                     System.out.println((currentTemp + String.valueOf(lastTemp)));
 
-                                    if (lastTemp > 30 && alertCount < 5) {
+                                    VonageClient client = VonageClient.builder().apiKey("26607713").apiSecret("IBs3Pp0FUc4ryErx").build();
+
+
+                                    if (lastTemp > 30 && alertCount < 3) {
                                         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
                                         Message message = Message.creator(
-                                                new com.twilio.type.PhoneNumber("+94717841672"),
-                                                new com.twilio.type.PhoneNumber("+18289001280"),
+                                                new com.twilio.type.PhoneNumber("+94702928847"),
+                                                new com.twilio.type.PhoneNumber("+18507357704"),
                                                 "Temperature Alert!!!Temperature is above 30 degrees"
                                         ).create();
                                         System.out.println(message.getSid());
                                         alertCount++;
                                     }
+
+//                                    if (lastTemp > 30 && alertCount < 3) {
+//                                        TextMessage message = new TextMessage("Vonage APIs",
+//                                                "94716930518",
+//                                                "Temperature Alert!!!Temperature is above 30 degrees"
+//                                        );
+//
+//                                        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+//
+//                                        if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+//                                            System.out.println("Message sent successfully.");
+//                                            alertCount++;
+//                                        } else {
+//                                            System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
+//                                        }
+//                                    }
 
                                 });
                             } catch (Exception e) {
@@ -242,7 +283,7 @@ public class TempFormController {
         }
     }
 
-    private void loadAllItems() {
+    public void loadAllItems() {
         try {
             List<Item> itemList = ItemRepo.getAllItem();
             observableList.clear();
@@ -279,4 +320,5 @@ public class TempFormController {
             throw new RuntimeException(e);
         }
     }
+
 }

@@ -265,6 +265,36 @@ public class ItemFormController {
                 double discount = selectedItem.getDiscount();
                 LocalDate expDate = selectedItem.getExpDate();
 
+                if (Regex.isTextFieldValid(TextField.DESCRIPTION,description)){
+                    new Alert(Alert.AlertType.WARNING, "Invalid Description!").showAndWait();
+                    descTxt.requestFocus();
+                    return;
+                }
+
+                if (Regex.isTextFieldValid(TextField.QTY, String.valueOf(qty))){
+                    new Alert(Alert.AlertType.WARNING, "Invalid Quantity!").showAndWait();
+                    qtyTxt.requestFocus();
+                    return;
+                }
+
+                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(wholeSalePrice))){
+                    new Alert(Alert.AlertType.WARNING, "Invalid Whole Sale Price!").showAndWait();
+                    wholeSalePriceTxt.requestFocus();
+                    return;
+                }
+
+                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(retailPrice))){
+                    new Alert(Alert.AlertType.WARNING, "Invalid Retail Price!").showAndWait();
+                    retailTxt.requestFocus();
+                    return;
+                }
+
+                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(discount))){
+                    new Alert(Alert.AlertType.WARNING, "Invalid Discount!").showAndWait();
+                    discountTxt.requestFocus();
+                    return;
+                }
+
                 Item updatedItem = new Item(
                         itemId,
                         descTxt.getText(),
@@ -423,6 +453,37 @@ public class ItemFormController {
         String retailPriceText = retailTxt.getText().trim();
         String discountText = discountTxt.getText().trim();
         LocalDate expDate = expDatePicker.getValue();
+
+        if (Regex.isTextFieldValid(TextField.DESCRIPTION,desc)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Description!").showAndWait();
+            descTxt.requestFocus();
+            return;
+        }
+
+        if (Regex.isTextFieldValid(TextField.QTY,qtyText)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Quantity!").showAndWait();
+            qtyTxt.requestFocus();
+            return;
+        }
+
+        if (Regex.isTextFieldValid(TextField.PRICE,wholeSalePriceText)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Whole Sale Price!").showAndWait();
+            wholeSalePriceTxt.requestFocus();
+            return;
+        }
+
+        if (Regex.isTextFieldValid(TextField.PRICE,retailPriceText)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Retail Price!").showAndWait();
+            retailTxt.requestFocus();
+            return;
+        }
+
+        if (Regex.isTextFieldValid(TextField.PRICE,discountText)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Discount!").showAndWait();
+            discountTxt.requestFocus();
+            return;
+        }
+
 
         if (desc.isEmpty() || qtyText.isEmpty() || wholeSalePriceText.isEmpty() || retailPriceText.isEmpty() || discountText.isEmpty() || expDate == null || supplierCart.getItems().isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();

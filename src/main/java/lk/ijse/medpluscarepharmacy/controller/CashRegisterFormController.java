@@ -45,6 +45,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lk.ijse.medpluscarepharmacy.util.Regex;
+import lk.ijse.medpluscarepharmacy.util.TextField;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
@@ -126,6 +128,11 @@ public class CashRegisterFormController {
 
     private void searchCustomerByContactNumber() {
         String contactNumber = searchCustomer.getText().trim();
+        if (!Regex.isTextFieldValid(TextField.CONTACT, contactNumber)) {
+            new Alert(Alert.AlertType.ERROR, "Invalid contact number").showAndWait();
+            searchCustomer.requestFocus();
+            return;
+        }
         if (!contactNumber.isEmpty()) {
             try {
                 Customer customer = CustomerRepo.searchCustomerByContact(contactNumber);
@@ -350,6 +357,12 @@ public class CashRegisterFormController {
 
             double cash = Double.parseDouble(cashTxt.getText());
 
+            if (!Regex.isTextFieldValid(TextField.PRICE, cashTxt.getText())) {
+                new Alert(Alert.AlertType.ERROR, "Invalid input for cash").showAndWait();
+                cashTxt.requestFocus();
+                return;
+            }
+
             if (cash >= total) {
                 List<ItemCartTm> cartItems = new ArrayList<>();
 
@@ -367,7 +380,7 @@ public class CashRegisterFormController {
                 cartTable.getItems().clear();
 
 
-                JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/Report/Bill.jrxml");
+                JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/report/Bill.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
                 String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -448,6 +461,12 @@ public class CashRegisterFormController {
             double discount = Double.parseDouble(discLbl.getText());
             int qty = Integer.parseInt(qtyTxt.getText());
 
+            if (!Regex.isTextFieldValid(TextField.QTY, qtyTxt.getText())) {
+                new Alert(Alert.AlertType.ERROR, "Invalid input for quantity").showAndWait();
+                qtyTxt.requestFocus();
+                return;
+            }
+
             for (ItemCartTm itemCartTm : cartTable.getItems()) {
                 if (itemCartTm.getItemId().equals(itemId)) {
                     itemCartTm.setQty(itemCartTm.getQty() + qty);
@@ -487,5 +506,17 @@ public class CashRegisterFormController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void onQty(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.QTY, qtyTxt);
+    }
+
+    public void onCustomer(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.CONTACT, searchCustomer);
+    }
+
+    public void onCash(KeyEvent keyEvent) {
+        Regex.setTextColor(TextField.PRICE, cashTxt);
     }
 }

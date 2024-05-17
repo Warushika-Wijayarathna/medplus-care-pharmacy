@@ -16,14 +16,21 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Supplier;
+import lk.ijse.medpluscarepharmacy.model.Test;
 import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
 import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
+import lk.ijse.medpluscarepharmacy.model.Tm.TestTm;
 import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 import lk.ijse.medpluscarepharmacy.repository.TestRepo;
 import lk.ijse.medpluscarepharmacy.util.Regex;
 import lk.ijse.medpluscarepharmacy.util.TextField;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -182,6 +189,24 @@ public class SupplierFormController {
             String email = selectedSupplier.getEmail();
 
 
+            if (!Regex.isTextFieldValid(TextField.NAME, name)) {
+                new Alert(Alert.AlertType.WARNING, "Invalid Supplier Name").showAndWait();
+                suppTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.CONTACT, contact)) {
+                new Alert(Alert.AlertType.WARNING, "Invalid Contact Number").showAndWait();
+                contactTxt.requestFocus();
+                return;
+            }
+
+            if (!Regex.isTextFieldValid(TextField.EMAIL, email)) {
+                new Alert(Alert.AlertType.WARNING, "Invalid Email").showAndWait();
+                emailTxt.requestFocus();
+                return;
+            }
+
             Supplier updatedSupplier = new Supplier(
                     supplierId,
                     suppTxt.getText(),
@@ -248,6 +273,24 @@ public class SupplierFormController {
         String name = suppTxt.getText().trim();
         String contactText = contactTxt.getText().trim();
         String email = emailTxt.getText().trim();
+
+        if (!Regex.isTextFieldValid(TextField.NAME, name)) {
+            new Alert(Alert.AlertType.WARNING, "Invalid Supplier Name").showAndWait();
+            suppTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.CONTACT, contactText)) {
+            new Alert(Alert.AlertType.WARNING, "Invalid Contact Number").showAndWait();
+            contactTxt.requestFocus();
+            return;
+        }
+
+        if (!Regex.isTextFieldValid(TextField.EMAIL, email)) {
+            new Alert(Alert.AlertType.WARNING, "Invalid Email").showAndWait();
+            emailTxt.requestFocus();
+            return;
+        }
 
         if (name.isEmpty() || contactText.isEmpty() || email.isEmpty()) {
             Platform.runLater(()-> {
@@ -387,4 +430,73 @@ public class SupplierFormController {
         return false;
     }
 
+    public void onClickAction(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage stage = (Stage) supplierTable.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            insertTestData(filePath);
+        }
+    }
+
+    private void insertTestData(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] data = line.split(",");
+                    String name = data[0].trim();
+                    int contact = Integer.parseInt(data[1].trim());
+                    String email = data[2].trim();
+
+                    Supplier newSupplier= new Supplier(name, contact, email);
+                    SupplierRepo.add(newSupplier);
+
+                    String generatedSupplierId = SupplierRepo.generateSupplierId(newSupplier);
+                    newSupplier.setSupplierId(generatedSupplierId);
+
+                    JFXButton updateButton = new JFXButton();
+                    ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+                    updateIcon.setFitWidth(20);
+                    updateIcon.setFitHeight(20);
+                    updateButton.setGraphic(updateIcon);
+                    updateButton.setOnAction(event -> handleUpdateSupplier(newSupplier));
+
+                    JFXButton deleteButton = new JFXButton();
+                    ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+                    deleteIcon.setFitWidth(20);
+                    deleteIcon.setFitHeight(20);
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.setOnAction(event -> handleDeleteSupplier(newSupplier));
+
+
+                    List<JFXButton> actionBtns = new ArrayList<>();
+                    actionBtns.add(updateButton);
+                    actionBtns.add(deleteButton);
+
+                    obList.add(new SupplierTm(newSupplier.getSupplierId(), name, contact, email, actionBtns));
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid price value in CSV: " + line);
+                }
+            }
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.CONFIRMATION, "Supplier data imported successfully!").showAndWait();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.ERROR, "Failed to import Supplier data!").showAndWait();
+            });
+        }
+    }
 }

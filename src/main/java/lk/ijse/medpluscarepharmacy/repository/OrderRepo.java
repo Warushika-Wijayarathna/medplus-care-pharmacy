@@ -5,6 +5,8 @@ import lk.ijse.medpluscarepharmacy.dbConnection.DbConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Month;
 
 public class OrderRepo {
     public static boolean saveOrder(int contact, String totalLblText, String admin, String dateLblText) throws SQLException {
@@ -61,5 +63,58 @@ public class OrderRepo {
         }
 
         return getLastOrderId;
+    }
+
+    public static String getDailySales(LocalDate today) {
+        Double total = 0.0;
+        String sql = "SELECT SUM(total) FROM `Order` WHERE date = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, today.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                total = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return String.valueOf(total);
+
+    }
+
+    public static String getMonthlySales(Month month, int year) {
+        Double total = 0.0;
+        String sql = "SELECT SUM(total) FROM `Order` WHERE MONTH(date) = ? AND YEAR(date) = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, month.getValue());
+            preparedStatement.setInt(2, year);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                total = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return String.valueOf(total);
+    }
+
+    public static String getAnnualSales(int year) {
+        Double total = 0.0;
+        String sql = "SELECT SUM(total) FROM `Order` WHERE YEAR(date) = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setInt(1, year);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                total = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return String.valueOf(total);
     }
 }

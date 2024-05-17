@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.TempFormController">
    <children>
       <Line endX="556.666748046875" endY="870.0" layoutX="270.0" layoutY="-46.0" startX="556.6666870117188" startY="63.66666793823242" stroke="#00000079" />
-      <TableView fx:id="itemTable" layoutX="856.0" layoutY="17.0" prefHeight="808.0" prefWidth="664.0" stylesheets="@../css/styles.css">
+      <TableView fx:id="itemTable" layoutX="856.0" layoutY="17.0" prefHeight="560.0" prefWidth="664.0" stylesheets="@../css/styles.css">
          <columns>
             <TableColumn fx:id="colItemId" prefWidth="64.0" text="Item Id" />
             <TableColumn fx:id="colDesc" prefWidth="165.0" text="Description" />
@@ -21,5 +24,41 @@
          </columns>
       </TableView>
       <JFXButton fx:id="reportBtn" layoutX="149.0" layoutY="788.0" onAction="#reportBtnOnAction" prefHeight="44.0" prefWidth="107.0" style="-fx-background-color: GREEN;" text="Report" textFill="WHITE" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="32.0" layoutX="856.0" layoutY="589.0" stroke="RED" strokeType="INSIDE" width="29.0" />
+      <Label layoutX="892.0" layoutY="589.0" prefHeight="32.0" prefWidth="116.0" text="Under Stock" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="ORANGE" height="32.0" layoutX="856.0" layoutY="630.0" stroke="ORANGE" strokeType="INSIDE" width="29.0" />
+      <Label layoutX="892.0" layoutY="630.0" prefHeight="32.0" prefWidth="156.0" text="Expiring(in 6 months)" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eb2f5e" height="32.0" layoutX="1096.0" layoutY="589.0" stroke="#eb2f5e" strokeType="INSIDE" width="29.0" />
+      <Label layoutX="1132.0" layoutY="589.0" prefHeight="32.0" prefWidth="156.0" text="Under Stock &amp; Expiring" />
+      <Label layoutX="856.0" layoutY="685.0" prefHeight="32.0" prefWidth="156.0" text="Daily Sale">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="856.0" layoutY="729.0" prefHeight="32.0" prefWidth="156.0" text="Monthly Sale">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="856.0" layoutY="772.0" prefHeight="32.0" prefWidth="156.0" text="Annual Sale">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDaily" alignment="CENTER_RIGHT" layoutX="1008.0" layoutY="685.0" prefHeight="32.0" prefWidth="229.0" textAlignment="RIGHT" textFill="#491aa1">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMonthly" alignment="CENTER_RIGHT" layoutX="1008.0" layoutY="729.0" prefHeight="32.0" prefWidth="229.0" textFill="#491aa1">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAnnual" alignment="TOP_RIGHT" layoutX="1008.0" layoutY="772.0" prefHeight="32.0" prefWidth="229.0" textFill="#491aa1">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

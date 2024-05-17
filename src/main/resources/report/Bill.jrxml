@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Med_A4_1" pageWidth="170" pageHeight="400" columnWidth="160" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="c4034b37-728e-452b-abb8-9090e940eb06">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Med_A4_1" pageWidth="170" pageHeight="490" columnWidth="160" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="c4034b37-728e-452b-abb8-9090e940eb06">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (10)"/>
 	<parameter name="Date" class="java.lang.String"/>
@@ -276,7 +276,7 @@ Tele: 071-5157076/071-4437961]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="161" splitType="Prevent">
+		<band height="42" splitType="Prevent">
 			<property name="com.jaspersoft.studio.layout"/>
 			<textField>
 				<reportElement x="21" y="14" width="34" height="27" uuid="d1806a48-8944-4fe2-8480-840e0d5a9c8b">
@@ -349,8 +349,12 @@ Tele: 071-5157076/071-4437961]]></text>
 				</textElement>
 				<text><![CDATA[Date:]]></text>
 			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="55">
 			<staticText>
-				<reportElement x="-4" y="41" width="170" height="9" uuid="31e307fb-52d9-47b6-8057-f8ad9aaa9443">
+				<reportElement x="-5" y="3" width="170" height="9" uuid="31e307fb-52d9-47b6-8057-f8ad9aaa9443">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -359,7 +363,7 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[---------------------------------------------------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="50" width="40" height="14" uuid="c85c1045-bb35-4e9d-8bc0-0bbc4f6f0589">
+				<reportElement x="1" y="12" width="40" height="14" uuid="c85c1045-bb35-4e9d-8bc0-0bbc4f6f0589">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textElement>
@@ -368,7 +372,7 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[Sub Total  :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="41" y="50" width="51" height="14" uuid="7129c105-0a55-41c4-a5d8-96ef3c8f2ec9">
+				<reportElement x="41" y="12" width="51" height="14" uuid="7129c105-0a55-41c4-a5d8-96ef3c8f2ec9">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Right">
@@ -377,7 +381,7 @@ Tele: 071-5157076/071-4437961]]></text>
 				<textFieldExpression><![CDATA[$P{SubTotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="64" width="40" height="11" uuid="993f61c1-10a6-465c-bca7-3b1e7e900cfa">
+				<reportElement x="1" y="26" width="40" height="11" uuid="993f61c1-10a6-465c-bca7-3b1e7e900cfa">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textElement>
@@ -386,14 +390,21 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[Cash         :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="41" y="64" width="51" height="11" uuid="eead42cf-8837-4af6-9db4-052507a21211"/>
+				<reportElement x="41" y="26" width="51" height="11" uuid="eead42cf-8837-4af6-9db4-052507a21211"/>
 				<textElement textAlignment="Right">
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{Cash}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="41" y="37" width="51" height="14" uuid="31960969-cf08-458f-9f40-30e08bcb2a85"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Balance}]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="1" y="75" width="40" height="14" uuid="f6b8aebe-1091-4857-b826-35d208f2cf38">
+				<reportElement x="1" y="37" width="40" height="14" uuid="f6b8aebe-1091-4857-b826-35d208f2cf38">
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
 				<textElement>
@@ -401,15 +412,21 @@ Tele: 071-5157076/071-4437961]]></text>
 				</textElement>
 				<text><![CDATA[Balance    :]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="41" y="75" width="51" height="14" uuid="31960969-cf08-458f-9f40-30e08bcb2a85"/>
-				<textElement textAlignment="Right">
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="94">
+			<staticText>
+				<reportElement x="-4" y="0" width="170" height="9" uuid="c964f245-b537-49c1-8811-869996700d5a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
 					<font size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{Balance}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[---------------------------------------------------------------------------------------]]></text>
+			</staticText>
 			<staticText>
-				<reportElement x="1" y="101" width="126" height="10" uuid="d40ed01d-40fd-49b9-8c9c-7a7f106aaec8">
+				<reportElement x="0" y="9" width="126" height="10" uuid="d40ed01d-40fd-49b9-8c9c-7a7f106aaec8">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="cm"/>
 				</reportElement>
@@ -419,7 +436,16 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[****Thanks for choosing us****]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="2" y="121" width="145" height="18" uuid="0e19c393-39b1-46c1-bb87-f04ef500ce99">
+				<reportElement x="-4" y="24" width="170" height="9" uuid="857c57bd-7a6d-4700-acbd-6cd5ba18f706">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[---------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="34" width="139" height="30" uuid="0e19c393-39b1-46c1-bb87-f04ef500ce99">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -428,16 +454,7 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[Any type of medicines are NOT EXCHANEABLE. Check the BALANCE before leave.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="-3" y="91" width="170" height="9" uuid="c964f245-b537-49c1-8811-869996700d5a">
-					<property name="com.jaspersoft.studio.unit.height" value="px"/>
-				</reportElement>
-				<textElement>
-					<font size="7"/>
-				</textElement>
-				<text><![CDATA[---------------------------------------------------------------------------------------]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="-3" y="111" width="170" height="9" uuid="857c57bd-7a6d-4700-acbd-6cd5ba18f706">
+				<reportElement x="-5" y="85" width="170" height="9" uuid="215e91e6-48c6-484e-a61d-34106d75d491">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -446,5 +463,5 @@ Tele: 071-5157076/071-4437961]]></text>
 				<text><![CDATA[---------------------------------------------------------------------------------------]]></text>
 			</staticText>
 		</band>
-	</detail>
+	</pageFooter>
 </jasperReport>

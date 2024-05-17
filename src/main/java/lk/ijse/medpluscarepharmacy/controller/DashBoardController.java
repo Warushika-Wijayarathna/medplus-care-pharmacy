@@ -6,10 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+
+import java.io.File;
 import java.io.IOException;
+import javafx.embed.swing.SwingFXUtils;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.PDFRenderer;
+
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 public class DashBoardController extends AnchorPane{
@@ -210,4 +226,43 @@ public class DashBoardController extends AnchorPane{
         }
     }
 
+    public void onHelp(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        VBox vBox = new VBox();
+
+        try {
+            File pdfFile = new File("src/main/resources/help/Help.pdf");
+            if (!pdfFile.exists()) {
+                System.out.println("File does not exist: " + pdfFile.getAbsolutePath());
+                return;
+            }
+
+            PDDocument document = PDDocument.load(pdfFile);
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+
+            List<ImageView> imageViews = new ArrayList<>();
+            for (int page = 0; page < document.getNumberOfPages(); ++page) {
+                BufferedImage bufferedImage = pdfRenderer.renderImageWithDPI(page, 150);
+                Image fxImage = SwingFXUtils.toFXImage(bufferedImage, null);
+                ImageView imageView = new ImageView(fxImage);
+                imageViews.add(imageView);
+            }
+
+            vBox.getChildren().addAll(imageViews);
+            document.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        ScrollPane scrollPane = new ScrollPane(vBox);
+        scrollPane.setFitToWidth(true);
+
+        Scene scene = new Scene(scrollPane, 800, 600);
+        stage.setScene(scene);
+        stage.setTitle("Help Document");
+        stage.show();
+    }
+
 }
+

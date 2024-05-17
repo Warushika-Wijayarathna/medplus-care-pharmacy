@@ -21,12 +21,13 @@ public class ReportRepo {
 
         while (resultSet.next()) {
             String reportId = resultSet.getString(1);
-            String testId = resultSet.getString(2);
-            String result = resultSet.getString(3);
-            LocalDate issueDate = LocalDate.parse(resultSet.getString(4));
-            LocalDate pickupDate = LocalDate.parse(resultSet.getString(5));
+            String custId = resultSet.getString(2);
+            String testId = resultSet.getString(3);
+            String result = resultSet.getString(4);
+            LocalDate issueDate = LocalDate.parse(resultSet.getString(5));
+            LocalDate pickupDate = LocalDate.parse(resultSet.getString(6));
 
-            Report report = new Report(reportId, testId, result, issueDate, pickupDate);
+            Report report = new Report(reportId, custId, testId, result, issueDate, pickupDate);
             reportList.add(report);
         }
 
@@ -54,14 +55,15 @@ public class ReportRepo {
     }
 
     public static void update(Report updatedReport) throws SQLException {
-        String sql = "UPDATE Report SET test_id = ?, result = ?, issue_date = ?, pickup_date = ? WHERE r_Id = ?";
+        String sql = "UPDATE Report SET cust_id = ?, test_id = ?, result = ?, issue_date = ?, pickup_date = ? WHERE r_Id = ?";
 
         PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        preparedStatement.setString(1,updatedReport.getTestId());
-        preparedStatement.setString(2,updatedReport.getResult());
-        preparedStatement.setDate(3,java.sql.Date.valueOf(updatedReport.getIssueDate()));
-        preparedStatement.setDate(4,java.sql.Date.valueOf(updatedReport.getPickupDate()));
-        preparedStatement.setString(5,updatedReport.getReportId());
+        preparedStatement.setString(1,updatedReport.getCustId());
+        preparedStatement.setString(2,updatedReport.getTestId());
+        preparedStatement.setString(3,updatedReport.getResult());
+        preparedStatement.setDate(4,java.sql.Date.valueOf(updatedReport.getIssueDate()));
+        preparedStatement.setDate(5,java.sql.Date.valueOf(updatedReport.getPickupDate()));
+        preparedStatement.setString(6,updatedReport.getReportId());
 
         int rowsAffected = preparedStatement.executeUpdate();
 
@@ -76,14 +78,15 @@ public class ReportRepo {
     }
 
     public static void add(Report newReport) throws SQLException {
-        String sql = "INSERT INTO Report (test_id, result, issue_date, pickup_date) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Report (cust_id, test_id, result, issue_date, pickup_date) VALUES (?, ?, ?, ?,?)";
 
         try {
             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setString(1, newReport.getTestId());
-            preparedStatement.setString(2, newReport.getResult());
-            preparedStatement.setDate(3, java.sql.Date.valueOf(newReport.getIssueDate()));
-            preparedStatement.setDate(4, java.sql.Date.valueOf(newReport.getPickupDate()));
+            preparedStatement.setString(1, newReport.getCustId());
+            preparedStatement.setString(2, newReport.getTestId());
+            preparedStatement.setString(3, newReport.getResult());
+            preparedStatement.setDate(4, java.sql.Date.valueOf(newReport.getIssueDate()));
+            preparedStatement.setDate(5, java.sql.Date.valueOf(newReport.getPickupDate()));
 
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -102,7 +105,7 @@ public class ReportRepo {
         public static String generateReportId (Report newReport) throws SQLException {
             String generatedReportId = null;
 
-            String sql = "SELECT CONCCAT('R', LPAD(next_id, 4, '0')) FROM AutoIncrement_Report";
+            String sql = "SELECT CONCAT('R', LPAD(next_id, 4, '0')) FROM AutoIncrement_Report";
 
             PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -131,4 +134,17 @@ public class ReportRepo {
     }
 
 
+    public static String getNextId() {
+        String sql = "SELECT CONCAT('R', LPAD(next_id, 4, '0')) FROM AutoIncrement_Report";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

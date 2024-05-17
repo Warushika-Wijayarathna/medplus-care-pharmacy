@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane onKeyPressed="#onFKeyPressed" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.ReportFormController">
+<AnchorPane onKeyPressed="#onFKeyPressed" prefHeight="841.0" prefWidth="1544.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.medpluscarepharmacy.controller.ReportFormController">
    <children>
       <Label layoutX="40.0" layoutY="123.0" prefHeight="39.0" prefWidth="155.0" text="Test">
          <font>
@@ -16,7 +23,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="testComBox" layoutX="253.0" layoutY="123.0" prefHeight="39.0" prefWidth="232.0" promptText="Select Test" />
+      <JFXComboBox fx:id="testComBox" layoutX="253.0" layoutY="123.0" onAction="#onSelectAction" prefHeight="39.0" prefWidth="232.0" promptText="Select Test" />
       <JFXTextField fx:id="resultText" layoutX="253.0" layoutY="171.0" onKeyReleased="#onResult" prefHeight="39.0" prefWidth="232.0" />
       <Label layoutX="40.0" layoutY="223.0" prefHeight="39.0" prefWidth="209.0" text="Issue Date">
          <font>
@@ -28,19 +35,47 @@
             <Font size="25.0" />
          </font>
       </Label>
+
       <TableView fx:id="reportTable" layoutX="40.0" layoutY="404.0" onMouseClicked="#onMouseClickAction" prefHeight="399.0" prefWidth="1470.0">
         <columns>
           <TableColumn fx:id="colReport" prefWidth="118.0" text="Report Id" />
+            <TableColumn fx:id="colCust" prefWidth="131.0" text="Customer" />
           <TableColumn fx:id="colTest" prefWidth="131.0" text="Test" />
             <TableColumn fx:id="colIssue" prefWidth="204.0" text="Issue Date" />
             <TableColumn fx:id="colPickUp" prefWidth="253.0" text="Pick Up Date" />
-            <TableColumn fx:id="colResult" prefWidth="584.0" text="Result" />
-            <TableColumn fx:id="colAction" prefWidth="179.0" text="Update" />
+            <TableColumn fx:id="colResult" prefWidth="449.0" text="Result" />
+            <TableColumn fx:id="colAction" prefWidth="183.0" text="Action" />
         </columns>
       </TableView>
       <JFXButton fx:id="addBtn" layoutX="361.0" layoutY="345.0" onAction="#addBtnOnAction" prefHeight="40.0" prefWidth="124.0" style="-fx-background-color: GREEN;" text="add" textFill="WHITE" />
-      <JFXTextField fx:id="searchBar" layoutX="40.0" layoutY="45.0" onAction="#onSelectAction" onKeyPressed="#onKeyPressedAction" prefHeight="39.0" prefWidth="291.0" promptText="Search Test" />
+      <JFXTextField fx:id="searchBar" layoutX="40.0" layoutY="30.0" onKeyPressed="#onKeyPressedAction" prefHeight="39.0" prefWidth="291.0" promptText="Search Report" />
       <DatePicker fx:id="issueDatePicker" layoutX="253.0" layoutY="223.0" prefHeight="39.0" prefWidth="232.0" />
       <DatePicker fx:id="pickUpDatePicker" layoutX="253.0" layoutY="272.0" prefHeight="39.0" prefWidth="232.0" />
+      <Label layoutX="40.0" layoutY="84.0" prefHeight="39.0" prefWidth="155.0" text="Customer">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="searchCustomer" layoutX="253.0" layoutY="77.0" onKeyPressed="#onSearchCustomer" onKeyReleased="#onCustomerReleased" prefHeight="39.0" prefWidth="232.0" promptText="Search customer" />
+      <ImageView fx:id="upload" fitHeight="53.0" fitWidth="70.0" layoutX="506.0" layoutY="164.0" onMouseClicked="#onAction" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon/Untitled design (45).png" />
+         </image>
+      </ImageView>
+      <Label fx:id="custName" layoutX="40.0" layoutY="84.0" prefHeight="39.0" prefWidth="155.0" >
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="custEmail" layoutX="40.0" layoutY="84.0" prefHeight="39.0" prefWidth="155.0" >
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="name" layoutX="40.0" layoutY="84.0" prefHeight="39.0" prefWidth="155.0" >
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

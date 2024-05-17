@@ -14,6 +14,7 @@ import java.util.List;
 @Data
 
 public class ReportTm {
+    private String custId;
     private String reportId;
     private String testId;
     private String result;

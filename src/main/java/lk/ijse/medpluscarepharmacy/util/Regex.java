@@ -3,6 +3,7 @@ package lk.ijse.medpluscarepharmacy.util;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.control.Alert;
 import javafx.scene.paint.Paint;
 
 import java.util.regex.Matcher;
@@ -44,7 +45,7 @@ public class Regex {
                 filed = "^[a-zA-Z0-9]+$";
                 break;
             case DESCRIPTION:
-                filed = "^[a-zA-Z]+$";
+                filed = "[\\s\\S]*";
                 break;
             case QTY:
                 filed = "^([0-9]){1,}$";
@@ -80,27 +81,34 @@ public class Regex {
         }else {
             textField.setFocusColor(Paint.valueOf("Red"));
             textField.setUnFocusColor(Paint.valueOf("Red"));
+
             return false;
         }
     }
 
-    public static void setTextColor(TextField textField, JFXPasswordField passwordTxt) {
+    public static boolean setTextColor(TextField textField, JFXPasswordField passwordTxt) {
         if (Regex.isTextFieldValid(textField, passwordTxt.getText())){
             passwordTxt.setFocusColor(Paint.valueOf("Green"));
             passwordTxt.setUnFocusColor(Paint.valueOf("Green"));
+            return true;
         }else {
             passwordTxt.setFocusColor(Paint.valueOf("Red"));
             passwordTxt.setUnFocusColor(Paint.valueOf("Red"));
+
+            return false;
         }
     }
 
-    public static void setTextColor(TextField textField, JFXTextArea contextText) {
+    public static boolean setTextColor(TextField textField, JFXTextArea contextText) {
         if (Regex.isTextFieldValid(textField, contextText.getText())){
             contextText.setFocusColor(Paint.valueOf("Green"));
             contextText.setUnFocusColor(Paint.valueOf("Green"));
+            return true;
         }else {
             contextText.setFocusColor(Paint.valueOf("Red"));
             contextText.setUnFocusColor(Paint.valueOf("Red"));
+
+            return false;
         }
     }
 }

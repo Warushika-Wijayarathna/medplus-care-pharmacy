@@ -85,6 +85,14 @@ public class UpdateUsrFormController {
     }
 
     public void updateBtnOnAction(ActionEvent actionEvent) {
+        if (!Regex.isTextFieldValid(TextField.NAME, usernameTxt.getText())) {
+            usernameTxt.requestFocus();
+            return;
+        }
+        if (!Regex.isTextFieldValid(TextField.PASSWORD, passwordTxt.getText())) {
+            passwordTxt.requestFocus();
+            return;
+        }
         User user = new User(
                 id,
                 usernameTxt.getText(),

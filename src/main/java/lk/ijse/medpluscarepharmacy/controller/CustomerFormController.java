@@ -19,15 +19,32 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Customer;
+import lk.ijse.medpluscarepharmacy.model.Supplier;
 import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
+import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.CustomerRepo;
+import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 import lk.ijse.medpluscarepharmacy.util.Regex;
 import lk.ijse.medpluscarepharmacy.util.TextField;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class CustomerFormController {
 
@@ -45,17 +62,10 @@ public class CustomerFormController {
     ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
     public CustomerTm selectedCustomer;
 
+
     public void initialize(){
         setCellValueFactory();
         loadAllCustomers();
-        searchCustomer();
-
-        searchBar.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                customerTable.requestFocus();
-            }
-        });
-        searchBar.requestFocus();
 
         Platform.runLater(()->{
             custTxt.requestFocus();
@@ -75,6 +85,13 @@ public class CustomerFormController {
                 }
             });
         });
+    }
+
+    public void onSearchCustomer(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            searchCustomer();
+            customerTable.requestFocus();
+        }
     }
 
     private void searchCustomer() {
@@ -152,6 +169,7 @@ public class CustomerFormController {
                 CustomerRepo.delete(customer);
                 obList.remove(selectedCustomer);
                 clear();
+                loadAllCustomers();
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer deleted successfully!").showAndWait();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Failed to delete customer!").showAndWait();
@@ -171,6 +189,23 @@ public class CustomerFormController {
             String contact = String.valueOf(selectedCustomer.getContactNo());
             String email = selectedCustomer.getEmail();
 
+            if(!Regex.isTextFieldValid(TextField.NAME, name)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Name!").showAndWait();
+                custTxt.requestFocus();
+                return;
+            }
+
+            if(!Regex.isTextFieldValid(TextField.CONTACT, contact)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Contact Number!").showAndWait();
+                contactTxt.requestFocus();
+                return;
+            }
+
+            if(!Regex.isTextFieldValid(TextField.EMAIL, email)){
+                new Alert(Alert.AlertType.WARNING, "Invalid Email!").showAndWait();
+                emailTxt.requestFocus();
+                return;
+            }
 
             Customer updatedCustomer = new Customer(
                     custId,
@@ -234,9 +269,27 @@ public class CustomerFormController {
     public void addBtnOnAction(ActionEvent actionEvent) {
         String name = custTxt.getText().trim();
         String contactText = contactTxt.getText().trim();
-        String email = emailTxt.getText().trim();
+        String Email = emailTxt.getText().trim();
 
-        if (name.isEmpty() || contactText.isEmpty() || email.isEmpty()) {
+        if(!Regex.isTextFieldValid(TextField.NAME, name)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Name!").showAndWait();
+            custTxt.requestFocus();
+            return;
+        }
+
+        if(!Regex.isTextFieldValid(TextField.CONTACT, contactText)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Contact Number!").showAndWait();
+            contactTxt.requestFocus();
+            return;
+        }
+
+        if(!Regex.isTextFieldValid(TextField.EMAIL, Email)){
+            new Alert(Alert.AlertType.WARNING, "Invalid Email!").showAndWait();
+            emailTxt.requestFocus();
+            return;
+        }
+
+        if (name.isEmpty() || contactText.isEmpty() || Email.isEmpty()) {
             new Alert(Alert.AlertType.WARNING, "Please fill all the fields!").showAndWait();
             return;
         }
@@ -249,19 +302,14 @@ public class CustomerFormController {
                 return;
             }
 
-            if (isEmailDuplicate(email)) {
+            if (isEmailDuplicate(Email)) {
                 new Alert(Alert.AlertType.WARNING, "Email already exists!").showAndWait();
                 return;
             }
 
-            Customer newCustomer = new Customer(name, contact, email);
+            Customer newCustomer = new Customer(name, contact, Email);
 
             CustomerRepo.add(newCustomer);
-
-            String generatedCustomerId = CustomerRepo.generateCustomerId(newCustomer);
-            newCustomer.setCustomerId(generatedCustomerId);
-
-            new Alert(Alert.AlertType.CONFIRMATION, "Customer added successfully!").showAndWait();
 
             ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
             updateIcon.setFitWidth(20);
@@ -283,11 +331,76 @@ public class CustomerFormController {
             actionBtns.add(updateButton);
             actionBtns.add(deleteButton);
 
-            obList.add(new CustomerTm(newCustomer.getCustomerId(), name, contact, email, actionBtns));
+            obList.add(new CustomerTm(newCustomer.getCustomerId(), name, contact, Email, actionBtns));
 
             clear();
 
+            // Recipient's email ID needs to be mentioned.
+            String to = Email;
+
+            // Sender's email ID needs to be mentioned
+            String from = "www.thilankathushani@gmail.com";
+
+            // Assuming you are sending email from through gmails smtp
+            String host = "smtp.gmail.com";
+
+            // Get system properties
+            Properties properties = System.getProperties();
+
+            // Setup mail server
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+
+            Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+                protected PasswordAuthentication getPasswordAuthentication() {
+
+                    return new PasswordAuthentication("www.thilankathushani@gmail.com", "widp uvup qnge gvre");
+
+                }
+
+            });
+
+            // Used to debug SMTP issues
+            session.setDebug(true);
+
+            try {
+                // Create a default MimeMessage object.
+                MimeMessage message = new MimeMessage(session);
+
+                // Set From: header field of the header.
+                message.setFrom(new InternetAddress(from));
+
+                // Set To: header field of the header.
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+                // Set Subject: header field
+                message.setSubject("Welcome!");
+
+                // Now set the actual message
+
+                //Customize the msg
+                message.setText("Dear " + name + ",\n\n" +
+                        "Welcome to MedPlus Care Pharmacy!\n" +
+                        "We are delighted to have you as a customer.\n" +
+                        "Thank you for choosing us.\n\n" +
+                        "Best Regards,\n" +
+                        "MedPlus Care Pharmacy\n\n" +
+                        "This is an auto-generated email. Please do not reply." + "\n\n" );
+
+                System.out.println("sending...");
+                // Send message
+                Transport.send(message);
+                System.out.println("Sent message successfully....");
+            } catch (MessagingException mex) {
+                mex.printStackTrace();
+            }
+            loadAllCustomers();
             custTxt.requestFocus();
+            new Alert(Alert.AlertType.CONFIRMATION, "Customer added successfully!").showAndWait();
 
         } catch (NumberFormatException e) {
             new Alert(Alert.AlertType.ERROR, "Invalid contact number!").showAndWait();
@@ -296,6 +409,7 @@ public class CustomerFormController {
             e.printStackTrace();
         }
     }
+
 
 
     public void onMouseClickAction(MouseEvent mouseEvent) {
@@ -361,5 +475,74 @@ public class CustomerFormController {
         return false;
     }
 
+    public void onClickAction(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select CSV File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("CSV Files", "*.csv"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage stage = (Stage) customerTable.getScene().getWindow();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            String filePath = selectedFile.getAbsolutePath();
+            insertTestData(filePath);
+        }
+    }
+
+    private void insertTestData(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+
+            reader.readLine();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] data = line.split(",");
+                    String name = data[0].trim();
+                    int contact = Integer.parseInt(data[1].trim());
+                    String email = data[2].trim();
+
+                    Customer newCustomer = new Customer(name, contact, email);
+                    CustomerRepo.add(newCustomer);
+
+                    String generatedCustomerId = CustomerRepo.generateCustomerId(newCustomer);
+                    newCustomer.setCustomerId(generatedCustomerId);
+
+                    JFXButton updateButton = new JFXButton();
+                    ImageView updateIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (44).png")));
+                    updateIcon.setFitWidth(20);
+                    updateIcon.setFitHeight(20);
+                    updateButton.setGraphic(updateIcon);
+                    updateButton.setOnAction(event -> handleUpdateCustomer(newCustomer));
+
+                    JFXButton deleteButton = new JFXButton();
+                    ImageView deleteIcon = new ImageView(new Image(getClass().getResourceAsStream("/icon/Untitled design (43).png")));
+                    deleteIcon.setFitWidth(20);
+                    deleteIcon.setFitHeight(20);
+                    deleteButton.setGraphic(deleteIcon);
+                    deleteButton.setOnAction(event -> handleDeleteCustomer(newCustomer));
+
+
+                    List<JFXButton> actionBtns = new ArrayList<>();
+                    actionBtns.add(updateButton);
+                    actionBtns.add(deleteButton);
+
+                    obList.add(new CustomerTm(generatedCustomerId, name, contact, email, actionBtns));
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid price value in CSV: " + line);
+                }
+            }
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.CONFIRMATION, "Customer data imported successfully!").showAndWait();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Platform.runLater(()->{
+                new Alert(Alert.AlertType.ERROR, "Failed to import Customer data!").showAndWait();
+            });
+        }
+    }
 }
 

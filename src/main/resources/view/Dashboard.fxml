@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.image.Image?>
@@ -170,6 +171,15 @@
          </font>
       </Label>
       <AnchorPane fx:id="rootPane" layoutX="280.0" layoutY="156.0" prefHeight="841.0" prefWidth="1544.0" />
+      <Hyperlink fx:id="hyperHelp" layoutX="91.0" layoutY="955.0" prefHeight="23.0" prefWidth="94.0" text="Help" textFill="WHITE" onAction="#onHelp">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon/Untitled design (50).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Hyperlink>
    </children>
    <stylesheets>
       <URL value="@../css/styles.css" /> <!-- Path to your CSS file -->

@@ -111,6 +111,27 @@ public class UpdateEmFormController {
     }
 
     public void updateBtnOnAction(ActionEvent actionEvent) {
+        if (!Regex.isTextFieldValid(TextField.NAME,employeeNameTxt.getText())) {
+            employeeNameTxt.requestFocus();
+            return;
+        }
+        if (!Regex.isTextFieldValid(TextField.POSITION,positionTxt.getText())) {
+            positionTxt.requestFocus();
+            return;
+        }
+        if (!Regex.isTextFieldValid(TextField.ADDRESS,addressTxt.getText())) {
+            addressTxt.requestFocus();
+            return;
+        }
+        if (!Regex.isTextFieldValid(TextField.CONTACT,contactNo.getText())) {
+            contactNo.requestFocus();
+            return;
+        }
+        if (!Regex.isTextFieldValid(TextField.SALARY,salaryTxt.getText())) {
+            salaryTxt.requestFocus();
+            return;
+        }
+
         Employee employee = new Employee(
                 id,
                 employeeNameTxt.getText(),

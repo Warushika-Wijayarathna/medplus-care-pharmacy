@@ -48,7 +48,7 @@
             <Font size="22.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="qtyTxt" layoutX="573.0" layoutY="535.0" prefHeight="44.0" prefWidth="298.0" />
+      <JFXTextField fx:id="qtyTxt" onKeyReleased="#onQty" layoutX="573.0" layoutY="535.0" prefHeight="44.0" prefWidth="298.0" />
       <JFXButton fx:id="addBtn" layoutX="573.0" layoutY="626.0" onAction="#addOnAction" onKeyPressed="#addBtnClickOnAction" prefHeight="64.0" prefWidth="298.0" style="-fx-background-color: #0e9956;" text="Add to cart" textFill="WHITE">
          <font>
             <Font name="Lohit Tamil Classical" size="26.0" />
@@ -101,7 +101,7 @@
       <Label fx:id="descLbl" layoutX="573.0" layoutY="256.0" prefHeight="44.0" prefWidth="298.0" />
       <Label fx:id="priceLbl" layoutX="573.0" layoutY="358.0" prefHeight="44.0" prefWidth="298.0" />
       <Label fx:id="discLbl" layoutX="573.0" layoutY="447.0" prefHeight="44.0" prefWidth="298.0" />
-      <JFXTextField fx:id="searchCustomer" layoutX="22.0" layoutY="83.0" onKeyPressed="#onSearchCustomer" prefHeight="44.0" prefWidth="219.0" promptText="Search Customer" />
+      <JFXTextField fx:id="searchCustomer" layoutX="22.0" layoutY="83.0" onKeyPressed="#onSearchCustomer" onKeyReleased="#onCustomer" prefHeight="44.0" prefWidth="219.0" promptText="Search Customer" />
       <Label layoutX="21.0" layoutY="136.0" prefHeight="44.0" prefWidth="150.0" text="Customer :">
          <font>
             <Font name="System Bold" size="22.0" />
@@ -113,7 +113,7 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="cashTxt" layoutX="1109.0" layoutY="662.0" onKeyPressed="#onCashKeyPressed" prefHeight="44.0" prefWidth="287.0" />
+      <JFXTextField fx:id="cashTxt" layoutX="1109.0" layoutY="662.0" onKeyPressed="#onCashKeyPressed" onKeyReleased="#onCash" prefHeight="44.0" prefWidth="287.0" />
       <Label layoutX="932.0" layoutY="705.0" prefHeight="64.0" prefWidth="172.0" text="Balance">
          <font>
             <Font name="System Bold" size="29.0" />
