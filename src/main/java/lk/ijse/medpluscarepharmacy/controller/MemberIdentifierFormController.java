@@ -38,6 +38,10 @@ public class MemberIdentifierFormController {
 
         showPassword.setVisible(false);
 
+        showPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            hidePassword.setText(newValue);
+        });
+
         Platform.runLater(()->{
             userNameTxt.requestFocus();
         });
@@ -46,8 +50,10 @@ public class MemberIdentifierFormController {
 
     @FXML
     public void onUserNameOnKeyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode()== KeyCode.ENTER) {
+        if ((keyEvent.getCode()== KeyCode.ENTER)&&!showToggleBtn.isSelected()) {
             hidePassword.requestFocus();
+        } else if ((keyEvent.getCode()== KeyCode.ENTER)&&showToggleBtn.isSelected()) {
+            showPassword.requestFocus();
         }
     }
 
@@ -76,6 +82,8 @@ public class MemberIdentifierFormController {
                                 userNameTxt.clear();
                                 hidePassword.clear();
                                 showPassword.clear();
+                                showToggleBtn.setSelected(false);
+                                hidePassword.setVisible(true);
                                 userNameTxt.requestFocus();
                             }
                         });
@@ -111,7 +119,6 @@ public class MemberIdentifierFormController {
             showPassword.setText(hidePassword.getText());
             showPassword.setVisible(true);
             hidePassword.setVisible(false);
-            hidePassword.setText(showPassword.getText());
             return;
         }
         hidePassword.setText(showPassword.getText());

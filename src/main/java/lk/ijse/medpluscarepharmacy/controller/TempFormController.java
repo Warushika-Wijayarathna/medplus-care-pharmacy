@@ -72,8 +72,8 @@ public class TempFormController {
     private Thread thread;
     private Scanner scanner;
 
-    public static final String ACCOUNT_SID = "ACf512375e4b22ad144f92f222aa284c7e";
-    public static final String AUTH_TOKEN = "954c7071c356703a0cd846aa73a4c697";
+    public static final String ACCOUNT_SID = "ACcc72bee81dd443677a8c0a5747450545";
+    public static final String AUTH_TOKEN = "972624e3be9fe4fe13ffb956f5f34d3b";
     private int alertCount = 0;
     public void initialize() {
 
@@ -193,8 +193,8 @@ public class TempFormController {
                                     LocalTime lowerBound8 = LocalTime.of(8, 29, 30);
                                     LocalTime upperBound8 = LocalTime.of(8, 31, 0);
 
-                                    LocalTime lowerBound14 = LocalTime.of(14, 29, 30);
-                                    LocalTime upperBound14 = LocalTime.of(14, 21, 0);
+                                    LocalTime lowerBound14 = LocalTime.of(12, 43, 30);
+                                    LocalTime upperBound14 = LocalTime.of(12, 44, 0);
 
                                     LocalTime lowerBound20 = LocalTime.of(22, 59, 30);
                                     LocalTime upperBound20 = LocalTime.of(23, 01, 0);
@@ -215,11 +215,11 @@ public class TempFormController {
                                     VonageClient client = VonageClient.builder().apiKey("26607713").apiSecret("IBs3Pp0FUc4ryErx").build();
 
 
-                                    if (lastTemp > 30 && alertCount < 3) {
+                                    if (lastTemp > 25 && alertCount < 1) {
                                         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
                                         Message message = Message.creator(
-                                                new com.twilio.type.PhoneNumber("+94702928847"),
-                                                new com.twilio.type.PhoneNumber("+18507357704"),
+                                                new com.twilio.type.PhoneNumber("+94701969102"),
+                                                new com.twilio.type.PhoneNumber("+18782060917"),
                                                 "Temperature Alert!!!Temperature is above 30 degrees"
                                         ).create();
                                         System.out.println(message.getSid());

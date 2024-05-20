@@ -26,11 +26,11 @@
                   <TableColumn fx:id="colExpDate" prefWidth="78.0" text="Exp Date" />
                </columns>
             </TableView>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="32.0" layoutX="103.0" layoutY="603.0" stroke="RED" strokeType="INSIDE" width="29.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fa817f" height="32.0" layoutX="103.0" layoutY="603.0" stroke="#fa817f" strokeType="INSIDE" width="29.0" />
             <Label layoutX="139.0" layoutY="603.0" prefHeight="32.0" prefWidth="116.0" text="Under Stock" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="ORANGE" height="32.0" layoutX="103.0" layoutY="644.0" stroke="ORANGE" strokeType="INSIDE" width="29.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f0dd7d" height="32.0" layoutX="103.0" layoutY="644.0" stroke="#f0dd7d" strokeType="INSIDE" width="29.0" />
             <Label layoutX="139.0" layoutY="644.0" prefHeight="32.0" prefWidth="156.0" text="Expiring(in 6 months)" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eb2f5e" height="32.0" layoutX="343.0" layoutY="603.0" stroke="#eb2f5e" strokeType="INSIDE" width="29.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#9f7df0" height="32.0" layoutX="343.0" layoutY="603.0" stroke="#9f7df0" strokeType="INSIDE" width="29.0" />
             <Label layoutX="379.0" layoutY="603.0" prefHeight="32.0" prefWidth="156.0" text="Under Stock &amp; Expiring" />
             <Label layoutX="103.0" layoutY="699.0" prefHeight="32.0" prefWidth="156.0" text="Daily Sale">
                <font>
