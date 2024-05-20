@@ -29,6 +29,44 @@ This project utilizes an Arduino UNO microcontroller and a DHT22 sensor to monit
 3. **Data Logging**: Temperature data is logged at regular intervals, allowing users to track temperature fluctuations over time.
 4. **Medicine Management**: Use the provided interface to manage medicines, including tracking expiration dates and quantities.
 
+## Example Arduino Code
+
+#include <DHT.h> // Include the DHT sensor library
+
+#define DHTPIN 7         // Define the pin where your sensor is connected
+#define DHTTYPE DHT22   // Define the type of sensor you're using, could be DHT11, DHT22, etc.
+#define TEMP_THRESHOLD_HIGH 32.0 // Define the high temperature threshold
+#define TEMP_THRESHOLD_LOW 31.0  // Define the low temperature threshold
+#define SAMPLE_INTERVAL 1000    // Define the interval for sampling temperature readings in milliseconds (e.g., 1 minute)
+
+DHT TemperatureMonitor(DHTPIN, DHTTYPE); // Instantiate the DHT object
+
+float temperatureData[60]; // Array to store temperature readings for the past 60 minutes
+int index = 0; // Index to keep track of current position in the temperatureData array
+
+void setup() {
+  Serial.begin(9600);
+  TemperatureMonitor.begin(); // Initialize the sensor
+}
+
+void loop() {
+  // Read temperature from the sensor
+  float temperature = TemperatureMonitor.readTemperature();
+
+  // Check if any reads failed and exit early (to try again).
+  if (isnan(temperature)) {
+    Serial.println("Failed to read from DHT sensor!");
+    return;
+  }
+
+
+  Serial.println(temperature);
+
+
+  // Delay for the sampling interval
+  delay(SAMPLE_INTERVAL);
+}
+
 ## Contributors
 - [Warushika-Wijayarathna](https://github.com/Warushika-Wijayarathna)
 
