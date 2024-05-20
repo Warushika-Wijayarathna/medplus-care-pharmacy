@@ -31,7 +31,7 @@ This project utilizes an Arduino UNO microcontroller and a DHT22 sensor to monit
 
 ## Example Arduino Code
 
-#include <DHT.h> // Include the DHT sensor library
+[#include <DHT.h> // Include the DHT sensor library
 
 #define DHTPIN 7         // Define the pin where your sensor is connected
 #define DHTTYPE DHT22   // Define the type of sensor you're using, could be DHT11, DHT22, etc.
@@ -65,7 +65,7 @@ void loop() {
 
   // Delay for the sampling interval
   delay(SAMPLE_INTERVAL);
-}
+}]
 
 ## Contributors
 - [Warushika-Wijayarathna](https://github.com/Warushika-Wijayarathna)
@@ -77,3 +77,5 @@ void loop() {
 
 ## Support
 For any questions, issues, or feature requests, please contact [https://github.com/Warushika-Wijayarathna/medicine-management-system/issues].
+
+
