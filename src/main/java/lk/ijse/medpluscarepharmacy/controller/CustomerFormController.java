@@ -22,11 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import lk.ijse.medpluscarepharmacy.model.Customer;
-import lk.ijse.medpluscarepharmacy.model.Supplier;
 import lk.ijse.medpluscarepharmacy.model.Tm.CustomerTm;
-import lk.ijse.medpluscarepharmacy.model.Tm.SupplierTm;
 import lk.ijse.medpluscarepharmacy.repository.CustomerRepo;
-import lk.ijse.medpluscarepharmacy.repository.SupplierRepo;
 import lk.ijse.medpluscarepharmacy.util.Regex;
 import lk.ijse.medpluscarepharmacy.util.TextField;
 
