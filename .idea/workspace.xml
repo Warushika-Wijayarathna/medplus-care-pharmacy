@@ -4,9 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Finishing touches">
+    <list default="true" id="88d92ffb-ca7d-4b05-90cd-571f59a76ca3" name="Changes" comment="Adding README.md">
+      <change afterPath="$PROJECT_DIR$/Report_R0020.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Report_R0021.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/fire-alarm-33770.aiff" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sound/fire-alarm-33770.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b93999ca-6e9a-44c5-9f80-4e77fd6ddc1e.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/b93999ca-6e9a-44c5-9f80-4e77fd6ddc1e.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/CustomerFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/CustomerFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/DashBoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/ItemFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/ItemFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/ReportFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/ReportFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/TempFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/TempFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/TestFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/controller/TestFormController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/util/Regex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/medpluscarepharmacy/util/Regex.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +37,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -209,7 +223,13 @@
       <workItem from="1716009547465" duration="5444000" />
       <workItem from="1716194680252" duration="259000" />
       <workItem from="1716225988237" duration="1593000" />
-      <workItem from="1716228711256" duration="1485000" />
+      <workItem from="1716228711256" duration="1831000" />
+      <workItem from="1716733173351" duration="1018000" />
+      <workItem from="1716761677437" duration="3305000" />
+      <workItem from="1716798607312" duration="14048000" />
+      <workItem from="1716823739903" duration="611000" />
+      <workItem from="1716827918195" duration="532000" />
+      <workItem from="1716831697091" duration="738000" />
     </task>
     <task id="LOCAL-00001" summary="memeberIdentifierForm Creation">
       <option name="closed" value="true" />
@@ -355,7 +375,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716228919565</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Adding README.md">
+      <option name="closed" value="true" />
+      <created>1716231105062</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1716231105062</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,7 +412,8 @@
     <MESSAGE value="Improved IV" />
     <MESSAGE value="Improved V" />
     <MESSAGE value="Finishing touches" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finishing touches" />
+    <MESSAGE value="Adding README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding README.md" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

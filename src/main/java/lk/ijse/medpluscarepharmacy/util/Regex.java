@@ -45,13 +45,13 @@ public class Regex {
                 filed = "^[a-zA-Z0-9]+$";
                 break;
             case DESCRIPTION:
-                filed = "[\\s\\S]*";
+                filed = ".*";
                 break;
             case QTY:
                 filed = "^([0-9]){1,}$";
                 break;
             case PRICE:
-                filed = "^([0-9]){1,}$";
+                filed = "^([0-9]{1,}[.][0-9]{1,})$";
                 break;
         }
 

@@ -190,6 +190,7 @@ public class TestFormController {
             try {
                 TestRepo.delete(test);
                 obList.remove(selectedTest);
+                clear();
                 Platform.runLater(()-> {
                     new Alert(Alert.AlertType.CONFIRMATION, "Test deleted successfully!").showAndWait();
                 });
@@ -229,7 +230,7 @@ public class TestFormController {
                 return;
             }
 
-            if (!Regex.isTextFieldValid(TextField.NAME, sampleType)){
+            if (!Regex.isTextFieldValid(TextField.DESCRIPTION, sampleType)){
                 new Alert(Alert.AlertType.WARNING, "Invalid Sample Type").showAndWait();
                 sampleTypeTxt.requestFocus();
                 return;
@@ -335,7 +336,8 @@ public class TestFormController {
             return;
         }
 
-        if (!Regex.isTextFieldValid(TextField.NAME, sampleType)){
+        if (!Regex.isTextFieldValid(TextField.DESCRIPTION, sampleType)){
+            System.out.println(sampleType);
             new Alert(Alert.AlertType.WARNING, "Invalid Sample Type").showAndWait();
             sampleTypeTxt.requestFocus();
             return;
@@ -528,7 +530,7 @@ public class TestFormController {
     }
 
     public void onSample(KeyEvent keyEvent) {
-        Regex.setTextColor(TextField.NAME, sampleTypeTxt);
+        Regex.setTextColor(TextField.DESCRIPTION, sampleTypeTxt);
     }
 
     public void onType(KeyEvent keyEvent) {

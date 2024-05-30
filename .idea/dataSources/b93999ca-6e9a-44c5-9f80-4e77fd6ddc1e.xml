@@ -1076,7 +1076,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="293" parent="1" name="MedplusCarePharmacy">
-      <LastIntrospectionLocalTimestamp>2024-05-17.22:12:36</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-27.11:18:12</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <schema id="294" parent="1" name="gdse69">
@@ -1777,7 +1777,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Turn>before-row</Turn>
     </trigger>
     <column id="448" parent="323" name="temp_id">
-      <AutoIncrement>1</AutoIncrement>
+      <AutoIncrement>60</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1822,7 +1822,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>3</Position>
     </column>
     <column id="457" parent="324" name="sample_type">
-      <DasType>varchar(10)|0s</DasType>
+      <DasType>varchar(50)|0s</DasType>
       <Position>4</Position>
     </column>
     <column id="458" parent="324" name="test_type">

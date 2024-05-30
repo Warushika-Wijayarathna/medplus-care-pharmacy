@@ -21,6 +21,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import lk.ijse.medpluscarepharmacy.dbConnection.DbConnection;
 import lk.ijse.medpluscarepharmacy.model.Item;
 import lk.ijse.medpluscarepharmacy.model.TemperatureReading;
@@ -38,15 +40,17 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import lk.ijse.medpluscarepharmacy.repository.OrderRepo;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
-import java.time.Year;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Scanner;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 
 public class TempFormController {
 
@@ -72,9 +76,9 @@ public class TempFormController {
     private Thread thread;
     private Scanner scanner;
 
-    public static final String ACCOUNT_SID = "ACcc72bee81dd443677a8c0a5747450545";
-    public static final String AUTH_TOKEN = "972624e3be9fe4fe13ffb956f5f34d3b";
-    private int alertCount = 0;
+    public static final String ACCOUNT_SID = "AC6356d1fea99ce2b13fbe4726d4fd3155";
+    public static final String AUTH_TOKEN = "cf3eafea96e36a98bbdb50bbb5758067";
+    private boolean alertSent = false;
     public void initialize() {
 
         setCellValueFactories();
@@ -191,13 +195,13 @@ public class TempFormController {
                                     label1.setText(currentTemp + String.valueOf(lastTemp));
 
                                     LocalTime lowerBound8 = LocalTime.of(8, 29, 30);
-                                    LocalTime upperBound8 = LocalTime.of(8, 31, 0);
+                                    LocalTime upperBound8 = LocalTime.of(8, 30, 0);
 
-                                    LocalTime lowerBound14 = LocalTime.of(12, 43, 30);
-                                    LocalTime upperBound14 = LocalTime.of(12, 44, 0);
+                                    LocalTime lowerBound14 = LocalTime.of(14, 29, 30);
+                                    LocalTime upperBound14 = LocalTime.of(14, 30, 0);
 
-                                    LocalTime lowerBound20 = LocalTime.of(22, 59, 30);
-                                    LocalTime upperBound20 = LocalTime.of(23, 01, 0);
+                                    LocalTime lowerBound20 = LocalTime.of(20, 29, 30);
+                                    LocalTime upperBound20 = LocalTime.of(20, 30, 0);
 
 
                                     if ((currentTime.isAfter(lowerBound8) && currentTime.isBefore(upperBound8)) ||
@@ -212,35 +216,51 @@ public class TempFormController {
                                     }
                                     System.out.println((currentTemp + String.valueOf(lastTemp)));
 
-                                    VonageClient client = VonageClient.builder().apiKey("26607713").apiSecret("IBs3Pp0FUc4ryErx").build();
+                                    VonageClient client = VonageClient.builder().apiKey("e38f1861").apiSecret("waicS7psCF7MRPCL").build();
 
 
-                                    if (lastTemp > 25 && alertCount < 1) {
-                                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-                                        Message message = Message.creator(
-                                                new com.twilio.type.PhoneNumber("+94701969102"),
-                                                new com.twilio.type.PhoneNumber("+18782060917"),
+
+//                                    if (lastTemp > 30 && !alertSent) {
+//                                        alertSent = true; // Set the alert flag to true when an alert is sent
+//
+//                                        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//                                        Message message = Message.creator(
+//                                                new com.twilio.type.PhoneNumber("+94715157076"),
+//                                                new com.twilio.type.PhoneNumber("+12183877768"),
+//                                                "Temperature Alert!!! Temperature is above 30 degrees"
+//                                        ).create();
+//                                        System.out.println(message.getSid());
+//
+//                                        // Add sound alert
+//                                        playAlertSound("src/main/resources/sound/fire-alarm-33770.aiff");
+//
+//                                    }
+//
+//                                    // Reset alert flag when temperature drops below threshold
+//                                    if (lastTemp < 30) {
+//                                        alertSent = false;
+//                                    }
+
+                                    if (lastTemp > 30 && !alertSent) {
+                                        TextMessage message = new TextMessage("Vonage APIs",
+                                                "94702928847",
                                                 "Temperature Alert!!!Temperature is above 30 degrees"
-                                        ).create();
-                                        System.out.println(message.getSid());
-                                        alertCount++;
+                                        );
+
+                                        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
+
+                                        if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
+                                            playAlertSound("src/main/resources/sound/fire-alarm-33770.aiff");
+                                            System.out.println("Message sent successfully.");
+                                            alertSent = true;
+                                        } else {
+                                            System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
+                                        }
                                     }
 
-//                                    if (lastTemp > 30 && alertCount < 3) {
-//                                        TextMessage message = new TextMessage("Vonage APIs",
-//                                                "94716930518",
-//                                                "Temperature Alert!!!Temperature is above 30 degrees"
-//                                        );
-//
-//                                        SmsSubmissionResponse response = client.getSmsClient().submitMessage(message);
-//
-//                                        if (response.getMessages().get(0).getStatus() == MessageStatus.OK) {
-//                                            System.out.println("Message sent successfully.");
-//                                            alertCount++;
-//                                        } else {
-//                                            System.out.println("Message failed with error: " + response.getMessages().get(0).getErrorText());
-//                                        }
-//                                    }
+                                    if (lastTemp < 30) {
+                                        alertSent = false;
+                                   }
 
                                 });
                             } catch (Exception e) {
@@ -261,6 +281,28 @@ public class TempFormController {
             }
         });
 
+    }
+
+    private void playAlertSound(String soundFilePath) {
+        try {
+            String uriString = new File(soundFilePath).toURI().toString();
+            Media sound = new Media(uriString);
+            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            mediaPlayer.play();
+            System.out.println("Sound played");
+
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(20000); // 10000 milliseconds = 10 seconds
+                    Platform.runLater(mediaPlayer::stop);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setSales() {

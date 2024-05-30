@@ -265,31 +265,31 @@ public class ItemFormController {
                 double discount = selectedItem.getDiscount();
                 LocalDate expDate = selectedItem.getExpDate();
 
-                if (Regex.isTextFieldValid(TextField.DESCRIPTION,description)){
+                if (!Regex.isTextFieldValid(TextField.DESCRIPTION,description)){
                     new Alert(Alert.AlertType.WARNING, "Invalid Description!").showAndWait();
                     descTxt.requestFocus();
                     return;
                 }
 
-                if (Regex.isTextFieldValid(TextField.QTY, String.valueOf(qty))){
+                if (!Regex.isTextFieldValid(TextField.QTY, String.valueOf(qty))){
                     new Alert(Alert.AlertType.WARNING, "Invalid Quantity!").showAndWait();
                     qtyTxt.requestFocus();
                     return;
                 }
 
-                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(wholeSalePrice))){
+                if (!Regex.isTextFieldValid(TextField.PRICE, String.valueOf(wholeSalePrice))){
                     new Alert(Alert.AlertType.WARNING, "Invalid Whole Sale Price!").showAndWait();
                     wholeSalePriceTxt.requestFocus();
                     return;
                 }
 
-                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(retailPrice))){
+                if (!Regex.isTextFieldValid(TextField.PRICE, String.valueOf(retailPrice))){
                     new Alert(Alert.AlertType.WARNING, "Invalid Retail Price!").showAndWait();
                     retailTxt.requestFocus();
                     return;
                 }
 
-                if (Regex.isTextFieldValid(TextField.PRICE, String.valueOf(discount))){
+                if (!Regex.isTextFieldValid(TextField.PRICE, String.valueOf(discount))){
                     new Alert(Alert.AlertType.WARNING, "Invalid Discount!").showAndWait();
                     discountTxt.requestFocus();
                     return;
@@ -454,31 +454,31 @@ public class ItemFormController {
         String discountText = discountTxt.getText().trim();
         LocalDate expDate = expDatePicker.getValue();
 
-        if (Regex.isTextFieldValid(TextField.DESCRIPTION,desc)){
+        if (!Regex.isTextFieldValid(TextField.DESCRIPTION,desc)){
             new Alert(Alert.AlertType.WARNING, "Invalid Description!").showAndWait();
             descTxt.requestFocus();
             return;
         }
 
-        if (Regex.isTextFieldValid(TextField.QTY,qtyText)){
+        if (!Regex.isTextFieldValid(TextField.QTY,qtyText)){
             new Alert(Alert.AlertType.WARNING, "Invalid Quantity!").showAndWait();
             qtyTxt.requestFocus();
             return;
         }
 
-        if (Regex.isTextFieldValid(TextField.PRICE,wholeSalePriceText)){
+        if (!Regex.isTextFieldValid(TextField.PRICE,wholeSalePriceText)){
             new Alert(Alert.AlertType.WARNING, "Invalid Whole Sale Price!").showAndWait();
             wholeSalePriceTxt.requestFocus();
             return;
         }
 
-        if (Regex.isTextFieldValid(TextField.PRICE,retailPriceText)){
+        if (!Regex.isTextFieldValid(TextField.PRICE,retailPriceText)){
             new Alert(Alert.AlertType.WARNING, "Invalid Retail Price!").showAndWait();
             retailTxt.requestFocus();
             return;
         }
 
-        if (Regex.isTextFieldValid(TextField.PRICE,discountText)){
+        if (!Regex.isTextFieldValid(TextField.PRICE,discountText)){
             new Alert(Alert.AlertType.WARNING, "Invalid Discount!").showAndWait();
             discountTxt.requestFocus();
             return;
@@ -540,6 +540,7 @@ public class ItemFormController {
                 obList.clear();
                 clear();
                 descTxt.requestFocus();
+                loadAllItems();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Failed to add item!").showAndWait();
             }

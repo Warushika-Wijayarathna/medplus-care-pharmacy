@@ -355,7 +355,7 @@ public class CustomerFormController {
 
                 protected PasswordAuthentication getPasswordAuthentication() {
 
-                    return new PasswordAuthentication("www.thilankathushani@gmail.com", "widp uvup qnge gvre");
+                    return new PasswordAuthentication("www.thilankathushani@gmail.com", "czxh uuwa espb cfrz");
 
                 }
 

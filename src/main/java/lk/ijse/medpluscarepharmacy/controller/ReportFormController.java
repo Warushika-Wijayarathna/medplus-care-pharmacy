@@ -173,6 +173,7 @@ public class ReportFormController {
             try {
                 ReportRepo.delete(report.getReportId());
                 obList.remove(selectedReport);
+                clear();
                 new Alert(Alert.AlertType.CONFIRMATION, "Report deleted successfully!").showAndWait();
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, "Report to delete customer!").showAndWait();
@@ -382,7 +383,7 @@ public class ReportFormController {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("www.thilankathushani@gmail.com", "widp uvup qnge gvre");
+                return new PasswordAuthentication("www.thilankathushani@gmail.com", "czxh uuwa espb cfrz");
 
             }
 
@@ -456,7 +457,7 @@ public class ReportFormController {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("www.thilankathushani@gmail.com", "widp uvup qnge gvre");
+                return new PasswordAuthentication("www.thilankathushani@gmail.com", "czxh uuwa espb cfrz");
 
             }
 

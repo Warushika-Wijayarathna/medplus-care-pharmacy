@@ -268,6 +268,7 @@ public class DashBoardController extends AnchorPane{
     }
 
     public void homeBtnClickOnAction(ActionEvent actionEvent) {
+        titleText.setText("Temperature & Inventory Monitoring");
         rootPane.getChildren().clear();
         rootPane.getChildren().add(temp);
     }
