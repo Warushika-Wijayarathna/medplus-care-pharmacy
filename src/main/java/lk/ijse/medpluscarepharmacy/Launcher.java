@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.medpluscarepharmacy.controller.TempFormController;
 
 public class Launcher extends Application {
     public static  void main(String[] args){
@@ -23,6 +24,12 @@ public class Launcher extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Member Identifier");
         primaryStage.centerOnScreen();
+
+        TempFormController tempFormController = new TempFormController();
+
+        primaryStage.setOnCloseRequest(event -> {
+            tempFormController.stopReading();
+        });
 
         primaryStage.show();
     }

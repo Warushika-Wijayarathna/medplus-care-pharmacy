@@ -151,7 +151,7 @@ public class DashBoardController extends AnchorPane{
 
     public void reportBtnClickOnAction(ActionEvent actionEvent) {
         try {
-            titleText.setText("report");
+            titleText.setText("Report");
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/report_form.fxml"));
             AnchorPane report = loader.load();
 
@@ -187,6 +187,7 @@ public class DashBoardController extends AnchorPane{
             stage.setScene(scene);
             stage.centerOnScreen();
             stage.setTitle("Log in");
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -234,7 +235,7 @@ public class DashBoardController extends AnchorPane{
         VBox vBox = new VBox();
 
         try {
-            File pdfFile = new File("src/main/resources/help/Help.pdf");
+            File pdfFile = new File("/home/user/IdeaProjects/medplus-care-pharmacy/src/main/resources/help/Help.pdf");
             if (!pdfFile.exists()) {
                 System.out.println("File does not exist: " + pdfFile.getAbsolutePath());
                 return;
@@ -273,4 +274,3 @@ public class DashBoardController extends AnchorPane{
         rootPane.getChildren().add(temp);
     }
 }
-
