@@ -365,7 +365,7 @@ public class TempFormController {
 
     public void reportBtnOnAction(ActionEvent actionEvent) {
         try {
-            JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/report/Temperature.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load("/home/user/IdeaProjects/medplus-care-pharmacy/src/main/resources/report/Temperature.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DbConnection.getInstance().getConnection());

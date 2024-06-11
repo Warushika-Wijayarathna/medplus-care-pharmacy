@@ -188,7 +188,6 @@ public class DashBoardController extends AnchorPane{
             stage.centerOnScreen();
             stage.setTitle("Log in");
 
-
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -274,3 +273,4 @@ public class DashBoardController extends AnchorPane{
         rootPane.getChildren().add(temp);
     }
 }
+
