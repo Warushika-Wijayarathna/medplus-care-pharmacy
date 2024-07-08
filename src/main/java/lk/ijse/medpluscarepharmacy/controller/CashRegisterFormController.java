@@ -380,7 +380,7 @@ public class CashRegisterFormController {
                 cartTable.getItems().clear();
 
 
-                JasperDesign jasperDesign = JRXmlLoader.load("/home/user/IdeaProjects/medplus-care-pharmacy/src/main/resources/report/Bill.jrxml");
+                JasperDesign jasperDesign = JRXmlLoader.load("/report/Bill.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
                 String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));

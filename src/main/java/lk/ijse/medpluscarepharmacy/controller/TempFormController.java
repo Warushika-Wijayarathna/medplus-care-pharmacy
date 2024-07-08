@@ -62,6 +62,7 @@ public class TempFormController {
     public Label lblMonthly;
     public Label lblAnnual;
     public static AnchorPane itemPane;
+    public Label lblProfit;
     private AnchorPane temperatureChartPane;
     public TableView<ItemTm> itemTable;
     public TableColumn<?,?> colItemId;
@@ -318,6 +319,9 @@ public class TempFormController {
 
         String annual = OrderRepo.getAnnualSales(year);
         lblAnnual.setText(annual);
+
+        String profit = OrderRepo.getProfit(today);
+        lblProfit.setText(profit);
     }
 
 
@@ -365,7 +369,7 @@ public class TempFormController {
 
     public void reportBtnOnAction(ActionEvent actionEvent) {
         try {
-            JasperDesign jasperDesign = JRXmlLoader.load("/home/user/IdeaProjects/medplus-care-pharmacy/src/main/resources/report/Temperature.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load("/report/Temperature.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, DbConnection.getInstance().getConnection());

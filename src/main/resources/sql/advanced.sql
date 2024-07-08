@@ -425,3 +425,14 @@ FROM (
                  JOIN Test ON order_test_detail.test_id = Test.test_id
          WHERE order_test_detail.o_id = 'O0001'
      ) AS combined_data;
+
+CREATE VIEW DailyProfitView AS
+SELECT
+        DATE(o.date) AS sale_date,
+        SUM(oid.qty * (i.retail_price-i.whole_sale_price)) AS daily_profit
+        FROM
+        order_item_detail oid
+        JOIN `Order` o ON oid.o_id = o.o_id
+        JOIN Item i ON oid.item_id = i.item_id
+        GROUP BY
+        DATE(o.date);

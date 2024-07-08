@@ -77,6 +77,49 @@ public class PrescFormController {
 
         Platform.runLater(() -> {
             custCombox.requestFocus();
+
+            custCombox.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    patientTxt.requestFocus();
+                }
+            });
+
+            patientTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    ageTxt.requestFocus();
+                }
+            });
+
+            ageTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    medicalOfficerTxt.requestFocus();
+                }
+            });
+
+            medicalOfficerTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    contextText.requestFocus();
+                }
+            });
+
+            durationTxt.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    datePicker.requestFocus();
+                }
+            });
+
+            datePicker.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    testComBox.requestFocus();
+                }
+            });
+
+            testComBox.setOnKeyPressed(event -> {
+                if (event.getCode() == KeyCode.ENTER) {
+                    addBtn.requestFocus();
+                }
+            });
+
         });
 
     }

@@ -47,16 +47,21 @@ public class ItemRepo {
     }
 
     public static void update(Item updatedItem) throws SQLException {
-        String sql = "UPDATE Item SET description = ?, whole_sale_price = ?, retail_price = ?, discount = ? WHERE item_id = ?";
+        try {
+            String sql = "UPDATE Item SET description = ?, qty = ?, whole_sale_price = ?, retail_price = ?, discount = ? WHERE item_id = ?";
 
-        PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
-        preparedStatement.setString(1, updatedItem.getDescription());
-        preparedStatement.setDouble(2, updatedItem.getWholeSalePrice());
-        preparedStatement.setDouble(3, updatedItem.getRetailPrice());
-        preparedStatement.setDouble(4, updatedItem.getDiscount());
-        preparedStatement.setString(5, updatedItem.getItemId());
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, updatedItem.getDescription());
+            preparedStatement.setInt(2, updatedItem.getQty());
+            preparedStatement.setDouble(3, updatedItem.getWholeSalePrice());
+            preparedStatement.setDouble(4, updatedItem.getRetailPrice());
+            preparedStatement.setDouble(5, updatedItem.getDiscount());
+            preparedStatement.setString(6, updatedItem.getItemId());
 
-        preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static List<Item> getAllItem() throws SQLException {

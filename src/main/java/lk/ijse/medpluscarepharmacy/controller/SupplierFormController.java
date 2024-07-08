@@ -68,15 +68,22 @@ public class SupplierFormController {
         Platform.runLater(()->{
             suppTxt.requestFocus();
             suppTxt.setOnKeyPressed(event ->{
-                contactTxt.requestFocus();
+                if (event.getCode()==KeyCode.ENTER) {
+                    contactTxt.requestFocus();
+                }
+
             });
 
             contactTxt.setOnKeyPressed(event ->{
-                emailTxt.requestFocus();
+                if (event.getCode() == KeyCode.ENTER) {
+                    emailTxt.requestFocus();
+                }
             });
 
             emailTxt.setOnKeyPressed(keyEvent -> {
-                addBtn.requestFocus();
+                if (keyEvent.getCode() == KeyCode.ENTER) {
+                    addBtn.requestFocus();
+                }
             });
         });
     }

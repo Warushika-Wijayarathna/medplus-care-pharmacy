@@ -117,4 +117,21 @@ public class OrderRepo {
 
         return String.valueOf(total);
     }
+
+    public static String getProfit(LocalDate today) {
+        Double totalProfit = 0.0;
+        String sql = "SELECT daily_profit FROM DailyProfitView WHERE sale_date = ?";
+        try {
+            PreparedStatement preparedStatement = DbConnection.getInstance().getConnection().prepareStatement(sql);
+            preparedStatement.setString(1, today.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                totalProfit = resultSet.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return String.valueOf(totalProfit);
+    }
 }
